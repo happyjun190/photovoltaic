@@ -13,7 +13,7 @@
 	<context:component-scan base-package="com.photovoltaic.commons, com.photovoltaic.config" />
 
 	<!-- 引入属性文件 -->
-	<context:property-placeholder location="classpath:jdbc.properties,classpath:redis.properties" />
+	<context:property-placeholder location="classpath:jdbc1.properties,classpath:redis.properties" />
 
 	<import resource="applicationContext-dao.xml" />
 	<import resource="applicationContext-service.xml" />
@@ -26,10 +26,10 @@
 	<cache:annotation-driven cache-manager="guavaCacheManager"/>
 
 	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="defaultEncoding" value="UTF-8"/>
-		<!-- 指定所上传文件的总大小不能超过20MB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		&lt;!&ndash; 指定所上传文件的总大小不能超过20MB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 &ndash;&gt;
 		<property name="maxUploadSize" value="20971520"/>
-	</bean>
-	
+	</bean>-->
+
 </beans>
