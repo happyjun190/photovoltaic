@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-						http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/tx
-						http://www.springframework.org/schema/tx/spring-tx.xsd">
-	
-	
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
 	<!-- Begin: 设置公用的配置，简化后面的配置 -->
 	<!-- MySQL Hikari Datasource -->
 	<!--<bean id="baseDataSource" abstract="true" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
@@ -111,6 +108,5 @@
 		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource_1" />
 	</bean>
-
 
 </beans>
