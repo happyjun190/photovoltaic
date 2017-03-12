@@ -62,7 +62,7 @@ public class BaseInterceptor {
 
 	/**
 	 * 判断一个方法是否需要登录
-	 * @param invocation
+	 * @param method
 	 * @return
 	 */
 	protected boolean isLoginRequired(Method method){
