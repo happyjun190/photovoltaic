@@ -30,7 +30,7 @@
     <!-- spring framework config start 20160108-->
 
     <!--
-  Core utilities used by other modules.
+  Core utilities  used by other modules.
   Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
   -->
     <dependency>
