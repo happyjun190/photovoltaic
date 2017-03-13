@@ -9,7 +9,6 @@ import java.util.List;
  * Created by wushenjun on 2017/3/6.
  * 用于测试框架连接Oracle 数据库
  */
-//@GftwRepositories
 public interface TestDAO {
 
     /**

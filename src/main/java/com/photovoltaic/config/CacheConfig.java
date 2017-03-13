@@ -14,11 +14,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Cache配置類，用于接口缓存数据
- * @author shenjun
+ * @author wushenjun
  * 2016-06-25
  */
 @Configuration
-//@EnableCaching //@EnableCaching和Mybatis配置有冲突，改为xml文件中配置
 public class CacheConfig {
 	
 	private static final int DEFAULT_MAXSIZE = 50000;
@@ -63,10 +62,17 @@ public class CacheConfig {
 		public void setTtl(int ttl) {
 			this.ttl = ttl;
 		}
-		
+
+		public static Caches findCacheByName(String name){
+			for(Caches c : Caches.values()){
+				if(c.name().equals(name)){
+					return c;
+				}
+			}
+			return null;
+		}
 		
 	}
-	
 	
 	
 	/**
@@ -90,29 +96,5 @@ public class CacheConfig {
 		return cacheManager;
 	}
 	
-	
-	/*
-	@Autowired
-	private JedisCluster jedisCluster;
-	
-	
-	*//**
-	 * 创建基于redis的Cache Manager
-	 * @return
-	 *//*
-	@Bean
-	public CacheManager redisCacheManager() {
-		JedisClusterCacheManager cacheManager = new JedisClusterCacheManager(jedisCluster);
-		
-		ArrayList<JedisClusterCache> caches = new ArrayList<JedisClusterCache>();
-		
-		for(Caches c: Caches.values()){
-			caches.add(new JedisClusterCache(c.name(), jedisCluster, c.getTtl()));
-		}
-		
-		cacheManager.setCaches(caches);
-		
-		return cacheManager;
-	}*/
-	
+
 }

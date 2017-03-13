@@ -39,6 +39,26 @@
         	@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
 		<aop:advisor advice-ref="controllerMethodInterceptor" pointcut-ref="controllerMethodPointcut" />
 	</aop:config>
-	
+
+
+	<!-- 方法拦截器(拦截appcontroller包中的所有方法) -->
+	<bean id="appControllerMethodInterceptor" class="com.photovoltaic.web.interceptor.AppControllerMethodInterceptor">
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="appControllerMethodPointcut" expression="execution(* com.photovoltaic.web.appcontroller..*(..)) and
+        	@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
+		<aop:advisor advice-ref="appControllerMethodInterceptor" pointcut-ref="appControllerMethodPointcut" />
+	</aop:config>
+
+
+	<!-- 方法拦截器(拦截admincontroller包中的所有方法) -->
+	<bean id="adminControllerMethodInterceptor" class="com.photovoltaic.web.interceptor.AdminControllerMethodInterceptor">
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="adminControllerMethodPointcut" expression="execution(* com.photovoltaic.web.admincontroller..*(..)) and
+        	@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
+		<aop:advisor advice-ref="adminControllerMethodInterceptor" pointcut-ref="adminControllerMethodPointcut" />
+	</aop:config>
+
 
 </beans>

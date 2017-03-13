@@ -105,8 +105,6 @@ public class DateUtils {
     */
    public static String getNowTime(String type) {
        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(type));
-//        SimpleDateFormat df = new SimpleDateFormat(type);
-//        return df.format(new Date());
    }
 
    /**
@@ -155,8 +153,6 @@ public class DateUtils {
     */
    public static long dateToUnixTimestamp() {
        return LocalDateTime.now().atZone(DEFAULT_ZONEID).toInstant().toEpochMilli();
-//        long timestamp = new Date().getTime();
-//        return timestamp;
    }
 
    /**
@@ -165,7 +161,6 @@ public class DateUtils {
     */
    public static String dateToStringUnixTimestamp(){
        return String.valueOf(dateToUnixTimestamp() / 1000);
-//        return String.valueOf(new Date().getTime() / 1000);
    }
 
    /**
@@ -175,8 +170,6 @@ public class DateUtils {
     */
     public static int dateToInt(){
        return  (int) (dateToUnixTimestamp() / 1000);
-//    	String strTime= new Date().getTime()+"";
-//    	return Integer.parseInt(strTime.substring(0,10));
     }
 
    /**

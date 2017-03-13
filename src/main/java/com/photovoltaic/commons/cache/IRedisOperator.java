@@ -52,16 +52,6 @@ public interface IRedisOperator {
 	 */
 	public void set(final String key, final String value, final Integer liveTime);
 
-	// 废弃 by wuyongqi
-	// /**
-	// * 批量向redis加入键值对,map的键为"key",值为"value"
-	// * @param list 一个map代表一行记录
-	// * @param temp
-	// temp+(map中的key)做为redis中的key,例如usertoken:123456;为空则默认map的key为key,如123456
-	// * @return boolean
-	// */
-	// public boolean setList(final List<Map<String,String>> list,final String
-	// temp);
 
 	/**
 	 * 根据key获取value
@@ -217,7 +207,7 @@ public interface IRedisOperator {
 	 * hdel删除
 	 * 
 	 * @param key
-	 * @param member
+	 * @param field
 	 */
 	public void hdel(String key, String... field);
 
@@ -239,7 +229,7 @@ public interface IRedisOperator {
 	 * 
 	 * @param key
 	 *            缓存key值
-	 * @param field
+	 * @param fields
 	 *            hashkey值
 	 * @return
 	 */
