@@ -76,7 +76,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 							userIdInt = userService.getUserIdByPhone((String)map.get("userAccount"));
 							userId = String.valueOf(userIdInt);
 							if(userIdInt!=-1){
-								userService.ClearUserInfoFromCache(userIdInt); //清除缓存数据
+								userService.ClearUserInfoFromCache(userIdInt);  //清除缓存数据
 							}
 							break;
 						default:
@@ -102,7 +102,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 							userIdInt = Integer.parseInt(userId);
 							//map.put("userIdInt", userIdInt);
 						} catch (Exception e) {
-							logger.error("转换userId为int时发生了异常：userId={}", userId, e);
+							logger.error("转换userId为int时发生了异常：userId={} ", userId, e);
 						}
 					}
 					map.put("userId", userId);
@@ -138,7 +138,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 					String webToken = WebUtils.getCookieByName(request, WebConstants.CookieName.Token);
 					if(StringUtils.isNotBlank(webToken)){
 						userId = redisService.getUserIdByWebToken(webToken); //根据webToken获取userId
-						logger.debug("Got userId via webToken, userId={}", userId);
+						logger.debug("Got userId via webToken, userId={} ", userId);
 					}	
 					
 					//获取请求方的IP地址到log中
@@ -169,7 +169,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 				result = invocation.proceed();
 			}
 		} catch (Exception e) {
-			logger.error("Exception caught by Method Interceptor!", e);
+			logger.error("Exception caught by Method Interceptor", e);
 			result = new JsonResult(ReturnCode.EXCEPTION, e.getMessage(), null);
 		}
 		

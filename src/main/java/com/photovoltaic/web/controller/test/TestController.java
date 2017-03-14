@@ -39,7 +39,7 @@ public class TestController extends BaseController {
         try {
             jsonResult = testService.getTestDataList(map);
         } catch (Exception e) {
-            jsonResult = new JsonResult(ReturnCode.EXCEPTION, "返回购物车列表失败！", null);
+            jsonResult = new JsonResult(ReturnCode.EXCEPTION, "返回测试列表失败！", null);
             logger.error(e.getMessage(),e);
         }
         return jsonResult;
