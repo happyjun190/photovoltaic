@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.pvadtech</groupId>
+  <groupId>com.photovoltaic</groupId>
   <artifactId>photovoltaic</artifactId>
   <packaging>war</packaging>
   <name>photovoltaic</name>
@@ -30,7 +30,7 @@
     <!-- spring framework config start 20160108-->
 
     <!--
-  Core utilities used by other modules.
+  Core utilities  used by other modules.
   Define this if you use Spring Utility APIs (org.springframework.core.*/org.springframework.util.*)
   -->
     <dependency>

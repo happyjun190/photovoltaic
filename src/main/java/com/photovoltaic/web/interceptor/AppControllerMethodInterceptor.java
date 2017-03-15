@@ -122,7 +122,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 					if(isLoginRequired(method) && userIdInt==-1) { // 该接口需要登录却没有登录……
 						result = new JsonResult(ReturnCode.NOTLOGIN, "用户未登录或已经过期，请重新登录。", null);
 					}else if(isTooFrequentRequest(invocation.getMethod(), userId)){ // 如果是太频繁的请求……
-						result = new JsonResult(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。 ", null);
+						result = new JsonResult(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。", null);
 					}
 					
 					if(map.size()>0){
@@ -137,8 +137,8 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 					//通过cookie中的token从redis中获取userId
 					String webToken = WebUtils.getCookieByName(request, WebConstants.CookieName.Token);
 					if(StringUtils.isNotBlank(webToken)){
-						userId = redisService.getUserIdByWebToken(webToken); //根据 webToken获取userId
-						logger.debug("Got userId via webToken, userId={} ", userId);
+						userId = redisService.getUserIdByWebToken(webToken); //根据webToken获取userId
+						logger.debug("Got userId via webToken, userId={}", userId);
 					}	
 					
 					//获取请求方的IP地址到log中
