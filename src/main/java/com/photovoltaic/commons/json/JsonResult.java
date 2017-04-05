@@ -18,6 +18,12 @@ public class JsonResult {
 		this.message = message;
 		this.data = data;
 	}
+
+	public JsonResult(String code, String message) {
+		this.code = code;
+		this.message = message;
+		this.data = null;
+	}
 	
 	public JsonResult(String code, String message, Object data,Object hint) {
 		this.code = code;
