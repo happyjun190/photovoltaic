@@ -16,7 +16,7 @@ var testCases = [
 		author : "吴申俊",
 		title : "-1.1 获取测试数据列表",
 		url : "/servlet/test/getTestDataList/v100",
-		requestBody : '{"authcode": "123456"}'
+		requestBody : '{"authcode": "123456", "userToken": "042a80b917dc45d68d19795e6f34b53d"}'
 	},
 	{
         author : "吴申俊",
