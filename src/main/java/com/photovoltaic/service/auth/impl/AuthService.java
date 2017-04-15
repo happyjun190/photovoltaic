@@ -1,10 +1,11 @@
 package com.photovoltaic.service.auth.impl;
 
-import com.alibaba.fastjson.support.odps.udf.CodecCheck;
+import com.photovoltaic.commons.cache.IRedisOperator;
+import com.photovoltaic.commons.constants.RedisConstants;
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.json.JsonResult;
+import com.photovoltaic.commons.util.DateUtils;
 import com.photovoltaic.commons.util.EncryptUtils;
-import com.photovoltaic.commons.util.MD5Util;
 import com.photovoltaic.commons.util.SecurityUtils;
 import com.photovoltaic.dao.user.UserInfoDAO;
 import com.photovoltaic.model.user.TabUserInfo;
@@ -31,6 +32,8 @@ public class AuthService implements IAuthService {
 
     @Autowired
     private UserInfoDAO userInfoDAO;
+    @Autowired
+    private IRedisOperator redisOperator;
 
     @Override
     public JsonResult regist(Map<String, Object> map) {
@@ -81,8 +84,26 @@ public class AuthService implements IAuthService {
         //根据注册账号判断用户是否已经注册
         TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByLoginName(loginName);
         if(tabUserInfo!=null && tabUserInfo.getPassword().equals(EncryptUtils.MD5Str(password + tabUserInfo.getLoginSalt()))) {
+            // 生成一个随机的token
+            String token = UUID.randomUUID().toString().replace("-", "");
+            String tokenKey = RedisConstants.Prefix.WEB_TOKEN + token;
             //TODO
-            return new JsonResult(ReturnCode.SUCCESS, "登录成功！");
+            //保存login相关的信息到redis中
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+
+            Map<String, String> userLoginInfo = new HashMap<>();
+            userLoginInfo.put(RedisConstants.UserLoginInfo.WEB_TOKEN.id(), token);
+            userLoginInfo.put(RedisConstants.UserLoginInfo.WEB_LOGIN_TIME.id(), DateUtils.getNowTime());
+
+            redisOperator.hmset(userLoginInfoKey, userLoginInfo);
+
+            int maxRedisAge = RedisConstants.Prefix.WEB_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
+            //设置token to userId
+            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("userToken", token);
+            return new JsonResult(ReturnCode.SUCCESS, "登录成功！", resultMap);
         }
 
         return new JsonResult(ReturnCode.PARAMSERROR, "账号或密码错误！");

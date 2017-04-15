@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 拦截器：统一检查authcode和usertoken，记录接口调用日志
+ * 拦截器：统一检查authcode和userToken，记录接口调用日志
  * 
  * @author wushenjun
  * 
@@ -27,9 +27,9 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 	
 	/**
 	 * 拦截Controller中的方法，处理一些公共逻辑： 
-	 * 1、对于用Map接收参数的，检查其中的authcode、usertoken是否有效
-	 * 2、对于不用Map接收数据的，需要自己在service中检查authcode和usertoken
-	 * 3、对于用Map接收参数，又不需要检查usertoken的 （比如login），需要为方法添加注解@LoginNotRequired
+	 * 1、对于用Map接收参数的，检查其中的authcode、userToken是否有效
+	 * 2、对于不用Map接收数据的，需要自己在service中检查authcode和userToken
+	 * 3、对于用Map接收参数，又不需要检查userToken的 （比如login），需要为方法添加注解@LoginNotRequired
 	 * 4、统一捕获异常，并返回ReturnCode.EXCEPTION给前端
 	 * 5、记录接口调用日志：数据库记录会截取超长参数，文本log会抛弃图片的base64编码
 	 * 
@@ -39,7 +39,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		//long beginTime = System.currentTimeMillis();
-		int userIdInt = -1; //缺省的userId
+		String userIdInt = "-1"; //缺省的userId
 		String userId=null;
 		//TabUserOpLog userOpLog = new TabUserOpLog();
 		
@@ -75,7 +75,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 						case "webLogin":
 							userIdInt = userService.getUserIdByPhone((String)map.get("userAccount"));
 							userId = String.valueOf(userIdInt);
-							if(userIdInt!=-1){
+							if(!userIdInt.equals("-1")){
 								userService.ClearUserInfoFromCache(userIdInt); //清除缓存数据
 							}
 							break;
@@ -89,17 +89,17 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 					//如果userId已经有了（已经通过web cookie获取到，或者通过登录方法获取到），则不用从map中获取
 					if(StringUtils.isBlank(userId)){
 						//提前尝试获取userId，以便保存到用户日志中
-						String usertoken = (String) map.get("usertoken");
-						if(StringUtils.isNotBlank(usertoken)){
-							userId = redisService.getUseridByUsertoken(usertoken); // 根据UserToken获取userId
+						String userToken = (String) map.get("userToken");
+						if(StringUtils.isNotBlank(userToken)){
+							userId = redisService.getUseridByUsertoken(userToken); // 根据userToken获取userId
 						}
 					}
 					
 					//获得userIdInt：
-					if(StringUtils.isNotBlank(userId) && userIdInt==-1){
+					if(StringUtils.isNotBlank(userId) && userIdInt.equals("-1")){
 						//map.put("userid", userId);
 						try {
-							userIdInt = Integer.parseInt(userId);
+							userIdInt = userId;
 							//map.put("userIdInt", userIdInt);
 						} catch (Exception e) {
 							logger.error("转换userId为int时发生了异常：userId={}", userId, e);
@@ -119,7 +119,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 						map.put("platform", platform);
 					}
 					
-					if(isLoginRequired(method) && userIdInt==-1) { // 该接口需要登录却没有登录……
+					if(isLoginRequired(method) && userIdInt.equals("-1")) { // 该接口需要登录却没有登录……
 						result = new JsonResult(ReturnCode.NOTLOGIN, "用户未登录或已经过期，请重新登录。", null);
 					}else if(isTooFrequentRequest(invocation.getMethod(), userId)){ // 如果是太频繁的请求……
 						result = new JsonResult(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。", null);

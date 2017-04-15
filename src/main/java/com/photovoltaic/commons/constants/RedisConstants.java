@@ -68,7 +68,7 @@ public class RedisConstants {
 		APP_TOKEN("token.to.userid:"),
 		
 		/** WEB（PC采购）登录的token前缀，value=userId */
-		WEB_TOKEN("web.token.to.userid:", TimeInSecond._24_HOURS),
+		WEB_TOKEN("web.token.to.userid:", TimeInSecond._5_DAYS),
 		
 		/** admin用户登录的token前缀 */
 		ADMIN_TOKEN("industrynet.admin.token:", TimeInSecond._8_HOURS),

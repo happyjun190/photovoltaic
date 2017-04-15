@@ -2,8 +2,8 @@ package com.photovoltaic.service.commons;
 
 /**
  * 
- * @author shenjun
- * @date 2016年9月22日
+ * @author wushenjun
+ * @date 2016年4月15日
  */
 public interface IUserService {
 	
@@ -11,14 +11,14 @@ public interface IUserService {
 	 * 清除redis中的UserInfo信息
 	 * @param userId
 	 */
-	public void ClearUserInfoFromCache(int userId);
+	void ClearUserInfoFromCache(String userId);
 	
 	/**
-	 * 根据电话号码获取userId
-	 * @param phone
+	 * 根据登录账号获取userId
+	 * @param loginName
 	 * @return
 	 */
-	public int getUserIdByPhone(String phone);
+	String getUserIdByPhone(String loginName);
 
 
 	

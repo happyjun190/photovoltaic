@@ -2,6 +2,7 @@ package com.photovoltaic.service.commons.impl;
 
 import com.photovoltaic.commons.cache.IRedisOperator;
 import com.photovoltaic.commons.constants.RedisConstants;
+import com.photovoltaic.dao.user.UserInfoDAO;
 import com.photovoltaic.service.commons.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +18,18 @@ public class UserService implements IUserService {
 	//private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 	@Autowired
 	private IRedisOperator redisOperator;
+	@Autowired
+	private UserInfoDAO userInfoDAO;
 
 	@Override
-	public void ClearUserInfoFromCache(int userId){
+	public void ClearUserInfoFromCache(String userId){
 		redisOperator.delete(RedisConstants.Prefix.USER_INFO.id()+userId);
 	}
 	
 	@Override
-	public int getUserIdByPhone(String phone) {
+	public String getUserIdByPhone(String loginName) {
 		//TODO
-		// Integer result = userDAO.getUserIdByPhone(phone);
-		Integer result = 1;
-		return (result==null)? -1 : result;
+		String result = userInfoDAO.getUserIdByLoginName(loginName);
+		return (result==null)? "-1" : result;
 	}
 }
