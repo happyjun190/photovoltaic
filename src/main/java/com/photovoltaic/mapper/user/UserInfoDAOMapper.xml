@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.photovoltaic.dao.user.UserInfoDAO">
+
+    <!--用户信息表字段-->
+    <sql id="userInfoColumns">
+        t1."id",
+        t1."code",
+        t1."password",
+        t1."loginName",
+        t1."chName",
+        t1."sex",
+        t1."title",
+        t1."eMail",
+        t1."mobileCode",
+        t1."securityQuestion",
+        t1."securityAnswer",
+        t1."deleteMark",
+        t1."createDate",
+        t1."createUserID",
+        t1."createUserName",
+        t1."modifyDate",
+        t1."modifyUserID",
+        t1."modifyUserName",
+        t1."remark",
+        t1."loginSalt"
+    </sql>
+
+
+    <!--根据登录名获取用户信息-->
+    <select id="getUserInfoByLoginName" resultType="com.photovoltaic.model.user.TabUserInfo">
+        SELECT
+          <include refid="userInfoColumns"/>
+        FROM "ts_userInfo" t1
+        <where>
+            t1."loginName" = #{loginName}
+        </where>
+    </select>
+
+
+    <!--新增用户信息(注册用)-->
+    <insert id="addUserInfo" >
+        INSERT INTO "GFTW"."ts_userInfo" ("id", "password", "loginName", "createDate", "modifyDate", "loginSalt")
+                                  VALUES (#{id}, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
+    </insert>
+
+</mapper>

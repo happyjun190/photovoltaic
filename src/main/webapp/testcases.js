@@ -35,6 +35,18 @@ var testCases = [
         title : "-1.4 删除测试数据",
         url : "/servlet/test/deleteTest/v100",
         requestBody : '{"authcode": "123456", "testId": 1}'
+    },
+    {
+        author : "吴申俊",
+        title : "0.1 注册账号 ",
+        url : "/servlet/auth/regist/v100",
+        requestBody : '{"authcode": "123456", "loginName": "admin", "password": "Y2NZV0ZoTVRJek5EVTJZbUppWWc9PQ=="}'
+    },
+    {
+        author : "吴申俊",
+        title : "0.2 web登录 ",
+        url : "/servlet/auth/webLogin/v100",
+        requestBody : '{"authcode": "123456", "loginName": "admin", "password": "e10adc3949ba59abbe56e057f20f883e"}'
     }
 
 ];
