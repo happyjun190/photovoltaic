@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.photovoltaic.dao.inverter.InverterDataStatisticDAO">
+
+
+    <!--获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)-->
+    <select id="getUsersInverterIdList" resultType="java.lang.String">
+        select t1."id"
+        from GFTW."ts_inverter_device" t1
+        where t1."dtu_id" in ( select "dtu_id" from  GFTW."ts_dtu_device"
+                                WHERE "powerstation_id" IN
+                                  <foreach collection="powerStationIdList" index="item" item="item" open="(" separator="," close=")">
+                                      #{item}
+                                  </foreach>
+                              )
+    </select>
+
+
+    <!--逆变器实时数据表字段-->
+    <sql id="inverterRealtimedataColumns">
+        t1."id",
+        t1."dtu_id" as dtuId,
+        t1."inverter_addr" as inverterAddr,
+        t1."pv1_voltage" as pv1Voltage,
+        t1."pv2_voltage" as pv2Voltage,
+        t1."pv3_voltage" as pv3Voltage,
+        t1."pv4_voltage" as pv4Voltage,
+        t1."pv1_electric_current" as pv1ElectricCurrent,
+        t1."pv2_electric_current" as pv2ElectricCurrent,
+        t1."pv3_electric_current" as pv3ElectricCurrent,
+        t1."pv4_electric_current" as pv4ElectricCurrent,
+        t1."u_phase_voltage" as uPhaseVoltage,
+        t1."v_phase_voltage" as vPhaseVoltage,
+        t1."w_phase_voltage" as wPhaseVoltage,
+        t1."bus_phase_voltage" as busPhaseVoltage,
+        t1."u_phase_electric_current" uPhaseElectricCurrent,
+        t1."v_phase_electric_current" as vPhaseElectricCurrent,
+        t1."w_phase_electric_current" as wPhaseElectricCurrent,
+        t1."bus_phase_electric_current" as busPhaseElectricCurrent,
+        t1."grid_frequency" as gridFrequency,
+        t1."power_factor" as powerFactor,
+        t1."input_power" as inputPower,
+        t1."output_power" as outputPower,
+        t1."temperature1",
+        t1."temperature2",
+        t1."temperature3",
+        t1."grounding_resistance" as groundingResistance,
+        t1."leakage_current" as leakageCurrent,
+        t1."dc_component" as dcComponent,
+        t1."ctime",
+        t1."inverter_id" as inverterId
+    </sql>
+
+    <!--获取用户所有逆变器的最近一条实时统计数据(当天的)-->
+    <select id="getUserLatelyInverterRealtimeDataList" resultType="com.photovoltaic.model.inverter.TabInverterRealtimeData">
+        SELECT
+          <include refid="inverterRealtimedataColumns"/>
+        FROM "GFTW"."ts_inverter_realtimedata" t1
+        WHERE t1."id" IN (
+            SELECT "MAX"(T2."id")
+            FROM "GFTW"."ts_inverter_realtimedata" t2
+            WHERE "TO_CHAR"(T2."ctime",'YYYYMMDD') = #{toDayDate}
+              AND T2."inverter_id" IN
+              <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
+                 #{item}
+             </foreach>
+             GROUP BY t2."inverter_id"
+          )
+    </select>
+
+
+    <!--逆变器今日统计表字段-->
+    <sql id="todaySummaryColumns">
+        t1."id",
+        t1."dtu_id" as dtuId,
+        t1."inverter_addr" as inverterAddr,
+        t1."generate_capacity" as generateCapacity,
+        t1."save_money" as saveMoney,
+        t1."co2_reduction" as co2Reduction,
+        t1."datestring",
+        t1."ctime",
+        t1."mtime",
+        t1."total_generate_capacity" as totalGenerateCapacity,
+        t1."total_save_money" as totalSaveMoney,
+        t1."total_co2_reduction" as totalCo2Reduction,
+        t1."reactive_power" as reactivePower,
+        t1."exception1",
+        t1."exception2",
+        t1."exception3",
+        t1."exception4",
+        t1."exception5",
+        t1."exception6",
+        t1."exception7",
+        t1."exception8",
+        t1."inverter_status" as inverterStatus,
+        t1."inverter_time" as inverterTime,
+        t1."inverter_id" as inverterId
+    </sql>
+
+    <!--获取用户所有逆变器的当天的统计数据-->
+    <select id="getUserToDaySummaryList" resultType="com.photovoltaic.model.inverter.TabTodaySummary">
+        SELECT
+          <include refid="todaySummaryColumns"/>
+        FROM "GFTW"."ts_today_summary" t1
+        WHERE t1."datestring" = #{toDayDate}
+          and t1."inverter_id" IN
+            <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
+              #{item}
+            </foreach>
+    </select>
+
+
+    <!--发电站表字段-->
+    <sql id="powerStationColumns">
+        t1."id",
+        t1."areaId",
+        t1."name",
+        t1."deleteMark",
+        t1."createDate",
+        t1."createUserID",
+        t1."createUserName",
+        t1."modifyDate",
+        t1."modifyUserID",
+        t1."modifyUserName",
+        t1."remark",
+        t1."ownerId"
+    </sql>
+    <!--获取用户所有的电站-->
+    <select id="getUsersPowerStationList" resultType="com.photovoltaic.model.powerstation.TabPowerStation">
+        SELECT
+          <include refid="powerStationColumns"/>
+        FROM "GFTW"."ts_power_station" t1
+        WHERE T1."ownerId" = #{userId}
+    </select>
+
+</mapper>

@@ -17,4 +17,12 @@ public interface IAppInverterDataStatisticService {
      */
     JsonResult getStatisticOverView(Map<String, Object> map);
 
+
+    /**
+     * 获取用户的电站列表
+     * @param map
+     * @return
+     */
+    JsonResult getPowerStaticInfo(Map<String, Object> map);
+
 }

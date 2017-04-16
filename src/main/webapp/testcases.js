@@ -57,7 +57,13 @@ var testCases = [
     {
         author : "吴申俊",
         title : "1.1 获取首页概览数据 ",
-        url : "/app/statastatistic//getStatisticOverView/v100",
+        url : "/app/statastatistic/getStatisticOverView/v100",
+        requestBody : '{"authcode": "123456", "userToken": "cf235d953bd443019e2d67fef1379d9e"}'
+    },
+    {
+        author : "吴申俊",
+        title : "1.2 获取用户电站列表 ",
+        url : "/app/statastatistic/getPowerStaticInfo/v100",
         requestBody : '{"authcode": "123456", "userToken": "cf235d953bd443019e2d67fef1379d9e"}'
     }
 

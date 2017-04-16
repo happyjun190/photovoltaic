@@ -31,6 +31,9 @@ public class CacheConfig {
 		
 		getUserKqInfoList(600),
 		getRoleInfoList(600),
+		getUsersPowerStationIdList(600),
+		getUsersInverterIdList(600),
+		getUsersPowerStationList(600),
 		;
 		
 		Caches() {
