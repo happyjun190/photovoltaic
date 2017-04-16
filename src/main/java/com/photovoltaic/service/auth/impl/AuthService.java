@@ -69,12 +69,42 @@ public class AuthService implements IAuthService {
 
     @Override
     public JsonResult appLogin(Map<String, Object> map) {
-        return null;
+        String loginName = (String) map.get("loginName");//注册账号
+        String password = (String) map.get("password");//登录密码
+        if (StringUtils.isAnyEmpty(loginName,password)) {
+            return new JsonResult(ReturnCode.PARAMSERROR, "请输入账号或密码!");
+        }
+        logger.info("password:{}", EncryptUtils.MD5Str(password));
+        //根据注册账号判断用户是否已经注册
+        TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByLoginName(loginName);
+        if(tabUserInfo!=null && tabUserInfo.getPassword().equals(EncryptUtils.MD5Str(password + tabUserInfo.getLoginSalt()))) {
+            // 生成一个随机的token
+            String token = UUID.randomUUID().toString().replace("-", "");
+            String tokenKey = RedisConstants.Prefix.APP_TOKEN + token;
+            //TODO
+            //保存login相关的信息到redis中
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+
+            Map<String, String> userLoginInfo = new HashMap<>();
+            userLoginInfo.put(RedisConstants.UserLoginInfo.APP_TOKEN.id(), token);
+            userLoginInfo.put(RedisConstants.UserLoginInfo.APP_LOGIN_TIME.id(), DateUtils.getNowTime());
+
+            redisOperator.hmset(userLoginInfoKey, userLoginInfo);
+
+            int maxRedisAge = RedisConstants.Prefix.APP_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
+            //设置token to userId
+            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+
+            Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("userToken", token);
+            return new JsonResult(ReturnCode.SUCCESS, "登录成功！", resultMap);
+        }
+
+        return new JsonResult(ReturnCode.PARAMSERROR, "账号或密码错误！");
     }
 
     @Override
     public JsonResult webLogin(Map<String, Object> map) {
-
         String loginName = (String) map.get("loginName");//注册账号
         String password = (String) map.get("password");//登录密码
         if (StringUtils.isAnyEmpty(loginName,password)) {

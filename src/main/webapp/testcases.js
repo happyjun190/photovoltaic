@@ -47,6 +47,18 @@ var testCases = [
         title : "0.2 web登录 ",
         url : "/servlet/auth/webLogin/v100",
         requestBody : '{"authcode": "123456", "loginName": "admin", "password": "e10adc3949ba59abbe56e057f20f883e"}'
+    },
+    {
+        author : "吴申俊",
+        title : "0.3 app登录 ",
+        url : "/app/auth/login/v100",
+        requestBody : '{"authcode": "123456", "loginName": "admin", "password": "e10adc3949ba59abbe56e057f20f883e"}'
+    },
+    {
+        author : "吴申俊",
+        title : "1.1 获取首页概览数据 ",
+        url : "/app/statastatistic//getStatisticOverView/v100",
+        requestBody : '{"authcode": "123456", "userToken": "cf235d953bd443019e2d67fef1379d9e"}'
     }
 
 ];

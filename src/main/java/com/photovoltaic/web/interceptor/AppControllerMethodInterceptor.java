@@ -42,14 +42,14 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 		String userIdInt = "-1"; //缺省的userId
 		String userId=null;
 		//TabUserOpLog userOpLog = new TabUserOpLog();
-		
+
 		Set<Object> allParams = new LinkedHashSet<>(); //保存到文件中的所有原始的请求参数
 		
 		Method method = invocation.getMethod();
 		String methodName = method.getName();
 		/*userOpLog.setMethod(methodName);
 		userOpLog.setCtime(beginTime/1000);*/
-		
+
 		logger.debug("请求开始，方法：{}", methodName);
 
 		Object result = null;
@@ -91,7 +91,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 						//提前尝试获取userId，以便保存到用户日志中
 						String userToken = (String) map.get("userToken");
 						if(StringUtils.isNotBlank(userToken)){
-							userId = redisService.getUseridByUsertoken(userToken); // 根据userToken获取userId
+							userId = redisService.getUserIdByUsertoken(userToken); // 根据userToken获取userId
 						}
 					}
 					

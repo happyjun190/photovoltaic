@@ -6,12 +6,12 @@ public interface IRedisService {
 	 * @param usertoken
 	 * @return userid,空返回null
 	 */
-	public String getUseridByUsertoken(String usertoken);
+	String getUserIdByUsertoken(String usertoken);
 
 	/**
 	 * web 根据token从缓存中获取userId
 	 * @param webToken
 	 * @return
 	 */
-	public String getUserIdByWebToken(String webToken);
+	String getUserIdByWebToken(String webToken);
 }

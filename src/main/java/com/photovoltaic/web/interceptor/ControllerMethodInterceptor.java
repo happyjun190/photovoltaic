@@ -91,7 +91,7 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 						//提前尝试获取userId，以便保存到用户日志中
 						String userToken = (String) map.get("userToken");
 						if(StringUtils.isNotBlank(userToken)){
-							userId = redisService.getUseridByUsertoken(userToken); // 根据userToken获取userId
+							userId = redisService.getUserIdByUsertoken(userToken); // 根据userToken获取userId
 						}
 					}
 					

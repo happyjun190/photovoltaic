@@ -16,10 +16,10 @@ public class RedisService implements IRedisService {
 	@Autowired
 	private IRedisOperator redisOperator;
 	
-	public String getUseridByUsertoken(String usertoken) {
+	public String getUserIdByUsertoken(String usertoken) {
 		String userid = null;
 		if(StringUtils.isNotBlank(usertoken)){
-			String temp = RedisConstants.Prefix.WEB_TOKEN + usertoken;
+			String temp = RedisConstants.Prefix.APP_TOKEN + usertoken;
 			logger.debug("开始获取key为{}的userid...", temp);
 			userid = redisOperator.get(temp);
 			if(userid!=null){
