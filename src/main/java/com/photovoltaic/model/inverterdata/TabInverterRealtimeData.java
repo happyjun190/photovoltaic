@@ -1,4 +1,4 @@
-package com.photovoltaic.model.inverter;
+package com.photovoltaic.model.inverterdata;
 
 import java.math.BigDecimal;
 

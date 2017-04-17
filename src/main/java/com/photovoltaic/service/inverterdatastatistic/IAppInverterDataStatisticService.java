@@ -25,4 +25,12 @@ public interface IAppInverterDataStatisticService {
      */
     JsonResult getPowerStaticInfo(Map<String, Object> map);
 
+
+    /**
+     * 获取逆变器列表及发电信息
+     * @param map
+     * @return
+     */
+    JsonResult getInverterInfo(Map<String, Object> map);
+
 }

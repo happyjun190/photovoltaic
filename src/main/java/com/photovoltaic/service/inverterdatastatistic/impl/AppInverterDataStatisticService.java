@@ -4,9 +4,8 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.DateUtils;
 import com.photovoltaic.dao.inverter.InverterDataStatisticDAO;
-import com.photovoltaic.model.inverter.TabInverterRealtimeData;
-import com.photovoltaic.model.inverter.TabPeakPowerData;
-import com.photovoltaic.model.inverter.TabTodaySummary;
+import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
+import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.powerstation.TabPowerStation;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
@@ -127,5 +126,19 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("powerStationList", powerStationInfoList);
         return new JsonResult(ReturnCode.SUCCESS, "获取电站列表成功!", resultMap);
+    }
+
+
+    @Override
+    public JsonResult getInverterInfo(Map<String, Object> map) {
+        String userId = (String) map.get("userId");
+        logger.info("userId:{}", userId);
+
+        //获取用户所有的电站id list
+        List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
+
+        //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
+        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        return null;
     }
 }

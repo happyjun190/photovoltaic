@@ -16,6 +16,9 @@
     </select>
 
 
+    <select id="getUsersInverterList" resultType=""></select>
+
+
     <!--逆变器实时数据表字段-->
     <sql id="inverterRealtimedataColumns">
         t1."id",
@@ -52,7 +55,7 @@
     </sql>
 
     <!--获取用户所有逆变器的最近一条实时统计数据(当天的)-->
-    <select id="getUserLatelyInverterRealtimeDataList" resultType="com.photovoltaic.model.inverter.TabInverterRealtimeData">
+    <select id="getUserLatelyInverterRealtimeDataList" resultType="com.photovoltaic.model.inverterdata.TabInverterRealtimeData">
         SELECT
           <include refid="inverterRealtimedataColumns"/>
         FROM "GFTW"."ts_inverter_realtimedata" t1
@@ -98,7 +101,7 @@
     </sql>
 
     <!--获取用户所有逆变器的当天的统计数据-->
-    <select id="getUserToDaySummaryList" resultType="com.photovoltaic.model.inverter.TabTodaySummary">
+    <select id="getUserToDaySummaryList" resultType="com.photovoltaic.model.inverterdata.TabTodaySummary">
         SELECT
           <include refid="todaySummaryColumns"/>
         FROM "GFTW"."ts_today_summary" t1

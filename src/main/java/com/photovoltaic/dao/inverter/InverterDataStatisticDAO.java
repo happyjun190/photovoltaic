@@ -1,7 +1,7 @@
 package com.photovoltaic.dao.inverter;
 
-import com.photovoltaic.model.inverter.TabInverterRealtimeData;
-import com.photovoltaic.model.inverter.TabTodaySummary;
+import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
+import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.powerstation.TabPowerStation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -41,6 +41,14 @@ public interface InverterDataStatisticDAO {
      */
     @Cacheable(value = "getUsersInverterIdList")
     List<String> getUsersInverterIdList(@Param("powerStationIdList") List<String> powerStationIdList);
+
+
+    /**
+     * 获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
+     * @param powerStationIdList
+     * @return
+     */
+    List<String> getUsersInverterList(@Param("powerStationIdList") List<String> powerStationIdList);
 
 
     /**
