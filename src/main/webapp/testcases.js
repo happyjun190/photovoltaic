@@ -63,9 +63,16 @@ var testCases = [
     {
         author : "吴申俊",
         title : "1.2 获取用户电站列表 ",
-        url : "/app/statastatistic/getPowerStaticInfo/v100",
+        url : "/app/statastatistic/getPowerStaticInfoList/v100",
+        requestBody : '{"authcode": "123456", "userToken": "cf235d953bd443019e2d67fef1379d9e"}'
+    },
+    {
+        author : "吴申俊",
+        title : "1.2 获取用户电站列表 ",
+        url : "/app/statastatistic/getInverterInfoList/v100",
         requestBody : '{"authcode": "123456", "userToken": "cf235d953bd443019e2d67fef1379d9e"}'
     }
+
 
 ];
 

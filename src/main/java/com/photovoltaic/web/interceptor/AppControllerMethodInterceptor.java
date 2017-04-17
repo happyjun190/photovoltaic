@@ -73,9 +73,10 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 						switch (methodName) {
 						case "login":
 						case "webLogin":
-							userIdInt = userService.getUserIdByPhone((String)map.get("userAccount"));
+							userIdInt = userService.getUserIdByPhone((String)map.get("loginName"));
 							userId = String.valueOf(userIdInt);
 							if(!userIdInt.equals("-1")){
+								logger.info("清除用户token缓存!");
 								userService.ClearUserInfoFromCache(userIdInt); //清除缓存数据
 							}
 							break;

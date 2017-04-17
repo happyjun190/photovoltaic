@@ -16,6 +16,36 @@ public class RedisService implements IRedisService {
 	@Autowired
 	private IRedisOperator redisOperator;
 	
+	/**
+	 * 根据Web token获取userId
+	 */
+	@Override
+	public String getUserIdByWebToken(String webToken) {
+		String userId = null;
+		if(StringUtils.isNotBlank(webToken)){
+			String key = RedisConstants.Prefix.WEB_TOKEN + webToken;
+			//userId = redisOperator.get(key);
+			try {
+				userId = redisOperator.get(key);
+			} catch (Exception e) {
+				redisOperator.delete(key);
+				logger.warn("清除旧版本的key：{}",key);
+			}
+
+
+			if(StringUtils.isNotBlank(userId)){
+				logger.debug("获取userid成功,userid为{}", userId);
+			}else{
+				userId = "";
+				logger.info("获取userid为空，webToken：{}", webToken);
+			}
+		}else{
+			logger.info("Web token为空,无法获取userId...");
+		}
+		return userId;
+	}
+
+
 	public String getUserIdByUsertoken(String usertoken) {
 		String userid = null;
 		if(StringUtils.isNotBlank(usertoken)){
@@ -32,36 +62,6 @@ public class RedisService implements IRedisService {
 			logger.info("usertoken为空,无法获取userid...");
 		}
 		return userid;
-	}
-	
-
-	/**
-	 * 根据Web token获取userId
-	 */
-	@Override
-	public String getUserIdByWebToken(String webToken) {
-		String userId = null;
-		if(StringUtils.isNotBlank(webToken)){
-			String key = RedisConstants.Prefix.WEB_TOKEN + webToken;
-			//userId = redisOperator.get(key);
-			try {
-				userId = redisOperator.get(key);
-			} catch (Exception e) {
-				redisOperator.delete(key);
-				logger.warn("清除旧版本的key：{}",key);
-			}
-			
-			
-			if(StringUtils.isNotBlank(userId)){
-				logger.debug("获取userid成功,userid为{}", userId);
-			}else{
-				userId = "";
-				logger.info("获取userid为空，webToken：{}", webToken);
-			}
-		}else{
-			logger.info("Web token为空,无法获取userId...");
-		}
-		return userId;
 	}
 
 }

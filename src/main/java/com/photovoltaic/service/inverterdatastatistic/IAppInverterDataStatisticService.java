@@ -31,6 +31,6 @@ public interface IAppInverterDataStatisticService {
      * @param map
      * @return
      */
-    JsonResult getInverterInfo(Map<String, Object> map);
+    JsonResult getInverterInfoList(Map<String, Object> map);
 
 }

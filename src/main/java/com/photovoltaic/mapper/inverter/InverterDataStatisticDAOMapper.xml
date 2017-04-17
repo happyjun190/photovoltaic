@@ -15,8 +15,33 @@
                               )
     </select>
 
+    <!--逆变器设备表字段-->
+    <sql id="inverterDeviceColumns">
+        t1."id",
+        t1."name",
+        t1."inverter_addr" as inverterAddr,
+        t1."dtu_id" as dtuId,
+        t1."status",
+        t1."inverter_type" as inverterType,
+        t1."version",
+        t1."phase_type" as phaseType,
+        t1."power_size" as powerSize,
+        t1."ctime",
+        t1."mtime"
+    </sql>
 
-    <select id="getUsersInverterList" resultType=""></select>
+    <!--获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)-->
+    <select id="getUsersInverterDeviceList" resultType="com.photovoltaic.model.device.TabInverterDevice">
+        select
+          <include refid="inverterDeviceColumns"/>
+        from GFTW."ts_inverter_device" t1
+        where t1."dtu_id" in ( select "dtu_id" from  GFTW."ts_dtu_device"
+        WHERE "powerstation_id" IN
+        <foreach collection="powerStationIdList" index="item" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        )
+    </select>
 
 
     <!--逆变器实时数据表字段-->
@@ -128,6 +153,8 @@
         t1."remark",
         t1."ownerId"
     </sql>
+
+
     <!--获取用户所有的电站-->
     <select id="getUsersPowerStationList" resultType="com.photovoltaic.model.powerstation.TabPowerStation">
         SELECT

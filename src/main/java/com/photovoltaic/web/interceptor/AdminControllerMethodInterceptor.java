@@ -73,7 +73,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 						switch (methodName) {
 						case "login":
 						case "webLogin":
-							userIdInt = userService.getUserIdByPhone((String)map.get("userAccount"));
+							userIdInt = userService.getUserIdByPhone((String)map.get("loginName"));
 							userId = String.valueOf(userIdInt);
 							if(userIdInt.equals("-1")){
 								userService.ClearUserInfoFromCache(userIdInt); //清除缓存数据

@@ -1,5 +1,6 @@
 package com.photovoltaic.dao.inverter;
 
+import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.powerstation.TabPowerStation;
@@ -48,7 +49,8 @@ public interface InverterDataStatisticDAO {
      * @param powerStationIdList
      * @return
      */
-    List<String> getUsersInverterList(@Param("powerStationIdList") List<String> powerStationIdList);
+    @Cacheable(value = "getUsersInverterList")
+    List<TabInverterDevice> getUsersInverterDeviceList(@Param("powerStationIdList") List<String> powerStationIdList);
 
 
     /**

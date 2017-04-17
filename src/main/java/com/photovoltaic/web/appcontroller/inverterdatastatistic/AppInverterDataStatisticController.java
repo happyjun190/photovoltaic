@@ -60,7 +60,7 @@ public class AppInverterDataStatisticController extends BaseController{
      * @param version
      * @return
      */
-    @RequestMapping(value = "/getPowerStaticInfo/{version}", method = RequestMethod.POST)
+    @RequestMapping(value = "/getPowerStaticInfoList/{version}", method = RequestMethod.POST)
     public @ResponseBody
     JsonResult getPowerStaticInfo(HttpServletRequest request,
                                     @RequestBody Map<String, Object> map,
@@ -77,6 +77,36 @@ public class AppInverterDataStatisticController extends BaseController{
             }
         } catch (Exception e) {
             jsonResult = new JsonResult(ReturnCode.EXCEPTION, "获取电站列表失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
+
+    /**
+     * 获取用户的逆变器列表
+     * @param request
+     * @param map
+     * @param version
+     * @return
+     */
+    @RequestMapping(value = "/getInverterInfoList/{version}", method = RequestMethod.POST)
+    public @ResponseBody
+    JsonResult getInverterInfoList(HttpServletRequest request,
+                                  @RequestBody Map<String, Object> map,
+                                  @PathVariable("version") String version) {
+        JsonResult jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = appInverterDataStatisticService.getInverterInfoList(map);
+                    break;
+                default:
+                    jsonResult = new JsonResult(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResult(ReturnCode.EXCEPTION, "获取逆变器列表失败！", null);
             logger.error(e.getMessage(),e);
         }
         return jsonResult;

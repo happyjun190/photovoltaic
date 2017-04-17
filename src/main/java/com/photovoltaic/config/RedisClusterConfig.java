@@ -37,8 +37,10 @@ public class RedisClusterConfig {
 		Set<HostAndPort> jedisClusterNodes = new HashSet<HostAndPort>();
 		//Jedis Cluster will attempt to discover cluster nodes automatically
 		jedisClusterNodes.add(new HostAndPort(HOST1, PORT1));
-		jedisClusterNodes.add(new HostAndPort(HOST2, PORT2));
-		jedisClusterNodes.add(new HostAndPort(HOST3, PORT3));
+		if(!StringUtils.isEmpty(HOST2))
+			jedisClusterNodes.add(new HostAndPort(HOST2, PORT2));
+		if(!StringUtils.isEmpty(HOST3))
+			jedisClusterNodes.add(new HostAndPort(HOST3, PORT3));
 		
 		if(!StringUtils.isEmpty(HOST4))
 			jedisClusterNodes.add(new HostAndPort(HOST4, PORT4));

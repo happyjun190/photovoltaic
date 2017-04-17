@@ -4,11 +4,14 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.DateUtils;
 import com.photovoltaic.dao.inverter.InverterDataStatisticDAO;
+import com.photovoltaic.dao.inverter.TodaySummaryDataDAO;
+import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.powerstation.TabPowerStation;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
+import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
 import com.photovoltaic.web.dto.inverter.PowerStationInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +35,8 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
     @Autowired
     private InverterDataStatisticDAO inverterDataStatisticDAO;
+    @Autowired
+    private TodaySummaryDataDAO todaySummaryDataDAO;
 
     @Override
     public JsonResult getStatisticOverView(Map<String, Object> map) {
@@ -130,7 +135,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
 
     @Override
-    public JsonResult getInverterInfo(Map<String, Object> map) {
+    public JsonResult getInverterInfoList(Map<String, Object> map) {
         String userId = (String) map.get("userId");
         logger.info("userId:{}", userId);
 
@@ -139,6 +144,62 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
-        return null;
+
+        //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
+        List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
+
+        //当日的YYYYMMDD格式时间
+        String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);
+        String month = DateUtils.getNowTime(DateUtils.DATE_JFP_STR);
+        String monthStartDate = month+"01";
+        String monthEndDate = month+"31";
+        String year = DateUtils.getNowTime("yyyy");
+        String yearStartDate = year+"0101";
+        String yearEndDate = year+"1231";
+
+        //获取当天逆变器信息
+        Map<String, InverterInfoDTO> todayInverterInfoMap = todaySummaryDataDAO.getInverterInfoMapByTimeInterval(inverterIdList, todayDate, todayDate);
+        //获取当月逆变器信息
+        Map<String, InverterInfoDTO> monthInverterInfoMap = todaySummaryDataDAO.getInverterInfoMapByTimeInterval(inverterIdList, monthStartDate, monthEndDate);
+        //获取当年逆变器信息
+        Map<String, InverterInfoDTO> yearInverterInfoMap = todaySummaryDataDAO.getInverterInfoMapByTimeInterval(inverterIdList, yearStartDate, yearEndDate);
+
+        //获取用户所有逆变器的最近一条实时统计数据(当天的)
+        List<TabInverterRealtimeData> inverterRealtimeDataList = inverterDataStatisticDAO.getUserLatelyInverterRealtimeDataList(inverterIdList, todayDate);
+        Map<String, TabInverterRealtimeData> inverterRealtimeDataMap = new HashMap<>();
+        for(TabInverterRealtimeData tabInverterRealtimeData:inverterRealtimeDataList) {
+            inverterRealtimeDataMap.put(tabInverterRealtimeData.getInverterId(), tabInverterRealtimeData);
+        }
+
+        InverterInfoDTO todayInverterInfoDTO;
+        InverterInfoDTO monthInverterInfoDTO;
+        InverterInfoDTO yearInverterInfoDTO;
+        TabInverterRealtimeData tabInverterRealtimeData;
+        //结果列表
+        List<InverterInfoDTO> inverterInfoList = new ArrayList<>();
+        //组装各项统计数据
+        for(TabInverterDevice tabInverterDevice: inverterDeviceList) {
+            todayInverterInfoDTO = todayInverterInfoMap.getOrDefault(tabInverterDevice.getId(), new InverterInfoDTO());
+            monthInverterInfoDTO = monthInverterInfoMap.getOrDefault(tabInverterDevice.getId(), new InverterInfoDTO());
+            yearInverterInfoDTO = yearInverterInfoMap.getOrDefault(tabInverterDevice.getId(), new InverterInfoDTO());
+            tabInverterRealtimeData = inverterRealtimeDataMap.getOrDefault(tabInverterDevice.getId(), new TabInverterRealtimeData());
+
+            todayInverterInfoDTO.setTodayGenerationPower(todayInverterInfoDTO.getGenerateCapacity());
+            todayInverterInfoDTO.setMonthGenerationPower(monthInverterInfoDTO.getGenerateCapacity());
+            todayInverterInfoDTO.setYearGenerationPower(yearInverterInfoDTO.getGenerateCapacity());
+            todayInverterInfoDTO.setInverterName(tabInverterDevice.getName());
+            todayInverterInfoDTO.setInstalledCapacity(tabInverterDevice.getPowerSize());
+            todayInverterInfoDTO.setGenerationPower(tabInverterRealtimeData.getOutputPower());
+            todayInverterInfoDTO.setTodayEquivalentAging(new BigDecimal("0.86"));
+            todayInverterInfoDTO.setMonthEquivalentAging(new BigDecimal(600));
+
+            inverterInfoList.add(todayInverterInfoDTO);
+        }
+
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("inverterInfoList", inverterInfoList);
+        //getInverterInfoMapByTimeInterval
+
+        return new JsonResult(ReturnCode.SUCCESS, "获取逆变器列表成功!", resultMap);
     }
 }

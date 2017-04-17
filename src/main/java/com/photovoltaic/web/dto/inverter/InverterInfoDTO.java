@@ -9,7 +9,9 @@ import java.math.BigDecimal;
 public class InverterInfoDTO {
     private String inverterId;//逆变器id
     private String inverterName;//逆变器名称
+    private int status;//逆变器状态
     private BigDecimal installedCapacity;//装机容量
+    private BigDecimal generateCapacity;//发电量(各种求和结果字段)
     private BigDecimal generationPower;//发电功率
     private BigDecimal todayGenerationPower;//日发电量
     private BigDecimal monthGenerationPower;//月发电量
@@ -96,5 +98,21 @@ public class InverterInfoDTO {
 
     public void setMonthEquivalentAging(BigDecimal monthEquivalentAging) {
         this.monthEquivalentAging = monthEquivalentAging;
+    }
+
+    public BigDecimal getGenerateCapacity() {
+        return generateCapacity;
+    }
+
+    public void setGenerateCapacity(BigDecimal generateCapacity) {
+        this.generateCapacity = generateCapacity;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

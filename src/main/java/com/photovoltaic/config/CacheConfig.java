@@ -34,6 +34,7 @@ public class CacheConfig {
 		getUsersPowerStationIdList(600),
 		getUsersInverterIdList(600),
 		getUsersPowerStationList(600),
+		getUsersInverterList(600),
 		;
 		
 		Caches() {
