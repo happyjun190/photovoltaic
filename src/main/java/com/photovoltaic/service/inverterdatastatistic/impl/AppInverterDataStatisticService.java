@@ -13,6 +13,8 @@ import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticS
 import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
 import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
 import com.photovoltaic.web.dto.inverter.PowerStationInfoDTO;
+import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.BaseInModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +41,8 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
     private TodaySummaryDataDAO todaySummaryDataDAO;
 
     @Override
-    public JsonResult getStatisticOverView(Map<String, Object> map) {
-        String userId = (String) map.get("userId");
+    public JsonResultOut getStatisticOverView(BaseInModel inModel) {
+        String userId = inModel.getUserId();
         logger.info("userId:{}", userId);
 
         //获取用户所有的电站id list
@@ -114,13 +116,13 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         //resultMap.put("inverterRealtimeDataList", inverterRealtimeDataList);
 
-        return new JsonResult(ReturnCode.SUCCESS, "获取电站概览数据成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站概览数据成功!", resultMap);
     }
 
 
     @Override
-    public JsonResult getPowerStaticInfo(Map<String, Object> map) {
-        String userId = (String) map.get("userId");
+    public JsonResultOut getPowerStaticInfo(BaseInModel inModel) {
+        String userId = inModel.getUserId();
         List<TabPowerStation> powerStationList = inverterDataStatisticDAO.getUsersPowerStationList(userId);
 
         List<PowerStationInfoDTO> powerStationInfoList = new ArrayList<>();
@@ -130,13 +132,13 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("powerStationList", powerStationInfoList);
-        return new JsonResult(ReturnCode.SUCCESS, "获取电站列表成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站列表成功!", resultMap);
     }
 
 
     @Override
-    public JsonResult getInverterInfoList(Map<String, Object> map) {
-        String userId = (String) map.get("userId");
+    public JsonResultOut getInverterInfoList(BaseInModel inModel) {
+        String userId = inModel.getUserId();
         logger.info("userId:{}", userId);
 
         //获取用户所有的电站id list
@@ -200,6 +202,6 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         resultMap.put("inverterInfoList", inverterInfoList);
         //getInverterInfoMapByTimeInterval
 
-        return new JsonResult(ReturnCode.SUCCESS, "获取逆变器列表成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器列表成功!", resultMap);
     }
 }

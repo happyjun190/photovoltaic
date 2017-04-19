@@ -4,6 +4,8 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.constants.WebConstants;
 import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.WebUtils;
+import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.auth.LoginInModel;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.commons.lang3.StringUtils;
@@ -155,9 +157,48 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 						//copyMap.putAll(paramMap);
 						allParams.add(paramMap);
 					}
-				}else if(arg instanceof HttpServletResponse){
+				} else if(arg instanceof HttpServletResponse){
 					//do nothing...
-				}else if(arg != null){ //其他用对象接收的参数
+				} else if(arg instanceof BaseInModel){// in model
+					BaseInModel baseInModel = (BaseInModel)arg;
+
+					//登录等特殊接口，用其他方法获取userId，如果获取不到则为“-1”
+					try {
+						switch (methodName) {
+							case "login":
+								userIdInt = userService.getUserIdByPhone(((LoginInModel)arg).getLoginName());
+								userId = String.valueOf(userIdInt);
+								break;
+							default:
+								break;
+						}
+					} catch (Exception e) {
+						logger.error("根据登录账号获取userIdInt时发生异常。", e);
+					}
+
+
+					//如果userId已经有了（已经通过web cookie获取到，或者通过登录方法获取到），则不用从map中获取
+					if(StringUtils.isBlank(userId)){
+						//提前尝试获取userId，以便保存到用户日志中
+						String usertoken = baseInModel.getUsertoken();
+						if(StringUtils.isNotBlank(usertoken)){
+							userId = redisService.getUserIdByUsertoken(usertoken); // 根据UserToken获取userId
+						}
+					}
+
+					//获得userIdInt：
+					if(StringUtils.isNotBlank(userId) && userIdInt.equals("-1")){
+						//map.put("userid", userId);
+						try {
+							userIdInt = userId;
+							//map.put("userIdInt", userIdInt);
+						} catch (Exception e) {
+							logger.error("转换userId为int时发生了异常：userId={}", userId, e);
+						}
+					}
+					baseInModel.setUserId(userIdInt);
+
+				} else if(arg != null){ //其他用对象接收的参数
 					allParams.add(arg);
 				}
 			}

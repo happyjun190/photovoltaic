@@ -1,6 +1,9 @@
 package com.photovoltaic.service.auth;
 
 import com.photovoltaic.commons.json.JsonResult;
+import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.auth.LoginInModel;
+import com.photovoltaic.web.model.in.auth.RegistInModel;
 
 import java.util.Map;
 
@@ -12,24 +15,24 @@ public interface IAuthService {
 
     /**
      * 用户注册
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult regist(Map<String, Object> map);
+    JsonResultOut regist(RegistInModel inModel);
 
 
     /**
      * app用户登录
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult appLogin(Map<String, Object> map);
+    JsonResultOut appLogin(LoginInModel inModel);
 
 
     /**
      * web用户登录
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult webLogin(Map<String, Object> map);
+    JsonResultOut webLogin(LoginInModel inModel);
 }

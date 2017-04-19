@@ -10,6 +10,10 @@ import com.photovoltaic.commons.util.SecurityUtils;
 import com.photovoltaic.dao.user.UserInfoDAO;
 import com.photovoltaic.model.user.TabUserInfo;
 import com.photovoltaic.service.auth.IAuthService;
+import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.auth.LoginInModel;
+import com.photovoltaic.web.model.in.auth.RegistInModel;
+import com.photovoltaic.web.model.out.auth.LoginDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,14 +40,14 @@ public class AuthService implements IAuthService {
     private IRedisOperator redisOperator;
 
     @Override
-    public JsonResult regist(Map<String, Object> map) {
-        String loginName = (String) map.get("loginName");//注册账号
-        String password = (String) map.get("password");//登录密码
+    public JsonResultOut regist(RegistInModel inModel) {
+        String loginName = inModel.getLoginName();//注册账号
+        String password = inModel.getPassword();//登录密码
         if (StringUtils.isBlank(loginName)) {
-            return new JsonResult(ReturnCode.PARAMSERROR, "账号不能为空！");
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "账号不能为空！");
         }
         if (StringUtils.isBlank(password)) {
-            return new JsonResult(ReturnCode.PARAMSERROR, "密码不能为空！");
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "密码不能为空！");
         }
         /*if (!loginName.matches(NUMBER)) {
             return new JsonResult(ReturnCode.PARAMSERROR, "手机号码输入错误！");
@@ -55,7 +59,7 @@ public class AuthService implements IAuthService {
         //根据注册账号判断用户是否已经注册
         TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByLoginName(loginName);
         if(tabUserInfo!=null) {
-            return new JsonResult(ReturnCode.PARAMSERROR, "该账号已被注册!");
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "该账号已被注册!");
         }
 
         String loginSalt = SecurityUtils.getRandNumber(5); // md5加密盐值
@@ -64,15 +68,15 @@ public class AuthService implements IAuthService {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("userId", userId);
 
-        return new JsonResult(ReturnCode.SUCCESS, "注册成功！", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "注册成功！", resultMap);
     }
 
     @Override
-    public JsonResult appLogin(Map<String, Object> map) {
-        String loginName = (String) map.get("loginName");//注册账号
-        String password = (String) map.get("password");//登录密码
+    public JsonResultOut appLogin(LoginInModel inModel) {
+        String loginName = inModel.getLoginName();//登录账号
+        String password = inModel.getPassword();//登录密码
         if (StringUtils.isAnyEmpty(loginName,password)) {
-            return new JsonResult(ReturnCode.PARAMSERROR, "请输入账号或密码!");
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "请输入账号或密码!");
         }
         logger.info("password:{}", EncryptUtils.MD5Str(password));
         //根据注册账号判断用户是否已经注册
@@ -96,19 +100,22 @@ public class AuthService implements IAuthService {
             redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
 
             Map<String, Object> resultMap = new HashMap<>();
+            LoginDTO loginDTO = new LoginDTO();
+            loginDTO.setUserToken(token);
+            loginDTO.setUserId(tabUserInfo.getId());
             resultMap.put("userToken", token);
-            return new JsonResult(ReturnCode.SUCCESS, "登录成功！", resultMap);
+            return new JsonResultOut(ReturnCode.SUCCESS, "登录成功！", loginDTO);
         }
 
-        return new JsonResult(ReturnCode.PARAMSERROR, "账号或密码错误！");
+        return new JsonResultOut(ReturnCode.PARAMSERROR, "账号或密码错误！");
     }
 
     @Override
-    public JsonResult webLogin(Map<String, Object> map) {
-        String loginName = (String) map.get("loginName");//注册账号
-        String password = (String) map.get("password");//登录密码
+    public JsonResultOut webLogin(LoginInModel inModel) {
+        String loginName = inModel.getLoginName();//登录账号
+        String password = inModel.getPassword();//登录密码
         if (StringUtils.isAnyEmpty(loginName,password)) {
-            return new JsonResult(ReturnCode.PARAMSERROR, "请输入账号或密码!");
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "请输入账号或密码!");
         }
         logger.info("password:{}", EncryptUtils.MD5Str(password));
         //根据注册账号判断用户是否已经注册
@@ -133,10 +140,10 @@ public class AuthService implements IAuthService {
 
             Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("userToken", token);
-            return new JsonResult(ReturnCode.SUCCESS, "登录成功！", resultMap);
+            return new JsonResultOut(ReturnCode.SUCCESS, "登录成功！", resultMap);
         }
 
-        return new JsonResult(ReturnCode.PARAMSERROR, "账号或密码错误！");
+        return new JsonResultOut(ReturnCode.PARAMSERROR, "账号或密码错误！");
     }
 
 

@@ -1,6 +1,8 @@
 package com.photovoltaic.service.inverterdatastatistic;
 
 import com.photovoltaic.commons.json.JsonResult;
+import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.BaseInModel;
 
 import java.util.Map;
 
@@ -12,25 +14,25 @@ public interface IAppInverterDataStatisticService {
 
     /**
      * 获取数据分析概览
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult getStatisticOverView(Map<String, Object> map);
+    JsonResultOut getStatisticOverView(BaseInModel inModel);
 
 
     /**
      * 获取用户的电站列表
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult getPowerStaticInfo(Map<String, Object> map);
+    JsonResultOut getPowerStaticInfo(BaseInModel inModel);
 
 
     /**
      * 获取逆变器列表及发电信息
-     * @param map
+     * @param inModel
      * @return
      */
-    JsonResult getInverterInfoList(Map<String, Object> map);
+    JsonResultOut getInverterInfoList(BaseInModel inModel);
 
 }
