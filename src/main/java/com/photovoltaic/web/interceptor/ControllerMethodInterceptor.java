@@ -2,8 +2,8 @@ package com.photovoltaic.web.interceptor;
 
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.constants.WebConstants;
-import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.WebUtils;
+import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
 import org.aopalliance.intercept.MethodInterceptor;
@@ -66,7 +66,7 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 					// 检查authcode是否正确
 					if(!verifyAuthCode(method, map)){
 						logger.info("秘钥验证不通过!");
-						result = new JsonResult(ReturnCode.ERROR, "秘钥验证不通过！", null);
+						result = new JsonResultOut(ReturnCode.ERROR, "秘钥验证不通过！", null);
 						//break; //继续走，抓取参数到log
 					}
 					
@@ -122,17 +122,15 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 					}
 					
 					if(isLoginRequired(method) && userIdInt.equals("-1")) { // 该接口需要登录却没有登录……
-						result = new JsonResult(ReturnCode.NOTLOGIN, "用户未登录或已经过期，请重新登录。", null);
+						result = new JsonResultOut(ReturnCode.NOTLOGIN, "用户未登录或已经过期，请重新登录。", null);
 					}else if(isTooFrequentRequest(invocation.getMethod(), userId)){ // 如果是太频繁的请求……
-						result = new JsonResult(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。", null);
+						result = new JsonResultOut(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。", null);
 					}
 					
 					if(map.size()>0){
 						allParams.add(map);
 					}
 				}else if(arg instanceof HttpServletRequest){
-					
-					
 					
 					HttpServletRequest request = (HttpServletRequest) arg;
 					
@@ -198,6 +196,14 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 					}
 					baseInModel.setUserId(userIdInt);
 
+					//判断是否需要登陆
+					if(isLoginRequired(method) && userIdInt.equals("-1")) { // 该接口需要登录却没有登录……
+						result = new JsonResultOut(ReturnCode.NOTLOGIN, "用户未登录或已经过期，请重新登录。", null);
+					}else if(isTooFrequentRequest(invocation.getMethod(), userId)){ // 如果是太频繁的请求……
+						result = new JsonResultOut(ReturnCode.ERROR, "操作太快了，休息几秒再试吧。", null);
+					}
+
+					allParams.add(baseInModel);
 				} else if(arg != null){ //其他用对象接收的参数
 					allParams.add(arg);
 				}
@@ -211,11 +217,11 @@ public class ControllerMethodInterceptor extends BaseInterceptor implements Meth
 			}
 		} catch (Exception e) {
 			logger.error("Exception caught by Method Interceptor!", e);
-			result = new JsonResult(ReturnCode.EXCEPTION, e.getMessage(), null);
+			result = new JsonResultOut(ReturnCode.EXCEPTION, e.getMessage(), null);
 		}
 		
-		/*if(result instanceof JsonResult){
-			userOpLog.setResult((JsonResult)result);
+		/*if(result instanceof JsonResultOut){
+			userOpLog.setResult((JsonResultOut)result);
 		}
 
 		userOpLog.setUserId(userIdInt);
