@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 public class BaseInModel {
 
     @ApiModelProperty(value = "用户token", position=-2, example="iamatoken7b14a1986df8888")
-    private String usertoken;
+    private String userToken;
 
     @ApiModelProperty(value = "authcode", required = true, position=-1, example="123456")
     private String authcode;
@@ -110,12 +110,12 @@ public class BaseInModel {
         this.osVersion = osVersion;
     }
 
-    public String getUsertoken() {
-        return usertoken;
+    public String getUserToken() {
+        return userToken;
     }
 
-    public void setUsertoken(String usertoken) {
-        this.usertoken = usertoken;
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
     }
 
     public String getAuthcode() {

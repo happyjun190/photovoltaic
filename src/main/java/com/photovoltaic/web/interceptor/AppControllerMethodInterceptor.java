@@ -179,7 +179,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 					//如果userId已经有了（已经通过web cookie获取到，或者通过登录方法获取到），则不用从map中获取
 					if(StringUtils.isBlank(userId)){
 						//提前尝试获取userId，以便保存到用户日志中
-						String usertoken = baseInModel.getUsertoken();
+						String usertoken = baseInModel.getUserToken();
 						if(StringUtils.isNotBlank(usertoken)){
 							userId = redisService.getUserIdByUsertoken(usertoken); // 根据UserToken获取userId
 						}
