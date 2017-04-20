@@ -34,7 +34,7 @@ public class AppAuthController extends BaseController{
      * @param inModel
      * @return
      */
-    @ApiOperation(value = "app端用户登录", tags="wushenjun", notes = "app(iOS、android)端用户登录，前端通过base64将原始密码加密传给接口")
+    @ApiOperation(value = "app端用户登录", tags="wushenjun", notes = "app(iOS、android)端用户登录，前端通过MD5将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/login/{version}", method = RequestMethod.POST)
     public JsonResultOut<Map<String, Object>> login(HttpServletRequest request,

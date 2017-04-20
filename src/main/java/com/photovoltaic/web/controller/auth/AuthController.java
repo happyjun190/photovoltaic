@@ -66,7 +66,7 @@ public class AuthController extends BaseController{
      * @param inModel
      * @return
      */
-    @ApiOperation(value = "web端用户登录", tags="wushenjun", notes = "web端用户登录，前端通过base64将原始密码加密传给接口")
+    @ApiOperation(value = "web端用户登录", tags="wushenjun", notes = "web端用户登录，前端通过MD5将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/webLogin/{version}", method = RequestMethod.POST)
     public JsonResultOut<Map<String, Object>> webLogin(HttpServletRequest request,
