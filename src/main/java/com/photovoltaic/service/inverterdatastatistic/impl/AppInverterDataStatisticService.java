@@ -116,7 +116,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         //resultMap.put("inverterRealtimeDataList", inverterRealtimeDataList);
 
-        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站概览数据成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站概览数据成功!", homePageOverViewDTO);
     }
 
 
@@ -132,7 +132,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("powerStationList", powerStationInfoList);
-        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站列表成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取电站列表成功!", powerStationInfoList);
     }
 
 
@@ -202,6 +202,6 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         resultMap.put("inverterInfoList", inverterInfoList);
         //getInverterInfoMapByTimeInterval
 
-        return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器列表成功!", resultMap);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器列表成功!", inverterInfoList);
     }
 }

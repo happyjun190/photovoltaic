@@ -7,6 +7,7 @@ import com.photovoltaic.service.auth.IAuthService;
 import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
+import com.photovoltaic.web.model.out.auth.LoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -37,9 +38,9 @@ public class AppAuthController extends BaseController{
     @ApiOperation(value = "app端用户登录", tags="wushenjun", notes = "app(iOS、android)端用户登录，前端通过MD5将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/login/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> login(HttpServletRequest request,
-                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                    @ApiParam(value = "登录所需信息", required = true) @RequestBody LoginInModel inModel) {
+    public JsonResultOut<LoginDTO> login(HttpServletRequest request,
+                                         @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                         @ApiParam(value = "登录所需信息", required = true) @RequestBody LoginInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {

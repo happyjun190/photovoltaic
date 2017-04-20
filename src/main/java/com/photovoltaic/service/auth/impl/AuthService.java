@@ -65,10 +65,14 @@ public class AuthService implements IAuthService {
         String loginSalt = SecurityUtils.getRandNumber(5); // md5加密盐值
         String userId = this.addUserInfo(loginName, password, loginSalt);
 
-        Map<String, Object> resultMap = new HashMap<>();
-        resultMap.put("userId", userId);
+        /*Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("userId", userId);*/
 
-        return new JsonResultOut(ReturnCode.SUCCESS, "注册成功！", resultMap);
+        LoginDTO loginDTO = new LoginDTO();
+        //loginDTO.setUserToken(token);
+        loginDTO.setUserId(tabUserInfo.getId());
+
+        return new JsonResultOut(ReturnCode.SUCCESS, "注册成功！", loginDTO);
     }
 
     @Override
@@ -99,11 +103,12 @@ public class AuthService implements IAuthService {
             //设置token to userId
             redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
 
-            Map<String, Object> resultMap = new HashMap<>();
+            /*Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("userToken", token);*/
             LoginDTO loginDTO = new LoginDTO();
             loginDTO.setUserToken(token);
             loginDTO.setUserId(tabUserInfo.getId());
-            resultMap.put("userToken", token);
+
             return new JsonResultOut(ReturnCode.SUCCESS, "登录成功！", loginDTO);
         }
 
@@ -138,9 +143,14 @@ public class AuthService implements IAuthService {
             //设置token to userId
             redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
 
-            Map<String, Object> resultMap = new HashMap<>();
-            resultMap.put("userToken", token);
-            return new JsonResultOut(ReturnCode.SUCCESS, "登录成功！", resultMap);
+            /*Map<String, Object> resultMap = new HashMap<>();
+            resultMap.put("userToken", token);*/
+
+            LoginDTO loginDTO = new LoginDTO();
+            loginDTO.setUserToken(token);
+            loginDTO.setUserId(tabUserInfo.getId());
+
+            return new JsonResultOut(ReturnCode.SUCCESS, "登录成功！", loginDTO);
         }
 
         return new JsonResultOut(ReturnCode.PARAMSERROR, "账号或密码错误！");

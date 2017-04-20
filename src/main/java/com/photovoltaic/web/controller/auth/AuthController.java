@@ -8,6 +8,7 @@ import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
 import com.photovoltaic.web.model.in.auth.RegistInModel;
+import com.photovoltaic.web.model.out.auth.LoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -38,9 +39,9 @@ public class AuthController extends BaseController{
     @ApiOperation(value = "用户注册", tags="wushenjun", notes = "用于注册用户，账号密码配置，前端通过base64将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/regist/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> regist(HttpServletRequest request,
-                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                    @ApiParam(value = "注册所需信息", required = true) @RequestBody RegistInModel inModel) {
+    public JsonResultOut<LoginDTO> regist(HttpServletRequest request,
+                                          @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                          @ApiParam(value = "注册所需信息", required = true) @RequestBody RegistInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {
@@ -69,7 +70,7 @@ public class AuthController extends BaseController{
     @ApiOperation(value = "web端用户登录", tags="wushenjun", notes = "web端用户登录，前端通过MD5将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/webLogin/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> webLogin(HttpServletRequest request,
+    public JsonResultOut<LoginDTO> webLogin(HttpServletRequest request,
                                     @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
                                     @ApiParam(value = "登录所需信息", required = true) @RequestBody LoginInModel inModel) {
         JsonResultOut jsonResult;

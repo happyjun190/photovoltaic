@@ -4,6 +4,9 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.controller.BaseController;
+import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
+import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
+import com.photovoltaic.web.dto.inverter.PowerStationInfoDTO;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
 import com.photovoltaic.web.model.in.auth.RegistInModel;
@@ -14,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,9 +43,9 @@ public class AppInverterDataStatisticController extends BaseController{
      */
     @ApiOperation(value = "获取首页数据分析概览", tags="wushenjun", notes = "获取首页数据分析概览")
     @RequestMapping(value = "/getStatisticOverView/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> getStatisticOverView(HttpServletRequest request,
-                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                    @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
+    public JsonResultOut<HomePageOverViewDTO> getStatisticOverView(HttpServletRequest request,
+                                                                   @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                                   @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {
@@ -69,9 +73,9 @@ public class AppInverterDataStatisticController extends BaseController{
      */
     @ApiOperation(value = "获取用户的电站列表", tags="wushenjun", notes = "获取用户的电站列表")
     @RequestMapping(value = "/getPowerStaticInfo/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> getPowerStaticInfo(HttpServletRequest request,
-                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                    @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
+    public JsonResultOut<List<PowerStationInfoDTO>> getPowerStaticInfo(HttpServletRequest request,
+                                                                       @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                                       @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {
@@ -99,9 +103,9 @@ public class AppInverterDataStatisticController extends BaseController{
      */
     @ApiOperation(value = "获取用户的逆变器列表", tags="wushenjun", notes = "获取用户的逆变器列表")
     @RequestMapping(value = "/getInverterInfoList/{version}", method = RequestMethod.POST)
-    public JsonResultOut<Map<String, Object>> getInverterInfoList(HttpServletRequest request,
-                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                    @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
+    public JsonResultOut<List<InverterInfoDTO>> getInverterInfoList(HttpServletRequest request,
+                                                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                                    @ApiParam(value = "用户token信息", required = true) @RequestBody BaseInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {
