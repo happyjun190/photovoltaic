@@ -1,6 +1,6 @@
 package com.photovoltaic.dao.inverter;
 
-import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
+import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -23,7 +23,7 @@ public interface TodaySummaryDataDAO {
      */
     @MapKey("inverterId")
     Map<String, InverterInfoDTO> getInverterInfoMapByTimeInterval(@Param("inverterIdList") List<String> inverterIdList,
-                                                                @Param("startDate")String startDate,
-                                                                @Param("endDate")String endDate);
+                                                                  @Param("startDate")String startDate,
+                                                                  @Param("endDate")String endDate);
 
 }

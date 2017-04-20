@@ -1,10 +1,8 @@
 package com.photovoltaic.service.inverterdatastatistic;
 
-import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
 
-import java.util.Map;
 
 /**
  * Created by wushenjun on 2017/4/16.

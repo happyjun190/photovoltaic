@@ -4,7 +4,7 @@
 
 
     <!--获取逆变器一段时间内的统计数据-->
-    <select id="getInverterInfoMapByTimeInterval" resultType="com.photovoltaic.web.dto.inverter.InverterInfoDTO">
+    <select id="getInverterInfoMapByTimeInterval" resultType="com.photovoltaic.web.model.out.inveter.InverterInfoDTO">
         SELECT "SUM"(T1."generate_capacity") as generateCapacity,
                 "SUM"(T1."total_generate_capacity") as totalGenerationPower,
                 "SUM"(T1."inverter_status") as status,

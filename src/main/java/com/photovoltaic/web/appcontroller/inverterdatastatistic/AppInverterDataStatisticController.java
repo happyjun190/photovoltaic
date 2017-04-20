@@ -1,15 +1,13 @@
 package com.photovoltaic.web.appcontroller.inverterdatastatistic;
 
 import com.photovoltaic.commons.constants.ReturnCode;
-import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.controller.BaseController;
-import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
-import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
-import com.photovoltaic.web.dto.inverter.PowerStationInfoDTO;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
-import com.photovoltaic.web.model.in.auth.RegistInModel;
+import com.photovoltaic.web.model.out.inveter.HomePageOverViewDTO;
+import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
+import com.photovoltaic.web.model.out.inveter.PowerStationInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wushenjun on 2017/4/16.

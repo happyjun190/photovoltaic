@@ -1,7 +1,6 @@
 package com.photovoltaic.service.inverterdatastatistic.impl;
 
 import com.photovoltaic.commons.constants.ReturnCode;
-import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.DateUtils;
 import com.photovoltaic.dao.inverter.InverterDataStatisticDAO;
 import com.photovoltaic.dao.inverter.TodaySummaryDataDAO;
@@ -10,11 +9,11 @@ import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.powerstation.TabPowerStation;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
-import com.photovoltaic.web.dto.inverter.HomePageOverViewDTO;
-import com.photovoltaic.web.dto.inverter.InverterInfoDTO;
-import com.photovoltaic.web.dto.inverter.PowerStationInfoDTO;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.out.inveter.HomePageOverViewDTO;
+import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
+import com.photovoltaic.web.model.out.inveter.PowerStationInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
