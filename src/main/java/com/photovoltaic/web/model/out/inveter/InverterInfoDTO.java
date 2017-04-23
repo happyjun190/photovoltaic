@@ -35,6 +35,10 @@ public class InverterInfoDTO {
     private BigDecimal todayEquivalentAging;//今日等效时数
     @ApiModelProperty(value = "本月等效时数", required = true)
     private BigDecimal monthEquivalentAging;//本月等效时数
+    @ApiModelProperty(value = "当前输入功率(KW)", required = true)
+    private BigDecimal inputPower;//输入功率(KW)
+    @ApiModelProperty(value = "当前输出功率(KW)", required = true)
+    private BigDecimal outputPower;//输出功率(KW)
 
     public String getInverterId() {
         return inverterId;
@@ -130,5 +134,21 @@ public class InverterInfoDTO {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public BigDecimal getInputPower() {
+        return inputPower;
+    }
+
+    public void setInputPower(BigDecimal inputPower) {
+        this.inputPower = inputPower;
+    }
+
+    public BigDecimal getOutputPower() {
+        return outputPower;
+    }
+
+    public void setOutputPower(BigDecimal outputPower) {
+        this.outputPower = outputPower;
     }
 }

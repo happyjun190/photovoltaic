@@ -191,6 +191,8 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
             todayInverterInfoDTO.setInverterName(tabInverterDevice.getName());
             todayInverterInfoDTO.setInstalledCapacity(tabInverterDevice.getPowerSize());
             todayInverterInfoDTO.setGenerationPower(tabInverterRealtimeData.getOutputPower());
+            todayInverterInfoDTO.setInputPower(tabInverterRealtimeData.getInputPower());
+            todayInverterInfoDTO.setOutputPower(tabInverterRealtimeData.getOutputPower());
             todayInverterInfoDTO.setTodayEquivalentAging(new BigDecimal("0.86"));
             todayInverterInfoDTO.setMonthEquivalentAging(new BigDecimal(600));
 
