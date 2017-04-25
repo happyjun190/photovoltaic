@@ -5,8 +5,10 @@ import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticS
 import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;
 import com.photovoltaic.web.model.out.inveter.HomePageOverViewDTO;
 import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
+import com.photovoltaic.web.model.out.inveter.InverterStatisticDTO;
 import com.photovoltaic.web.model.out.inveter.PowerStationInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -119,6 +121,37 @@ public class AppInverterDataStatisticController extends BaseController{
         }
         return jsonResult;
     }
+
+
+    /**
+     * 获取逆变器分析信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "获取用户的逆变器设备分析列表(设备分析结果页)", tags="wushenjun", notes = "获取用户的逆变器设备分析列表(设备分析结果页)")
+    @RequestMapping(value = "/getInverterStatisticList/{version}", method = RequestMethod.POST)
+    public JsonResultOut<List<InverterStatisticDTO>> getInverterStatisticList(HttpServletRequest request,
+                                                                              @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                                              @ApiParam(value = "用户token信息及类型", required = true) @RequestBody InverterStatisticInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = appInverterDataStatisticService.getInverterStatisticList(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "获取逆变器分析信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
 
 
 }

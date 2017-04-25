@@ -19,4 +19,16 @@
     </select>
 
 
+    <!--获取逆变器日均发电量-->
+    <select id="getInverterAvgGenerateCapacityInfo" resultType="com.photovoltaic.web.model.out.inveter.InverterInfoDTO">
+        SELECT "AVG"(T1."generate_capacity") as generateCapacity,
+                t1."inverter_id" as inverterId
+        FROM "GFTW"."ts_today_summary" t1
+        WHERE T1."inverter_id" IN
+        <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        GROUP BY t1."inverter_id"
+    </select>
+
 </mapper>

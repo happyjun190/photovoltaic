@@ -26,4 +26,14 @@ public interface TodaySummaryDataDAO {
                                                                   @Param("startDate")String startDate,
                                                                   @Param("endDate")String endDate);
 
+
+    /**
+     * 获取逆变器日均发电量
+     * @param inverterIdList
+     * @return
+     */
+    @MapKey("inverterId")
+    Map<String, InverterInfoDTO> getInverterAvgGenerateCapacityInfo(@Param("inverterIdList") List<String> inverterIdList);
+
+
 }

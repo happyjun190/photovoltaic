@@ -2,6 +2,7 @@ package com.photovoltaic.service.inverterdatastatistic;
 
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;
 
 
 /**
@@ -32,5 +33,14 @@ public interface IAppInverterDataStatisticService {
      * @return
      */
     JsonResultOut getInverterInfoList(BaseInModel inModel);
+
+
+    /**
+     * 获取逆变器各项参数数据分析列表
+     * @param inModel
+     * @return
+     */
+    JsonResultOut getInverterStatisticList(InverterStatisticInModel inModel);
+
 
 }

@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class AuthService implements IAuthService {
     @Autowired
     private IRedisOperator redisOperator;
 
+    @Transactional
     @Override
     public JsonResultOut regist(RegistInModel inModel) {
         String loginName = inModel.getLoginName();//注册账号
@@ -70,7 +72,7 @@ public class AuthService implements IAuthService {
 
         LoginDTO loginDTO = new LoginDTO();
         //loginDTO.setUserToken(token);
-        loginDTO.setUserId(tabUserInfo.getId());
+        loginDTO.setUserId(userId);
 
         return new JsonResultOut(ReturnCode.SUCCESS, "注册成功！", loginDTO);
     }
