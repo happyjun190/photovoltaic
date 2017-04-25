@@ -40,7 +40,7 @@ public class AppInverterDataStatisticController extends BaseController{
      * @param inModel
      * @return
      */
-    @ApiOperation(value = "获取首页数据分析概览", tags="wushenjun", notes = "获取首页数据分析概览")
+    @ApiOperation(value = "获取首页数据分析概览(光伏总览)", tags="wushenjun", notes = "获取首页数据分析概览(光伏总览)")
     @RequestMapping(value = "/getStatisticOverView/{version}", method = RequestMethod.POST)
     public JsonResultOut<HomePageOverViewDTO> getStatisticOverView(HttpServletRequest request,
                                                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
@@ -100,7 +100,7 @@ public class AppInverterDataStatisticController extends BaseController{
      * @param inModel
      * @return
      */
-    @ApiOperation(value = "获取用户的逆变器列表", tags="wushenjun", notes = "获取用户的逆变器列表")
+    @ApiOperation(value = "获取用户的逆变器列表(逆变器矩阵)", tags="wushenjun", notes = "获取用户的逆变器列表(逆变器矩阵)")
     @RequestMapping(value = "/getInverterInfoList/{version}", method = RequestMethod.POST)
     public JsonResultOut<List<InverterInfoDTO>> getInverterInfoList(HttpServletRequest request,
                                                                     @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
