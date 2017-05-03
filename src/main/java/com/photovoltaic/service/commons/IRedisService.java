@@ -14,4 +14,28 @@ public interface IRedisService {
 	 * @return
 	 */
 	String getUserIdByWebToken(String webToken);
+
+
+	/**
+	 * app 根据token从缓存中获取userId
+	 * @param webToken
+	 * @return
+	 */
+	String getUserIdByAppToken(String webToken);
+
+
+	/**
+	 * admin 根据token从缓存中获取userId
+	 * @param adminToken
+	 * @return
+	 */
+	String getUserIdByAdminToken(String adminToken);
+
+	/**
+	 * www 根据token从缓存中获取userId
+	 * @param wwwToken
+	 * @return
+	 */
+	String getUserIdByWWWToken(String wwwToken);
+
 }

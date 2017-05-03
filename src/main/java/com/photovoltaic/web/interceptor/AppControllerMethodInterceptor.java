@@ -138,7 +138,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 					//通过cookie中的token从redis中获取userId
 					String webToken = WebUtils.getCookieByName(request, WebConstants.CookieName.Token);
 					if(StringUtils.isNotBlank(webToken)){
-						userId = redisService.getUserIdByWebToken(webToken); //根据webToken获取userId
+						userId = redisService.getUserIdByAppToken(webToken); //根据webToken获取userId
 						logger.debug("Got userId via webToken, userId={}", userId);
 					}	
 					
@@ -181,7 +181,7 @@ public class AppControllerMethodInterceptor extends BaseInterceptor implements M
 						//提前尝试获取userId，以便保存到用户日志中
 						String usertoken = baseInModel.getUserToken();
 						if(StringUtils.isNotBlank(usertoken)){
-							userId = redisService.getUserIdByUsertoken(usertoken); // 根据UserToken获取userId
+							userId = redisService.getUserIdByAppToken(usertoken); // 根据UserToken获取userId
 						}
 					}
 

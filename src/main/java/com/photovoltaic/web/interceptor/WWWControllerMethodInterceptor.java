@@ -23,7 +23,7 @@ import java.util.Set;
  * @author wushenjun
  * 
  */
-public class AdminControllerMethodInterceptor extends BaseInterceptor implements MethodInterceptor {
+public class WWWControllerMethodInterceptor extends BaseInterceptor implements MethodInterceptor {
 	
 	
 	
@@ -93,7 +93,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 						//提前尝试获取userId，以便保存到用户日志中
 						String userToken = (String) map.get("userToken");
 						if(StringUtils.isNotBlank(userToken)){
-							userId = redisService.getUserIdByAdminToken(userToken); // 根据userToken获取userId
+							userId = redisService.getUserIdByWWWToken(userToken); // 根据userToken获取userId
 						}
 					}
 					
@@ -139,7 +139,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 					//通过cookie中的token从redis中获取userId
 					String webToken = WebUtils.getCookieByName(request, WebConstants.CookieName.Token);
 					if(StringUtils.isNotBlank(webToken)){
-						userId = redisService.getUserIdByAdminToken(webToken); //根据webToken获取userId
+						userId = redisService.getUserIdByWWWToken(webToken); //根据webToken获取userId
 						logger.debug("Got userId via webToken, userId={}", userId);
 					}	
 					
@@ -182,7 +182,7 @@ public class AdminControllerMethodInterceptor extends BaseInterceptor implements
 						//提前尝试获取userId，以便保存到用户日志中
 						String usertoken = baseInModel.getUserToken();
 						if(StringUtils.isNotBlank(usertoken)){
-							userId = redisService.getUserIdByAdminToken(usertoken); // 根据UserToken获取userId
+							userId = redisService.getUserIdByWWWToken(usertoken); // 根据UserToken获取userId
 						}
 					}
 

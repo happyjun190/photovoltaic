@@ -46,6 +46,25 @@ public class RedisService implements IRedisService {
 	}
 
 
+	@Override
+	public String getUserIdByAppToken(String appToken) {
+		String userid = null;
+		if(StringUtils.isNotBlank(appToken)){
+			String temp = RedisConstants.Prefix.APP_TOKEN + appToken;
+			logger.debug("开始获取key为{}的userid...", temp);
+			userid = redisOperator.get(temp);
+			if(userid!=null){
+				logger.debug("获取app端userid成功,userid为{}", userid);
+			}else{
+				userid = "";
+				logger.info("获取app端userid为空，usertoken：{}", appToken);
+			}
+		}else{
+			logger.info("app端usertoken为空,无法获取userid...");
+		}
+		return userid;
+	}
+
 	public String getUserIdByUsertoken(String usertoken) {
 		String userid = null;
 		if(StringUtils.isNotBlank(usertoken)){
@@ -64,4 +83,42 @@ public class RedisService implements IRedisService {
 		return userid;
 	}
 
+
+	@Override
+	public String getUserIdByAdminToken(String adminToken) {
+		String userid = null;
+		if(StringUtils.isNotBlank(adminToken)){
+			String temp = RedisConstants.Prefix.ADMIN_TOKEN + adminToken;
+			logger.debug("开始获取key为{}的userid...", temp);
+			userid = redisOperator.get(temp);
+			if(userid!=null){
+				logger.debug("获取admin端userid成功,userid为{}", userid);
+			}else{
+				userid = "";
+				logger.info("获取admin端userid为空，usertoken：{}", adminToken);
+			}
+		}else{
+			logger.info("admin端usertoken为空,无法获取userid...");
+		}
+		return userid;
+	}
+
+	@Override
+	public String getUserIdByWWWToken(String wwwToken) {
+		String userid = null;
+		if(StringUtils.isNotBlank(wwwToken)){
+			String temp = RedisConstants.Prefix.WWW_TOKEN + wwwToken;
+			logger.debug("开始获取key为{}的userid...", temp);
+			userid = redisOperator.get(temp);
+			if(userid!=null){
+				logger.debug("获取www端userid成功,userid为{}", userid);
+			}else{
+				userid = "";
+				logger.info("获取www端userid为空，usertoken：{}", wwwToken);
+			}
+		}else{
+			logger.info("www端usertoken为空,无法获取userid...");
+		}
+		return userid;
+	}
 }
