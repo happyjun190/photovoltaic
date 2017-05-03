@@ -23,7 +23,7 @@ import java.util.List;
  * Created by wushenjun on 2017/4/16.
  * app数据分析controller
  */
-@Api(tags = "Inverter Data")
+@Api(tags = "App Inverter Data")
 @RestController
 @RequestMapping("/app/statistic")
 public class AppInverterDataStatisticController extends BaseController{
