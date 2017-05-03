@@ -1,3 +1,4 @@
+/*
 package com.photovoltaic.web.controller.auth;
 
 import com.photovoltaic.annotation.Permission;
@@ -18,9 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+*/
 /**
  * Created by ziye on 2017/4/15.
- */
+ *//*
+
 @Api(tags = "Web Auth")
 @RestController
 @RequestMapping("/servlet/auth/")
@@ -29,13 +32,15 @@ public class AuthController extends BaseController{
     @Autowired
     private IAuthService authService;
 
-    /**
+    */
+/**
      * 用户注册
      * @param request
      * @param version
      * @param inModel
      * @return
-     */
+     *//*
+
     @ApiOperation(value = "用户注册", tags="wushenjun", notes = "用于注册用户，账号密码配置，前端通过base64将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/regist/{version}", method = RequestMethod.POST)
@@ -60,13 +65,15 @@ public class AuthController extends BaseController{
     }
 
 
-    /**
+    */
+/**
      * web用户登录
      * @param request
      * @param version
      * @param inModel
      * @return
-     */
+     *//*
+
     @ApiOperation(value = "web端用户登录", tags="wushenjun", notes = "web端用户登录，前端通过MD5将原始密码加密传给接口")
     @Permission(loginReqired=false)
     @RequestMapping(value = "/webLogin/{version}", method = RequestMethod.POST)
@@ -91,3 +98,4 @@ public class AuthController extends BaseController{
     }
 
 }
+*/
