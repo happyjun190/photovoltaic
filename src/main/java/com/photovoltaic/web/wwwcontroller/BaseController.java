@@ -1,4 +1,4 @@
-package com.photovoltaic.web.www;
+package com.photovoltaic.web.wwwcontroller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.photovoltaic.web.www.auth;
+package com.photovoltaic.web.wwwcontroller.auth;
 
 import com.photovoltaic.annotation.Permission;
 import com.photovoltaic.commons.constants.ReturnCode;
@@ -6,7 +6,6 @@ import com.photovoltaic.service.auth.IAuthService;
 import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
-import com.photovoltaic.web.model.in.auth.RegistInModel;
 import com.photovoltaic.web.model.out.auth.LoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
