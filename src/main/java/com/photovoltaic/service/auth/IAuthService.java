@@ -35,4 +35,21 @@ public interface IAuthService {
      * @return
      */
     JsonResultOut webLogin(LoginInModel inModel);
+
+
+    /**
+     * admin用户登录
+     * @param inModel
+     * @return
+     */
+    JsonResultOut adminLogin(LoginInModel inModel);
+
+
+    /**
+     * www用户登录
+     * @param inModel
+     * @return
+     */
+    JsonResultOut wwwLogin(LoginInModel inModel);
+
 }

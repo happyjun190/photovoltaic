@@ -66,19 +66,22 @@ public class RedisConstants {
 	public enum Prefix {
 		/** APP登录的token前缀，value=userId */
 		APP_TOKEN("token.to.userid:"),
-		
-		/** WEB（PC采购）登录的token前缀，value=userId */
+
+		/** WEB登录的token前缀，value=userId */
 		WEB_TOKEN("web.token.to.userid:", TimeInSecond._5_DAYS),
-		
+
 		/** admin用户登录的token前缀 */
-		ADMIN_TOKEN("industrynet.admin.token:", TimeInSecond._8_HOURS),
-		
+		ADMIN_TOKEN("admin.token.to.userid:", TimeInSecond._5_DAYS),
+
+		/** admin用户登录的token前缀 */
+		WWW_TOKEN("www.token.to.userid:", TimeInSecond._5_DAYS),
+
 		/** UserInfo信息 */
 		USER_INFO("user.info:", KeyType.hash),
-		
+
 		/** 用户登录相关的信息，APP登录和WEB登录共用 */
 		USER_LOGIN_INFO("userLoginInfo:", KeyType.hash, TimeInSecond.INFINITE),
-		
+
 		/** 验证码，Hash类型， 后面跟着cookieId */
 		CAPTCHA("industrynet.captcha:", KeyType.hash, TimeInSecond._5_MINS),
 		
@@ -291,6 +294,14 @@ public class RedisConstants {
 		WEB_TOKEN("webToken"),
 		/** WEB最后登录时间  */
 		WEB_LOGIN_TIME("webLoginTime"),
+		/** admin登录后token**/
+		ADMIN_TOKEN("adminToken"),
+		/** WEB最后登录时间  */
+		ADMIN_LOGIN_TIME("adminLoginTime"),
+		/** admin登录后token**/
+		WWW_TOKEN("wwwToken"),
+		/** WEB最后登录时间  */
+		WWW_LOGIN_TIME("wwwLoginTime"),
 		/** WEB最后登录版本  */
 		WEB_VERSION("webVersion"),
 		/** WEB最后登录平台  */
