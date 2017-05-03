@@ -60,4 +60,14 @@
 	</aop:config>
 
 
+	<!-- 方法拦截器(拦截wwwcontroller包中的所有方法) -->
+	<bean id="wwwControllerMethodInterceptor" class="com.photovoltaic.web.interceptor.WWWControllerMethodInterceptor">
+	</bean>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="wwwControllerMethodPointcut" expression="execution(* com.photovoltaic.web.wwwcontroller..*(..)) and
+        	@annotation(org.springframework.web.bind.annotation.RequestMapping)"/>
+		<aop:advisor advice-ref="wwwControllerMethodInterceptor" pointcut-ref="wwwControllerMethodPointcut" />
+	</aop:config>
+
+
 </beans>
