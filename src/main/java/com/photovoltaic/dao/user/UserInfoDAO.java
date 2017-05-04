@@ -30,6 +30,6 @@ public interface UserInfoDAO {
      * @param loginName
      * @return
      */
-    @Select("select t1.\"id\" FROM \"ts_userInfo\" t1 where t1.\"loginName\" = #{loginName} ")
+    @Select("select t1.\"id\" FROM \"ts_user_info\" t1 where t1.\"loginName\" = #{loginName} ")
     String getUserIdByLoginName(@Param("loginName")String loginName);
 }

@@ -31,7 +31,7 @@
     <select id="getUserInfoByLoginName" resultType="com.photovoltaic.model.user.TabUserInfo">
         SELECT
           <include refid="userInfoColumns"/>
-        FROM "ts_userInfo" t1
+        FROM "ts_user_info" t1
         <where>
             t1."loginName" = #{loginName}
         </where>
@@ -40,7 +40,7 @@
 
     <!--新增用户信息(注册用)-->
     <insert id="addUserInfo" >
-        INSERT INTO "GFTW"."ts_userInfo" ("id", "password", "loginName", "createDate", "modifyDate", "loginSalt")
+        INSERT INTO "GFTW"."ts_user_info" ("id", "password", "loginName", "createDate", "modifyDate", "loginSalt")
                                   VALUES (#{id}, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
     </insert>
 
