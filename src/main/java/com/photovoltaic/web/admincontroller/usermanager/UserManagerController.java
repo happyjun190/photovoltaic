@@ -36,7 +36,6 @@ public class UserManagerController extends BaseController {
      * @return
      */
     @ApiOperation(value = "分页获取用户列表，可供查询", tags="wushenjun", notes = "分页获取用户列表，可供查询(用户登录名、中文名查询)")
-    @Permission(loginReqired=false)
     @RequestMapping(value = "/getUserInfoList/{version}", method = RequestMethod.POST)
     public JsonResultOut<LoginDTO> getUserInfoList(HttpServletRequest request,
                                           @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
