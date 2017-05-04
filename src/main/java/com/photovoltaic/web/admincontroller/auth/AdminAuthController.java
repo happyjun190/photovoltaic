@@ -3,7 +3,7 @@ package com.photovoltaic.web.admincontroller.auth;
 import com.photovoltaic.annotation.Permission;
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.service.auth.IAuthService;
-import com.photovoltaic.web.controller.BaseController;
+import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
 import com.photovoltaic.web.model.in.auth.RegistInModel;

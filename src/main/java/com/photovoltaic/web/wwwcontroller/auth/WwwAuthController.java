@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by wushenjun on 2017/4/15.
+ * www网站登录等controller
  */
 @Api(tags = "WWW Auth")
 @RestController

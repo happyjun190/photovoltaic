@@ -47,4 +47,13 @@
                                   VALUES (userInfo_sequence.nextval, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
     </insert>
 
+
+    <!--分页查询用户记录-->
+    <select id="getUserInfoList" resultType="com.photovoltaic.model.user.TabUserInfo">
+        SELECT
+          <include refid="userInfoColumns"/>
+        FROM "ts_user_info" t1
+    </select>
+
+
 </mapper>
