@@ -36,7 +36,6 @@ public class WwwAuthController extends BaseController{
      * @return
      */
     @ApiOperation(value = "www端用户登录", tags="wushenjun", notes = "www端用户登录，前端通过MD5将原始密码加密传给接口")
-    @Permission(loginReqired=false)
     @RequestMapping(value = "/login/{version}", method = RequestMethod.POST)
     public JsonResultOut<LoginDTO> login(HttpServletRequest request,
                                          @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
