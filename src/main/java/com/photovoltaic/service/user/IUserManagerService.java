@@ -19,4 +19,7 @@ public interface IUserManagerService {
      */
     JsonResultOut<List<UserInfoDTO>> getUserInfoList(UserInfoQueryInModel inModel);
 
+
+
+
 }
