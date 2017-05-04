@@ -10,15 +10,15 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class LoginDTO {
     @ApiModelProperty(value = "用户id", required = true)
-    private String userId;
+    private int userId;
     @ApiModelProperty(value = "用户token", required = true)
     private String userToken;
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

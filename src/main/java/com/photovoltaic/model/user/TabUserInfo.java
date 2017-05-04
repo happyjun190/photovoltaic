@@ -8,7 +8,7 @@ import com.photovoltaic.model.BaseModel;
  */
 public class TabUserInfo extends BaseModel {
 
-    private String id;//用户GUID主键
+    private int id;//用户GUID主键
     private String code;//用户编号
     private String password;//用户密码
     private String loginName;//用户登录名称
@@ -22,11 +22,11 @@ public class TabUserInfo extends BaseModel {
     private String loginSalt;//登录盐值-配合密码加密
 
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

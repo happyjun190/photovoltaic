@@ -40,8 +40,11 @@
 
     <!--新增用户信息(注册用)-->
     <insert id="addUserInfo" >
+        <selectKey resultType="java.lang.Integer" keyProperty="id">
+    　　　　SELECT userInfo_sequence.currval FROM DUAL
+    　　</selectKey>
         INSERT INTO "GFTW"."ts_user_info" ("id", "password", "loginName", "createDate", "modifyDate", "loginSalt")
-                                  VALUES (#{id}, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
+                                  VALUES (userInfo_sequence.nextval, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
     </insert>
 
 </mapper>

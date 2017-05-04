@@ -65,7 +65,7 @@ public class AuthService implements IAuthService {
         }
 
         String loginSalt = SecurityUtils.getRandNumber(5); // md5加密盐值
-        String userId = this.addUserInfo(loginName, password, loginSalt);
+        int userId = this.addUserInfo(loginName, password, loginSalt);
 
         /*Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("userId", userId);*/
@@ -93,7 +93,7 @@ public class AuthService implements IAuthService {
             String tokenKey = RedisConstants.Prefix.APP_TOKEN + token;
             //TODO
             //保存login相关的信息到redis中
-            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + String.valueOf(tabUserInfo.getId());
 
             Map<String, String> userLoginInfo = new HashMap<>();
             userLoginInfo.put(RedisConstants.UserLoginInfo.APP_TOKEN.id(), token);
@@ -103,7 +103,7 @@ public class AuthService implements IAuthService {
 
             int maxRedisAge = RedisConstants.Prefix.APP_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
             //设置token to userId
-            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+            redisOperator.set(tokenKey, String.valueOf(tabUserInfo.getId()), maxRedisAge);
 
             /*Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("userToken", token);*/
@@ -133,7 +133,7 @@ public class AuthService implements IAuthService {
             String tokenKey = RedisConstants.Prefix.WEB_TOKEN + token;
             //TODO
             //保存login相关的信息到redis中
-            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + String.valueOf(tabUserInfo.getId());
 
             Map<String, String> userLoginInfo = new HashMap<>();
             userLoginInfo.put(RedisConstants.UserLoginInfo.WEB_TOKEN.id(), token);
@@ -143,7 +143,7 @@ public class AuthService implements IAuthService {
 
             int maxRedisAge = RedisConstants.Prefix.WEB_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
             //设置token to userId
-            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+            redisOperator.set(tokenKey, String.valueOf(tabUserInfo.getId()), maxRedisAge);
 
             /*Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("userToken", token);*/
@@ -175,7 +175,7 @@ public class AuthService implements IAuthService {
             String tokenKey = RedisConstants.Prefix.ADMIN_TOKEN + token;
             //TODO
             //保存login相关的信息到redis中
-            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + String.valueOf(tabUserInfo.getId());
 
             Map<String, String> userLoginInfo = new HashMap<>();
             userLoginInfo.put(RedisConstants.UserLoginInfo.ADMIN_TOKEN.id(), token);
@@ -185,7 +185,7 @@ public class AuthService implements IAuthService {
 
             int maxRedisAge = RedisConstants.Prefix.ADMIN_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
             //设置token to userId
-            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+            redisOperator.set(tokenKey, String.valueOf(tabUserInfo.getId()), maxRedisAge);
 
             /*Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("userToken", token);*/
@@ -216,7 +216,7 @@ public class AuthService implements IAuthService {
             String tokenKey = RedisConstants.Prefix.WWW_TOKEN + token;
             //TODO
             //保存login相关的信息到redis中
-            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + tabUserInfo.getId();
+            String userLoginInfoKey = RedisConstants.Prefix.USER_LOGIN_INFO + String.valueOf(tabUserInfo.getId());
 
             Map<String, String> userLoginInfo = new HashMap<>();
             userLoginInfo.put(RedisConstants.UserLoginInfo.WWW_TOKEN.id(), token);
@@ -226,7 +226,7 @@ public class AuthService implements IAuthService {
 
             int maxRedisAge = RedisConstants.Prefix.WWW_TOKEN.ttl();// token存进redis，保存一天（单位：分钟）
             //设置token to userId
-            redisOperator.set(tokenKey, tabUserInfo.getId(), maxRedisAge);
+            redisOperator.set(tokenKey, String.valueOf(tabUserInfo.getId()), maxRedisAge);
 
             /*Map<String, Object> resultMap = new HashMap<>();
             resultMap.put("userToken", token);*/
@@ -248,10 +248,10 @@ public class AuthService implements IAuthService {
      * @param loginSalt
      * @return
      */
-    private String addUserInfo(String loginName, String password, String loginSalt) {
+    private int addUserInfo(String loginName, String password, String loginSalt) {
         TabUserInfo tabUserInfo = new TabUserInfo();
         password = EncryptUtils.encryptPassword(password, loginSalt);
-        tabUserInfo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
+        //tabUserInfo.setId(UUID.randomUUID().toString().replaceAll("-", ""));
         tabUserInfo.setPassword(password);
         tabUserInfo.setLoginSalt(loginSalt);
         tabUserInfo.setLoginName(loginName);
