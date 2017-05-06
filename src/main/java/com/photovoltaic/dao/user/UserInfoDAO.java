@@ -33,7 +33,7 @@ public interface UserInfoDAO {
      * @param loginName
      * @return
      */
-    @Select("select t1.\"id\" FROM \"ts_user_info\" t1 where t1.\"loginName\" = #{loginName} ")
+    @Select("select T1.\"ID\" FROM \"TS_USER_INFO\" T1 where T1.\"LOGIN_NAME\" = #{loginName} ")
     String getUserIdByLoginName(@Param("loginName")String loginName);
 
 
