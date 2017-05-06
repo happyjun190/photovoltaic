@@ -50,7 +50,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
-        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
         String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);
         //获取用户所有逆变器的最近一条实时统计数据(当天的)
@@ -146,7 +146,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
-        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
@@ -261,7 +261,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
-        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
         //当日的YYYYMMDD格式时间
         String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);
@@ -298,7 +298,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
-        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
         //当日的YYYYMMDD格式时间
         String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);
@@ -333,7 +333,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
-        List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
+        List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
         //当日的YYYYMMDD格式时间
         String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);

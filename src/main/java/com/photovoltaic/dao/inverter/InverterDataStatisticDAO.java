@@ -41,7 +41,7 @@ public interface InverterDataStatisticDAO {
      * @return
      */
     @Cacheable(value = "getUsersInverterIdList")
-    List<String> getUsersInverterIdList(@Param("powerStationIdList") List<String> powerStationIdList);
+    List<Integer> getUsersInverterIdList(@Param("powerStationIdList") List<String> powerStationIdList);
 
 
     /**
@@ -58,7 +58,7 @@ public interface InverterDataStatisticDAO {
      * @param inverterIdList
      * @return
      */
-    List<TabInverterRealtimeData> getUserLatelyInverterRealtimeDataList(@Param("inverterIdList") List<String> inverterIdList, @Param("toDayDate")String toDayDate);
+    List<TabInverterRealtimeData> getUserLatelyInverterRealtimeDataList(@Param("inverterIdList") List<Integer> inverterIdList, @Param("toDayDate")String toDayDate);
 
 
     /**
@@ -67,7 +67,7 @@ public interface InverterDataStatisticDAO {
      * @param toDayDate
      * @return
      */
-    List<TabTodaySummary> getUserToDaySummaryList(@Param("inverterIdList") List<String> inverterIdList, @Param("toDayDate")String toDayDate);
+    List<TabTodaySummary> getUserToDaySummaryList(@Param("inverterIdList") List<Integer> inverterIdList, @Param("toDayDate")String toDayDate);
 
 
 }

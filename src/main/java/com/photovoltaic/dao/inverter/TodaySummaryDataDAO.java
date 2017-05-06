@@ -22,7 +22,7 @@ public interface TodaySummaryDataDAO {
      * @return
      */
     @MapKey("inverterId")
-    Map<String, InverterInfoDTO> getInverterInfoMapByTimeInterval(@Param("inverterIdList") List<String> inverterIdList,
+    Map<String, InverterInfoDTO> getInverterInfoMapByTimeInterval(@Param("inverterIdList") List<Integer> inverterIdList,
                                                                   @Param("startDate")String startDate,
                                                                   @Param("endDate")String endDate);
 
@@ -33,7 +33,7 @@ public interface TodaySummaryDataDAO {
      * @return
      */
     @MapKey("inverterId")
-    Map<String, InverterInfoDTO> getInverterAvgGenerateCapacityInfo(@Param("inverterIdList") List<String> inverterIdList);
+    Map<String, InverterInfoDTO> getInverterAvgGenerateCapacityInfo(@Param("inverterIdList") List<Integer> inverterIdList);
 
 
 }
