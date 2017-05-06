@@ -33,7 +33,7 @@
           <include refid="userInfoColumns"/>
         FROM "TS_USER_INFO" T1
         <where>
-            T1."loginName" = #{loginName}
+            T1."LOGIN_NAME" = #{loginName}
         </where>
     </select>
 
