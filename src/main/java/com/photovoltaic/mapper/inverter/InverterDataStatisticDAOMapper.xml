@@ -5,10 +5,10 @@
 
     <!--获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)-->
     <select id="getUsersInverterIdList" resultType="java.lang.String">
-        select t1."id"
-        from GFTW."ts_inverter_device" t1
-        where t1."dtu_id" in ( select "dtu_id" from  GFTW."ts_dtu_device"
-                                WHERE "powerstation_id" IN
+        select T1."ID"
+        from GFTW."TS_INVERTER_DEVICE" T1
+        where T1."DTU_ID" in ( select "DTU_ID" from  GFTW."TS_DTU_DEVICE"
+                                WHERE "POWERSTATION_ID" IN
                                   <foreach collection="powerStationIdList" index="item" item="item" open="(" separator="," close=")">
                                       #{item}
                                   </foreach>
@@ -17,26 +17,26 @@
 
     <!--逆变器设备表字段-->
     <sql id="inverterDeviceColumns">
-        t1."id",
-        t1."name",
-        t1."inverter_addr" as inverterAddr,
-        t1."dtu_id" as dtuId,
-        t1."status",
-        t1."inverter_type" as inverterType,
-        t1."version",
-        t1."phase_type" as phaseType,
-        t1."power_size" as powerSize,
-        t1."ctime",
-        t1."mtime"
+        T1."ID" as id,
+        T1."NAME" as name,
+        T1."INVERTER_ADDR" as inverterAddr,
+        T1."DTU_ID" as dtuId,
+        T1."STATUS" as status,
+        T1."INVERTER_TYPE" as inverterType,
+        T1."VERSION" as version,
+        T1."PHASE_TYPE" as phaseType,
+        T1."POWER_SIZE" as powerSize,
+        T1."CTIME" as ctime,
+        T1."MTIME" as mtime
     </sql>
 
     <!--获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)-->
     <select id="getUsersInverterDeviceList" resultType="com.photovoltaic.model.device.TabInverterDevice">
         select
           <include refid="inverterDeviceColumns"/>
-        from GFTW."ts_inverter_device" t1
-        where t1."dtu_id" in ( select "dtu_id" from  GFTW."ts_dtu_device"
-        WHERE "powerstation_id" IN
+        from GFTW."TS_INVERTER_DEVICE" T1
+        where T1."DTU_ID" in ( select "DTU_ID" from  GFTW."TS_DTU_DEVICE"
+        WHERE "POWERSTATION_ID" IN
         <foreach collection="powerStationIdList" index="item" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -46,92 +46,94 @@
 
     <!--逆变器实时数据表字段-->
     <sql id="inverterRealtimedataColumns">
-        t1."id",
-        t1."dtu_id" as dtuId,
-        t1."inverter_addr" as inverterAddr,
-        t1."pv1_voltage" as pv1Voltage,
-        t1."pv2_voltage" as pv2Voltage,
-        t1."pv3_voltage" as pv3Voltage,
-        t1."pv4_voltage" as pv4Voltage,
-        t1."pv1_electric_current" as pv1ElectricCurrent,
-        t1."pv2_electric_current" as pv2ElectricCurrent,
-        t1."pv3_electric_current" as pv3ElectricCurrent,
-        t1."pv4_electric_current" as pv4ElectricCurrent,
-        t1."u_phase_voltage" as uPhaseVoltage,
-        t1."v_phase_voltage" as vPhaseVoltage,
-        t1."w_phase_voltage" as wPhaseVoltage,
-        t1."bus_phase_voltage" as busPhaseVoltage,
-        t1."u_phase_electric_current" uPhaseElectricCurrent,
-        t1."v_phase_electric_current" as vPhaseElectricCurrent,
-        t1."w_phase_electric_current" as wPhaseElectricCurrent,
-        t1."bus_phase_electric_current" as busPhaseElectricCurrent,
-        t1."grid_frequency" as gridFrequency,
-        t1."power_factor" as powerFactor,
-        t1."input_power" as inputPower,
-        t1."output_power" as outputPower,
-        t1."temperature1",
-        t1."temperature2",
-        t1."temperature3",
-        t1."grounding_resistance" as groundingResistance,
-        t1."leakage_current" as leakageCurrent,
-        t1."dc_component" as dcComponent,
-        t1."ctime",
-        t1."inverter_id" as inverterId
+        T1."ID" as id,
+        T1."DTU_ID" as dtuId,
+        T1."INVERTER_ADDR" as inverterAddr,
+        T1."PV1_VOLTAGE" as pv1Voltage,
+        T1."PV2_VOLTAGE" as pv2Voltage,
+        T1."PV3_VOLTAGE" as pv3Voltage,
+        T1."PV4_VOLTAGE" as pv4Voltage,
+        T1."PV1_ELECTRIC_CURRENT" as pv1ElectricCurrent,
+        T1."PV2_ELECTRIC_CURRENT" as pv2ElectricCurrent,
+        T1."PV3_ELECTRIC_CURRENT" as pv3ElectricCurrent,
+        T1."PV4_ELECTRIC_CURRENT" as pv4ElectricCurrent,
+        T1."U_PHASE_VOLTAGE" as uPhaseVoltage,
+        T1."V_PHASE_VOLTAGE" as vPhaseVoltage,
+        T1."W_PHASE_VOLTAGE" as wPhaseVoltage,
+        T1."BUS_PHASE_VOLTAGE" as busPhaseVoltage,
+        T1."U_PHASE_ELECTRIC_CURRENT" uPhaseElectricCurrent,
+        T1."V_PHASE_ELECTRIC_CURRENT" as vPhaseElectricCurrent,
+        T1."W_PHASE_ELECTRIC_CURRENT" as wPhaseElectricCurrent,
+        T1."BUS_PHASE_ELECTRIC_CURRENT" as busPhaseElectricCurrent,
+        T1."GRID_FREQUENCY" as gridFrequency,
+        T1."POWER_FACTOR" as powerFactor,
+        T1."INPUT_POWER" as inputPower,
+        T1."OUTPUT_POWER" as outputPower,
+        T1."TEMPERATURE1" as temperature1,
+        T1."TEMPERATURE2" as temperature2,
+        T1."TEMPERATURE3" as temperature3,
+        T1."GROUNDING_RESISTANCE" as groundingResistance,
+        T1."LEAKAGE_CURRENT" as leakageCurrent,
+        T1."DC_COMPONENT" as dcComponent,
+        T1."CTIME" as ctime,
+        T1."INVERTER_ID" as inverterId,
+        T1."HIGHDATA_INSERT" AS highdataInsert,
+        T1."LOWDATA_INSERT" as lowdataInsert
     </sql>
 
     <!--获取用户所有逆变器的最近一条实时统计数据(当天的)-->
     <select id="getUserLatelyInverterRealtimeDataList" resultType="com.photovoltaic.model.inverterdata.TabInverterRealtimeData">
         SELECT
           <include refid="inverterRealtimedataColumns"/>
-        FROM "GFTW"."ts_inverter_realtimedata" t1
-        WHERE t1."id" IN (
-            SELECT "MAX"(T2."id")
-            FROM "GFTW"."ts_inverter_realtimedata" t2
-            WHERE "TO_CHAR"(T2."ctime",'YYYYMMDD') = #{toDayDate}
-              AND T2."inverter_id" IN
+        FROM "GFTW"."TS_INVERTER_REALTIMEDATA" T1
+        WHERE T1."ID" IN (
+            SELECT "MAX"(T2."ID")
+            FROM "GFTW"."TS_INVERTER_REALTIMEDATA" t2
+            WHERE "TO_CHAR"(T2."CTIME",'YYYYMMDD') = #{toDayDate}
+              AND T2."INVERTER_ID" IN
               <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
                  #{item}
              </foreach>
-             GROUP BY t2."inverter_id"
+             GROUP BY t2."INVERTER_ID"
           )
     </select>
 
 
     <!--逆变器今日统计表字段-->
     <sql id="todaySummaryColumns">
-        t1."id",
-        t1."dtu_id" as dtuId,
-        t1."inverter_addr" as inverterAddr,
-        t1."generate_capacity" as generateCapacity,
-        t1."save_money" as saveMoney,
-        t1."co2_reduction" as co2Reduction,
-        t1."datestring",
-        t1."ctime",
-        t1."mtime",
-        t1."total_generate_capacity" as totalGenerateCapacity,
-        t1."total_save_money" as totalSaveMoney,
-        t1."total_co2_reduction" as totalCo2Reduction,
-        t1."reactive_power" as reactivePower,
-        t1."exception1",
-        t1."exception2",
-        t1."exception3",
-        t1."exception4",
-        t1."exception5",
-        t1."exception6",
-        t1."exception7",
-        t1."exception8",
-        t1."inverter_status" as inverterStatus,
-        t1."inverter_time" as inverterTime,
-        t1."inverter_id" as inverterId
+        T1."ID" as id,
+        T1."DTU_ID" as dtuId,
+        T1."INVERTER_ADDR" as inverterAddr,
+        T1."GENERATE_CAPACITY" as generateCapacity,
+        T1."SAVE_MONEY" as saveMoney,
+        T1."CO2_REDUCTION" as co2Reduction,
+        T1."DATESTRING" as datestring,
+        T1."CTIME" as ctime,
+        T1."MTIME" as mtime,
+        T1."TOTAL_GENERATE_CAPACITY" as totalGenerateCapacity,
+        T1."TOTAL_SAVE_MONEY" as totalSaveMoney,
+        T1."TOTAL_CO2_REDUCTION" as totalCo2Reduction,
+        T1."REACTIVE_POWER" as reactivePower,
+        T1."EXCEPTION1" as exception1,
+        T1."EXCEPTION2" as exception2,
+        T1."EXCEPTION3" as exception3,
+        T1."EXCEPTION4" as exception4,
+        T1."EXCEPTION5" as exception5,
+        T1."EXCEPTION6" as exception6,
+        T1."EXCEPTION7" as exception7,
+        T1."EXCEPTION8" as exception8,
+        T1."INVERTER_STATUS" as inverterStatus,
+        T1."INVERTER_TIME" as inverterTime,
+        T1."INVERTER_ID" as inverterId
     </sql>
 
     <!--获取用户所有逆变器的当天的统计数据-->
     <select id="getUserToDaySummaryList" resultType="com.photovoltaic.model.inverterdata.TabTodaySummary">
         SELECT
           <include refid="todaySummaryColumns"/>
-        FROM "GFTW"."ts_today_summary" t1
-        WHERE t1."datestring" = #{toDayDate}
-          and t1."inverter_id" IN
+        FROM "GFTW"."TS_TODAY_SUMMARY" T1
+        WHERE T1."DATESTRING" = #{toDayDate}
+          and T1."INVERTER_ID" IN
             <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
               #{item}
             </foreach>
@@ -140,18 +142,18 @@
 
     <!--发电站表字段-->
     <sql id="powerStationColumns">
-        t1."id",
-        t1."areaId",
-        t1."name",
-        t1."deleteMark",
-        t1."createDate",
-        t1."createUserID",
-        t1."createUserName",
-        t1."modifyDate",
-        t1."modifyUserID",
-        t1."modifyUserName",
-        t1."remark",
-        t1."ownerId"
+        T1."ID" as id,
+        T1."AREA_ID" as areaId,
+        T1."NAME" AS name,
+        T1."DELETE_MARK" AS deleteMark,
+        T1."CREATE_DATE" AS createDate,
+        T1."CREATE_USER_ID" AS createUserID,
+        T1."CREATE_USER_NAME" as createUserName,
+        T1."MODIFY_DATE" as modifyDate,
+        T1."MODIFY_USER_ID" as modifyUserID,
+        T1."MODIFY_USER_NAME" as modifyUserName,
+        T1."REMARK" as remark,
+        T1."OWNER_ID" as ownerId
     </sql>
 
 
@@ -159,8 +161,8 @@
     <select id="getUsersPowerStationList" resultType="com.photovoltaic.model.powerstation.TabPowerStation">
         SELECT
           <include refid="powerStationColumns"/>
-        FROM "GFTW"."ts_power_station" t1
-        WHERE T1."ownerId" = #{userId}
+        FROM "GFTW"."TS_POWER_STATION" T1
+        WHERE T1."OWNER_ID" = #{userId}
     </select>
 
 </mapper>

@@ -23,7 +23,7 @@ public interface InverterDataStatisticDAO {
      * @return
      */
     @Cacheable(value = "getUsersPowerStationIdList")
-    @Select("SELECT T1.\"id\" FROM \"GFTW\".\"ts_power_station\" T1 where T1.\"ownerId\" = #{userId}")
+    @Select("SELECT T1.\"ID\" FROM \"GFTW\".\"TS_POWER_STATION\" T1 where T1.\"OWNER_ID\" = #{userId}")
     List<String> getUsersPowerStationIdList(@Param("userId") String userId);
 
 

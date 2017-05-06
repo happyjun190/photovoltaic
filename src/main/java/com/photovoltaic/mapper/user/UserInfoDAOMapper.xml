@@ -4,26 +4,26 @@
 
     <!--用户信息表字段-->
     <sql id="userInfoColumns">
-        t1."id",
-        t1."code",
-        t1."password",
-        t1."loginName",
-        t1."chName",
-        t1."sex",
-        t1."title",
-        t1."eMail",
-        t1."mobileCode",
-        t1."securityQuestion",
-        t1."securityAnswer",
-        t1."deleteMark",
-        t1."createDate",
-        t1."createUserID",
-        t1."createUserName",
-        t1."modifyDate",
-        t1."modifyUserID",
-        t1."modifyUserName",
-        t1."remark",
-        t1."loginSalt"
+        T1."ID" as id,
+        T1."CODE" as code,
+        T1."PASSWORD" as password,
+        T1."LOGIN_NAME" as loginName,
+        T1."CH_NAME" as chName,
+        T1."SEX" as sex,
+        T1."TITLE" as title,
+        T1."EMAIL" as eMail,
+        T1."MOBILE_CODE" as mobileCode,
+        T1."SECURITY_QUESTION" as securityQuestion,
+        T1."SECURITY_ANSWER" as securityAnswer,
+        T1."DELETE_MARK" as deleteMark,
+        T1."CREATE_DATE" as createDate,
+        T1."CREATE_USER_ID" as createUserID,
+        T1."CREATE_USER_NAME" as createUserName,
+        T1."MODIFY_DATE" as modifyDate,
+        T1."MODIFY_USER_ID" as modifyUserID,
+        T1."MODIFY_USER_NAME" as modifyUserName,
+        T1."REMARK" as remark,
+        T1."LOGIN_SALT" as loginSalt
     </sql>
 
 
@@ -31,9 +31,9 @@
     <select id="getUserInfoByLoginName" resultType="com.photovoltaic.model.user.TabUserInfo">
         SELECT
           <include refid="userInfoColumns"/>
-        FROM "ts_user_info" t1
+        FROM "TS_USER_INFO" T1
         <where>
-            t1."loginName" = #{loginName}
+            T1."loginName" = #{loginName}
         </where>
     </select>
 
@@ -41,9 +41,9 @@
     <!--新增用户信息(注册用)-->
     <insert id="addUserInfo" >
         <selectKey resultType="java.lang.Integer" keyProperty="id">
-    　　　　SELECT userInfo_sequence.currval FROM DUAL
+    　　　　SELECT USERINFO_SEQUENCE.CURRVAL FROM DUAL
     　　</selectKey>
-        INSERT INTO "GFTW"."ts_user_info" ("id", "password", "loginName", "createDate", "modifyDate", "loginSalt")
+        INSERT INTO "GFTW"."TS_USER_INFO" ("ID", "PASSWORD", "LOGIN_NAME", "CREATE_DATE", "MODIFY_DATE", "LOGIN_SALT")
                                   VALUES (userInfo_sequence.nextval, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
     </insert>
 
@@ -52,7 +52,7 @@
     <select id="getUserInfoList" resultType="com.photovoltaic.model.user.TabUserInfo">
         SELECT
           <include refid="userInfoColumns"/>
-        FROM "ts_user_info" t1
+        FROM "TS_USER_INFO" T1
     </select>
 
 

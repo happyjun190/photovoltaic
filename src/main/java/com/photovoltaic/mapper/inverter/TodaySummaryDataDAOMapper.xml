@@ -5,30 +5,30 @@
 
     <!--获取逆变器一段时间内的统计数据-->
     <select id="getInverterInfoMapByTimeInterval" resultType="com.photovoltaic.web.model.out.inveter.InverterInfoDTO">
-        SELECT "SUM"(T1."generate_capacity") as generateCapacity,
-                "SUM"(T1."total_generate_capacity") as totalGenerationPower,
-                "SUM"(T1."inverter_status") as status,
-                t1."inverter_id" as inverterId
-            FROM "GFTW"."ts_today_summary" t1
-        WHERE "TO_CHAR"(T1."ctime",'YYYYMMDD') BETWEEN #{startDate} AND #{endDate}
-          AND T1."inverter_id" IN
+        SELECT "SUM"(T1."GENERATE_CAPACITY") as generateCapacity,
+                "SUM"(T1."TOTAL_GENERATE_CAPACITY") as totalGenerationPower,
+                "SUM"(T1."INVERTER_STATUS") as status,
+                T1."INVERTER_ID" as inverterId
+            FROM "GFTW"."TS_TODAY_SUMMARY" T1
+        WHERE "TO_CHAR"(T1."CTIME",'YYYYMMDD') BETWEEN #{startDate} AND #{endDate}
+          AND T1."INVERTER_ID" IN
             <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
               #{item}
             </foreach>
-        GROUP BY t1."inverter_id"
+        GROUP BY T1."INVERTER_ID"
     </select>
 
 
     <!--获取逆变器日均发电量-->
     <select id="getInverterAvgGenerateCapacityInfo" resultType="com.photovoltaic.web.model.out.inveter.InverterInfoDTO">
-        SELECT "AVG"(T1."generate_capacity") as generateCapacity,
-                t1."inverter_id" as inverterId
-        FROM "GFTW"."ts_today_summary" t1
-        WHERE T1."inverter_id" IN
+        SELECT "AVG"(T1."GENERATE_CAPACITY") as generateCapacity,
+                T1."INVERTER_ID" as inverterId
+        FROM "GFTW"."TS_TODAY_SUMMARY" T1
+        WHERE T1."INVERTER_ID" IN
         <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
-        GROUP BY t1."inverter_id"
+        GROUP BY T1."INVERTER_ID"
     </select>
 
 </mapper>
