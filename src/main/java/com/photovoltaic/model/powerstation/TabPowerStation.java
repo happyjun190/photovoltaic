@@ -9,7 +9,7 @@ public class TabPowerStation extends BaseModel {
     private String id;
     private int areaId;//区域id，ts_areas表id//TODO 后期可能需要改为area_code
     private String name;//发电站名称
-    private String ownerId;//所有者ID，ts_user_info表id
+    private int ownerId;//所有者ID，ts_user_info表id
 
     public String getId() {
         return id;
@@ -35,11 +35,11 @@ public class TabPowerStation extends BaseModel {
         this.name = name;
     }
 
-    public String getOwnerId() {
+    public int getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(int ownerId) {
         this.ownerId = ownerId;
     }
 }
