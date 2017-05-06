@@ -47,7 +47,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         logger.info("userId:{}", userId);
 
         //获取用户所有的电站id list
-        List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
+        List<Integer> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
@@ -143,7 +143,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         logger.info("userId:{}", userId);
 
         //获取用户所有的电站id list
-        List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
+        List<Integer> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
@@ -169,7 +169,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         //获取用户所有逆变器的最近一条实时统计数据(当天的)
         List<TabInverterRealtimeData> inverterRealtimeDataList = inverterDataStatisticDAO.getUserLatelyInverterRealtimeDataList(inverterIdList, todayDate);
-        Map<String, TabInverterRealtimeData> inverterRealtimeDataMap = new HashMap<>();
+        Map<Integer, TabInverterRealtimeData> inverterRealtimeDataMap = new HashMap<>();
         for(TabInverterRealtimeData tabInverterRealtimeData:inverterRealtimeDataList) {
             inverterRealtimeDataMap.put(tabInverterRealtimeData.getInverterId(), tabInverterRealtimeData);
         }
@@ -215,7 +215,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         String userId = inModel.getUserId();
 
         //获取用户所有的电站id list
-        List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
+        List<Integer> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
         //电站列表为空时，直接返回、以免异常
         if(powerStationIdList==null||powerStationIdList.isEmpty()) {
@@ -261,7 +261,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
      * @param powerStationIdList 电站列表
      * @return
      */
-    private List<InverterStatisticDTO> getInverterOutputPowerInfoList(List<String> powerStationIdList) {
+    private List<InverterStatisticDTO> getInverterOutputPowerInfoList(List<Integer> powerStationIdList) {
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
@@ -278,7 +278,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         //获取用户所有逆变器的最近一条实时统计数据(当天的)
         List<TabInverterRealtimeData> inverterRealtimeDataList = inverterDataStatisticDAO.getUserLatelyInverterRealtimeDataList(inverterIdList, todayDate);
-        Map<String, TabInverterRealtimeData> inverterRealtimeDataMap = new HashMap<>();
+        Map<Integer, TabInverterRealtimeData> inverterRealtimeDataMap = new HashMap<>();
         for(TabInverterRealtimeData tabInverterRealtimeData:inverterRealtimeDataList) {
             inverterRealtimeDataMap.put(tabInverterRealtimeData.getInverterId(), tabInverterRealtimeData);
         }
@@ -303,7 +303,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
      * @param powerStationIdList 电站列表
      * @return
      */
-    private List<InverterStatisticDTO> getInverterTotalGenerateCapacityInfoList(List<String> powerStationIdList) {
+    private List<InverterStatisticDTO> getInverterTotalGenerateCapacityInfoList(List<Integer> powerStationIdList) {
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
@@ -343,7 +343,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
      * @param powerStationIdList 电站列表
      * @return
      */
-    private List<InverterStatisticDTO> getInverterDayAvgGenerateCapacityInfoList(List<String> powerStationIdList) {
+    private List<InverterStatisticDTO> getInverterDayAvgGenerateCapacityInfoList(List<Integer> powerStationIdList) {
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 

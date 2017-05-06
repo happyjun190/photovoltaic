@@ -11,8 +11,8 @@ public class TabPeakPowerData {
     private BigDecimal todayPeakPower;
     private BigDecimal historyPeakPower;
     private Date ctime;
-    private String dtuId;
-    private String inverterId;//逆变器id
+    private int dtuId;
+    private int inverterId;//逆变器id
     private String inverterAddr;//逆变器地址
 
     public long getId() {
@@ -47,19 +47,19 @@ public class TabPeakPowerData {
         this.ctime = ctime;
     }
 
-    public String getDtuId() {
+    public int getDtuId() {
         return dtuId;
     }
 
-    public void setDtuId(String dtuId) {
+    public void setDtuId(int dtuId) {
         this.dtuId = dtuId;
     }
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 

@@ -24,7 +24,7 @@ public interface InverterDataStatisticDAO {
      */
     @Cacheable(value = "getUsersPowerStationIdList")
     @Select("SELECT T1.\"ID\" FROM \"GFTW\".\"TS_POWER_STATION\" T1 where T1.\"OWNER_ID\" = #{userId}")
-    List<String> getUsersPowerStationIdList(@Param("userId") String userId);
+    List<Integer> getUsersPowerStationIdList(@Param("userId") String userId);
 
 
     /**
@@ -41,7 +41,7 @@ public interface InverterDataStatisticDAO {
      * @return
      */
     @Cacheable(value = "getUsersInverterIdList")
-    List<Integer> getUsersInverterIdList(@Param("powerStationIdList") List<String> powerStationIdList);
+    List<Integer> getUsersInverterIdList(@Param("powerStationIdList") List<Integer> powerStationIdList);
 
 
     /**
@@ -50,7 +50,7 @@ public interface InverterDataStatisticDAO {
      * @return
      */
     @Cacheable(value = "getUsersInverterList")
-    List<TabInverterDevice> getUsersInverterDeviceList(@Param("powerStationIdList") List<String> powerStationIdList);
+    List<TabInverterDevice> getUsersInverterDeviceList(@Param("powerStationIdList") List<Integer> powerStationIdList);
 
 
     /**

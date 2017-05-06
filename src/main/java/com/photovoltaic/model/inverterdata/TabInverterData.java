@@ -8,7 +8,7 @@ import java.util.Date;
 public class TabInverterData {
     private int id;
     private int dtuId;
-    private String inverterId;//逆变器id
+    private int inverterId;//逆变器id
     private String inverterAddr;//逆变器地址
     private int dataLength;
     private String data;
@@ -71,11 +71,11 @@ public class TabInverterData {
         this.inverterAddr = inverterAddr;
     }
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 }

@@ -8,8 +8,8 @@ import java.math.BigDecimal;
  */
 public class TabInverterRealtimeData {
     private int id;//运行参数id
-    private String dtuId;//dtu设备id
-    private String inverterId;//逆变器id
+    private int dtuId;//dtu设备id
+    private int inverterId;//逆变器id
     private BigDecimal pv1Voltage;//pv1电压
     private BigDecimal pv2Voltage;//pv2电压
     private BigDecimal pv3Voltage;//pv3电压
@@ -45,19 +45,19 @@ public class TabInverterRealtimeData {
         this.id = id;
     }
 
-    public String getDtuId() {
+    public int getDtuId() {
         return dtuId;
     }
 
-    public void setDtuId(String dtuId) {
+    public void setDtuId(int dtuId) {
         this.dtuId = dtuId;
     }
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 

@@ -8,8 +8,8 @@ import java.util.Date;
  */
 public class TabTodaySummary {
     private long id;
-    private String dtuId;
-    private String inverterId;//逆变器id
+    private int dtuId;
+    private int inverterId;//逆变器id
     private String inverterAddr;//逆变器地址
     private BigDecimal generateCapacity;//当日发电量
     private BigDecimal saveMoney;//当日省钱量
@@ -40,19 +40,19 @@ public class TabTodaySummary {
         this.id = id;
     }
 
-    public String getDtuId() {
+    public int getDtuId() {
         return dtuId;
     }
 
-    public void setDtuId(String dtuId) {
+    public void setDtuId(int dtuId) {
         this.dtuId = dtuId;
     }
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 

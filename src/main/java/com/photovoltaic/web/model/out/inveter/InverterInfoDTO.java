@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @ApiModel
 public class InverterInfoDTO {
     @ApiModelProperty(value = "逆变器id", required = true)
-    private String inverterId;//逆变器id
+    private int inverterId;//逆变器id
     @ApiModelProperty(value = "逆变器名称", required = true)
     private String inverterName;//逆变器名称
     @ApiModelProperty(value = "逆变器状态", required = true)
@@ -40,11 +40,11 @@ public class InverterInfoDTO {
     @ApiModelProperty(value = "当前输出功率(KW)", required = true)
     private BigDecimal outputPower;//输出功率(KW)
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 

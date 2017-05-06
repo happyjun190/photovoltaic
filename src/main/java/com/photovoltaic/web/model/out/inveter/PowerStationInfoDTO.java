@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class PowerStationInfoDTO {
     @ApiModelProperty(value = "电站id", required = true)
-    private String powerStationId;//电站id
+    private int powerStationId;//电站id
     @ApiModelProperty(value = "电站名称", required = true)
     private String powerStationName;//电站名称
 
@@ -20,11 +20,11 @@ public class PowerStationInfoDTO {
         powerStationName = tabPowerStation.getName();
     }
 
-    public String getPowerStationId() {
+    public int getPowerStationId() {
         return powerStationId;
     }
 
-    public void setPowerStationId(String powerStationId) {
+    public void setPowerStationId(int powerStationId) {
         this.powerStationId = powerStationId;
     }
 

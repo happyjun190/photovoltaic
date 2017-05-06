@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by ziye on 2017/4/17.
  */
 public class TabInverterDevice {
-    private String id;
+    private int id;
     private String name;//逆变器名称
     private String inverterAddr;//逆变器地址
     private int dtuId;//dtu设备id
@@ -19,11 +19,11 @@ public class TabInverterDevice {
     private Date ctime;
     private Date mtime;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

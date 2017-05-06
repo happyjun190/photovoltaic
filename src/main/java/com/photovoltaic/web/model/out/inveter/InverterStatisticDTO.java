@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class InverterStatisticDTO {
 
     @ApiModelProperty(value = "逆变器id", required = true)
-    private String inverterId;//逆变器id
+    private int inverterId;//逆变器id
     @ApiModelProperty(value = "逆变器名称(x-轴名称)", required = true)
     private String inverterName;
     @ApiModelProperty(value = "y-轴统计值", required = true)
@@ -26,11 +26,11 @@ public class InverterStatisticDTO {
         inverterName = tabInverterDevice.getName();
     }
 
-    public String getInverterId() {
+    public int getInverterId() {
         return inverterId;
     }
 
-    public void setInverterId(String inverterId) {
+    public void setInverterId(int inverterId) {
         this.inverterId = inverterId;
     }
 

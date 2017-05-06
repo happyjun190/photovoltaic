@@ -4,7 +4,7 @@
 
 
     <!--获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)-->
-    <select id="getUsersInverterIdList" resultType="java.lang.String">
+    <select id="getUsersInverterIdList" resultType="java.lang.Integer">
         select T1."ID"
         from GFTW."TS_INVERTER_DEVICE" T1
         where T1."DTU_ID" in ( select "DTU_ID" from  GFTW."TS_DTU_DEVICE"
