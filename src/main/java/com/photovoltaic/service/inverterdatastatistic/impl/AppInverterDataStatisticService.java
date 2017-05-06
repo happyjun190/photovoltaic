@@ -217,6 +217,11 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         //获取用户所有的电站id list
         List<String> powerStationIdList = inverterDataStatisticDAO.getUsersPowerStationIdList(userId);
 
+        //电站列表为空时，直接返回、以免异常
+        if(powerStationIdList==null||powerStationIdList.isEmpty()) {
+            return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器分析信息成功!", null);
+        }
+
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         //List<String> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
@@ -260,6 +265,11 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
+        //用户电站不存在逆变器时，直接返回，以免异常
+        if(inverterDeviceList==null||inverterDeviceList.isEmpty()) {
+            return null;
+        }
+
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
@@ -297,6 +307,11 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
 
+        //用户电站不存在逆变器时，直接返回，以免异常
+        if(inverterDeviceList==null||inverterDeviceList.isEmpty()) {
+            return null;
+        }
+
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
 
@@ -331,6 +346,11 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
     private List<InverterStatisticDTO> getInverterDayAvgGenerateCapacityInfoList(List<String> powerStationIdList) {
         //获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)
         List<TabInverterDevice> inverterDeviceList = inverterDataStatisticDAO.getUsersInverterDeviceList(powerStationIdList);
+
+        //用户电站不存在逆变器时，直接返回，以免异常
+        if(inverterDeviceList==null||inverterDeviceList.isEmpty()) {
+            return null;
+        }
 
         //获取用户所能查看数据的逆变器Id(用户->电站->dtu设备->逆变器设备)
         List<Integer> inverterIdList = inverterDataStatisticDAO.getUsersInverterIdList(powerStationIdList);
