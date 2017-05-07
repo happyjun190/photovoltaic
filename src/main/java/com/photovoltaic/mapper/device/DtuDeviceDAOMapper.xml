@@ -18,16 +18,20 @@
     <!--分页查询dtu设备信息-->
     <select id="getDtuDeviceList" resultType="com.photovoltaic.model.device.TabDtuDevice">
         SELECT
-          <include refid="dtuDeviceColumns"/>
+            <include refid="dtuDeviceColumns"/>,
+            T2.NAME AS powerStationName
         FROM "GFTW"."TS_DTU_DEVICE" T1
+          LEFT JOIN "GFTW"."TS_POWER_STATION" T2 ON T1."POWERSTATION_ID" = T2."ID"
     </select>
 
 
     <!--根据dtu id获取dtu信息-->
     <select id="getDtuDeviceById" resultType="com.photovoltaic.model.device.TabDtuDevice">
         SELECT
-          <include refid="dtuDeviceColumns"/>
+            <include refid="dtuDeviceColumns"/>,
+            T2.NAME AS powerStationName
         FROM "GFTW"."TS_DTU_DEVICE" T1
+          LEFT JOIN "GFTW"."TS_POWER_STATION" T2 ON T1."POWERSTATION_ID" = T2."ID"
         WHERE T1."ID" = #{dtuId}
     </select>
 

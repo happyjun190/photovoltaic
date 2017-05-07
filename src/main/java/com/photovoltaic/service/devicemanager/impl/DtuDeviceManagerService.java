@@ -52,7 +52,7 @@ public class DtuDeviceManagerService implements IDtuDeviceManagerService {
             }
             dtuDeviceDAO.addDtuDeviceInfo(inModel);
         } else {
-            dtuDeviceDAO.updatedtuDeviceInfo(inModel);
+            dtuDeviceDAO.updateDtuDeviceInfo(inModel);
         }
         return new JsonResultOut(ReturnCode.SUCCESS, "新增/更新dtu设备信息成功!");
     }
@@ -61,8 +61,10 @@ public class DtuDeviceManagerService implements IDtuDeviceManagerService {
     public JsonResultOut<DtuDeviceInfoDTO> getDtuDeviceInfo(CommonSelectOneInModel inModel) {
         TabDtuDevice tabDtuDevice = dtuDeviceDAO.getDtuDeviceById(inModel.getItemId());
 
-        DtuDeviceInfoDTO dtuDeviceInfoDTO = new DtuDeviceInfoDTO(tabDtuDevice);
-
+        DtuDeviceInfoDTO dtuDeviceInfoDTO = null;
+        if(tabDtuDevice!=null) {
+            dtuDeviceInfoDTO = new DtuDeviceInfoDTO(tabDtuDevice);
+        }
         return new JsonResultOut(ReturnCode.SUCCESS, "获取dtu设备信息成功!", dtuDeviceInfoDTO);
     }
 }

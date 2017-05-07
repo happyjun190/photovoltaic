@@ -53,5 +53,5 @@ public interface DtuDeviceDAO {
      * 更新dtu设备信息
      * @param inModel
      */
-    void updatedtuDeviceInfo(DtuDeviceInfoAddInModel inModel);
+    void updateDtuDeviceInfo(DtuDeviceInfoAddInModel inModel);
 }
