@@ -29,10 +29,10 @@ public interface InverterDeviceDAO {
 
     /**
      * 根据逆变器id获取逆变器信息
-     * @param interverId
+     * @param dtuId
      * @return
      */
-    TabInverterDevice getInverterDeviceById(@Param("inverterId")int interverId);
+    TabInverterDevice getInverterDeviceById(@Param("dtuId")int dtuId);
 
     /**
      * 新增逆变器设备信息
