@@ -1,4 +1,4 @@
-package com.photovoltaic.service.inverterdatastatistic.impl;
+package com.photovoltaic.service.statistic.impl;
 
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.util.DateUtils;
@@ -8,7 +8,7 @@ import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
 import com.photovoltaic.model.device.TabPowerStation;
-import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
+import com.photovoltaic.service.statistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
 import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;

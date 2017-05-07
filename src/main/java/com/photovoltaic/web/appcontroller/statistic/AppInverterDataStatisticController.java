@@ -1,7 +1,7 @@
 package com.photovoltaic.web.appcontroller.statistic;
 
 import com.photovoltaic.commons.constants.ReturnCode;
-import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
+import com.photovoltaic.service.statistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;

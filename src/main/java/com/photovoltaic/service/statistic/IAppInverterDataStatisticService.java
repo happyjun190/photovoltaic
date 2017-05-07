@@ -1,4 +1,4 @@
-package com.photovoltaic.service.inverterdatastatistic;
+package com.photovoltaic.service.statistic;
 
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
