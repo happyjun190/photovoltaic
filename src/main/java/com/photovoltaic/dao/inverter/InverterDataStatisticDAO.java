@@ -3,7 +3,7 @@ package com.photovoltaic.dao.inverter;
 import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
-import com.photovoltaic.model.powerstation.TabPowerStation;
+import com.photovoltaic.model.device.TabPowerStation;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

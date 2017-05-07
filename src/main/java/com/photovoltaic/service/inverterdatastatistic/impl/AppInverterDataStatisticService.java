@@ -7,7 +7,7 @@ import com.photovoltaic.dao.inverter.TodaySummaryDataDAO;
 import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.model.inverterdata.TabInverterRealtimeData;
 import com.photovoltaic.model.inverterdata.TabTodaySummary;
-import com.photovoltaic.model.powerstation.TabPowerStation;
+import com.photovoltaic.model.device.TabPowerStation;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;

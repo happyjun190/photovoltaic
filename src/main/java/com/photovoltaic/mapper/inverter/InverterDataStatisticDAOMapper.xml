@@ -158,7 +158,7 @@
 
 
     <!--获取用户所有的电站-->
-    <select id="getUsersPowerStationList" resultType="com.photovoltaic.model.powerstation.TabPowerStation">
+    <select id="getUsersPowerStationList" resultType="com.photovoltaic.model.device.TabPowerStation">
         SELECT
           <include refid="powerStationColumns"/>
         FROM "GFTW"."TS_POWER_STATION" T1

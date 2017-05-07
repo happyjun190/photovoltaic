@@ -1,6 +1,6 @@
 package com.photovoltaic.web.model.out.inveter;
 
-import com.photovoltaic.model.powerstation.TabPowerStation;
+import com.photovoltaic.model.device.TabPowerStation;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

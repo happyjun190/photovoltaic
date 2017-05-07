@@ -1,4 +1,4 @@
-package com.photovoltaic.model.powerstation;
+package com.photovoltaic.model.device;
 
 import com.photovoltaic.model.BaseModel;
 
