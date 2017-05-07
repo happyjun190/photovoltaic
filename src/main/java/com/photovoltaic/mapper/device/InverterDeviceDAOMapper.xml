@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.photovoltaic.dao.device.InverterDeviceDAO">
+    <!--逆变器设备表字段-->
+    <sql id="inverterDeviceColumns">
+        T1.INVERTER_ADDR as inverterAddr,
+        T1.DTU_ID as dtuId,
+        T1.MTIME as mtime,
+        T1.STATUS as status,
+        T1.CTIME as ctime,
+        T1.INVERTER_TYPE as inverterType,
+        T1.VERSION as version,
+        T1.PHASE_TYPE as phaseType,
+        T1.POWER_SIZE as powerSize,
+        T1.ID as id,
+        T1.NAME as name,
+        T1.GRID_STANDARD as gridStandard,
+        T1.MODEL as model,
+        T1.SOFT_VERSION as softVersion,
+        T1.SERIAL_NUMBER as serialNumber,
+        T1.MANUFACTURER as manufacturer
+    </sql>
+
+
+    <!--分页查询逆变器设备信息-->
+    <select id="getInverterDeviceList" resultType="com.photovoltaic.model.device.TabInverterDevice">
+        SELECT
+          <include refid="inverterDeviceColumns"/>
+        FROM "GFTW"."TS_INVERTER_DEVICE" T1
+    </select>
+
+
+</mapper>

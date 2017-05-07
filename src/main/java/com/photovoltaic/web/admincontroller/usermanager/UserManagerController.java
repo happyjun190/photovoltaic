@@ -8,6 +8,7 @@ import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.auth.LoginDTO;
+import com.photovoltaic.web.model.out.user.UserInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * Created by wushenjun on 2017/5/4 0004.
@@ -38,9 +40,9 @@ public class UserManagerController extends BaseController {
      */
     @ApiOperation(value = "分页获取用户列表，可供查询", tags="wushenjun", notes = "分页获取用户列表，可供查询(用户登录名、中文名查询)")
     @RequestMapping(value = "/getUserInfoList/{version}", method = RequestMethod.POST)
-    public JsonResultOut<LoginDTO> getUserInfoList(HttpServletRequest request,
-                                          @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                          @ApiParam(value = "注册所需信息", required = true) @RequestBody UserInfoQueryInModel inModel) {
+    public JsonResultOut<List<UserInfoDTO>> getUserInfoList(HttpServletRequest request,
+                                                            @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                            @ApiParam(value = "注册所需信息", required = true) @RequestBody UserInfoQueryInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {

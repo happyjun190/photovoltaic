@@ -11,13 +11,18 @@ public class TabInverterDevice {
     private String name;//逆变器名称
     private String inverterAddr;//逆变器地址
     private int dtuId;//dtu设备id
-    private String status;//dtu设备状态 0正常 1废弃 其他状态待需求完善
+    private int status;//dtu设备状态 0正常 1废弃 其他状态待需求完善
     private String inverterType;//逆变器类型 0英威腾逆变器  1长虹逆变器 2.....
     private String version;//版本(特别是针对长虹逆变器不同版本的数据协议)
     private String phaseType;//phase类型: 1单相 2二相 3三相
     private BigDecimal powerSize;//功率大小(单位KW)
-    private Date ctime;
-    private Date mtime;
+    private Date ctime;//创建时间
+    private Date mtime;//修改时间
+    private String gridStandard;//并网标准
+    private String model;//型号
+    private String softVersion;//软件版本号
+    private String serialNumber;//序列号
+    private String manufacturer;//生产厂家
 
     public int getId() {
         return id;
@@ -51,11 +56,11 @@ public class TabInverterDevice {
         this.dtuId = dtuId;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -105,5 +110,45 @@ public class TabInverterDevice {
 
     public void setMtime(Date mtime) {
         this.mtime = mtime;
+    }
+
+    public String getGridStandard() {
+        return gridStandard;
+    }
+
+    public void setGridStandard(String gridStandard) {
+        this.gridStandard = gridStandard;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getSoftVersion() {
+        return softVersion;
+    }
+
+    public void setSoftVersion(String softVersion) {
+        this.softVersion = softVersion;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

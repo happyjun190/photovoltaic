@@ -32,14 +32,14 @@ public class UserManagerService implements IUserManagerService {
     public JsonResultOut<List<UserInfoDTO>> getUserInfoList(UserInfoQueryInModel inModel) {
         Map<String, Object> queryParamsMap = new HashMap<>();
         int pageStart = (inModel.getPageNum()-1)*inModel.getPageNum();
-        List<TabUserInfo> userInfoList = userInfoDAO.getUserInfoList(pageStart, inModel.getPageSize(), queryParamsMap);
+        List<TabUserInfo> tabUserInfoList = userInfoDAO.getUserInfoList(pageStart, inModel.getPageSize(), queryParamsMap);
 
         //组装用户信息数据
-        List<UserInfoDTO> userInfoDTOList = new ArrayList<>();
+        List<UserInfoDTO> userInfoList = new ArrayList<>();
         //使用java8新特性
-        userInfoList.forEach(tabUserInfo -> userInfoDTOList.add(new UserInfoDTO(tabUserInfo)));
+        tabUserInfoList.forEach(tabUserInfo -> userInfoList.add(new UserInfoDTO(tabUserInfo)));
 
-        return new JsonResultOut(ReturnCode.SUCCESS, "获取用户列表成功!", userInfoDTOList);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取用户列表成功!", userInfoList);
     }
 
 

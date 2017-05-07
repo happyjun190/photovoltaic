@@ -1,5 +1,6 @@
 package com.photovoltaic.web.model.out.inveter;
 
+import com.photovoltaic.model.device.TabInverterDevice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,6 +44,30 @@ public class InverterInfoDTO {
     private BigDecimal todayPeakPower;//今天峰值功率(KW)
     @ApiModelProperty(value = "历史峰值功率(KW)", required = true)
     private BigDecimal historypeakpower;
+    @ApiModelProperty(value = "所属电站名称", required = true)
+    private String powerStationName;//所属电站
+    @ApiModelProperty(value = "并网标准", required = true)
+    private String gridStandard;//并网标准
+    @ApiModelProperty(value = "型号", required = true)
+    private String model;//型号
+    @ApiModelProperty(value = "软件版本号", required = true)
+    private String softVersion;//软件版本号
+    @ApiModelProperty(value = "序列号", required = true)
+    private String serialNumber;//序列号
+    @ApiModelProperty(value = "生产厂家", required = true)
+    private String manufacturer;//生产厂家
+
+    public InverterInfoDTO(){}
+    public InverterInfoDTO(TabInverterDevice tabInverterDevice) {
+        inverterId = tabInverterDevice.getId();
+        inverterName = tabInverterDevice.getName();
+        status = tabInverterDevice.getStatus();
+        gridStandard = tabInverterDevice.getGridStandard();
+        model = tabInverterDevice.getModel();
+        softVersion = tabInverterDevice.getSoftVersion();
+        serialNumber = tabInverterDevice.getSerialNumber();
+        manufacturer = tabInverterDevice.getManufacturer();
+    }
 
     public int getInverterId() {
         return inverterId;
@@ -170,5 +195,53 @@ public class InverterInfoDTO {
 
     public void setHistorypeakpower(BigDecimal historypeakpower) {
         this.historypeakpower = historypeakpower;
+    }
+
+    public String getPowerStationName() {
+        return powerStationName;
+    }
+
+    public void setPowerStationName(String powerStationName) {
+        this.powerStationName = powerStationName;
+    }
+
+    public String getGridStandard() {
+        return gridStandard;
+    }
+
+    public void setGridStandard(String gridStandard) {
+        this.gridStandard = gridStandard;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getSoftVersion() {
+        return softVersion;
+    }
+
+    public void setSoftVersion(String softVersion) {
+        this.softVersion = softVersion;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }
