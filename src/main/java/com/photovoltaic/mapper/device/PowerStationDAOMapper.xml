@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.photovoltaic.dao.device.PowerStationDAO">
+
+    <!--电站表字段-->
+    <sql id="powerStationColumns">
+        T1.ID as id,
+        T1.AREA_ID as areaId,
+        T1.NAME as name,
+        T1.DELETE_MARK as deleteMark,
+        T1.CREATE_DATE as createDate,
+        T1.CREATE_USER_ID as createUserId,
+        T1.CREATE_USER_NAME as createUserName,
+        T1.MODIFY_DATE as modifyDate,
+        T1.MODIFY_USER_ID as modifyUserId,
+        T1.MODIFY_USER_NAME as modifyUserName,
+        T1.REMARK as remark,
+        T1.OWNER_ID as ownerId
+    </sql>
+
+
+    <!--分页查询电站信息-->
+    <select id="getPowerStationList" resultType="com.photovoltaic.model.device.TabPowerStation">
+        SELECT
+            <include refid="powerStationColumns"/>,
+            t2.NAME as ownerName
+        FROM "GFTW"."TS_POWER_STATION" T1
+          LEFT JOIN "GFTW"."TS_USER_INFO" T2 ON T1."OWNER_ID" = T2."ID"
+    </select>
+
+
+    <!--根据powerStation id获取电站信息-->
+    <select id="getPowerStationById" resultType="com.photovoltaic.model.device.TabPowerStation">
+        SELECT
+            <include refid="powerStationColumns"/>,
+            t2.NAME as ownerName
+        FROM "GFTW"."TS_POWER_STATION" T1
+          LEFT JOIN "GFTW"."TS_USER_INFO" T2 ON T1."OWNER_ID" = T2."ID"
+        WHERE T1."ID" = #{powerStationId}
+    </select>
+
+    <!--新增电站信息-->
+    <insert id="addPowerStationInfo">
+        INSERT INTO "GFTW"."TS_POWER_STATION" ("ID", "AREA_ID", "NAME", "DELETE_MARK", "CREATE_DATE", "MODIFY_DATE", "REMARK", "OWNER_ID")
+                                       VALUES (SEQ_ON_POWERSTATION.NEXTVAL, #{areaId}, #{powerStationName}, 0, SYSDATE, SYSDATE, #{remark}, #{ownerId});
+    </insert>
+
+
+    <!--更新电站信息-->
+    <update id="updatePowerStationInfo">
+        UPDATE "GFTW"."TS_POWER_STATION" SET "AREA_ID"=#{areaId},
+                                           "NAME"=#{powerStationName},
+                                           "MODIFY_DATE"=SYSDATE
+        WHERE "ID"=#{powerStationId}
+    </update>
+</mapper>
