@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 public class HomePageOverViewDTO {
     @ApiModelProperty(value = "发电效率", required = true)
     private BigDecimal generationEfficiency;//发电效率
-    @ApiModelProperty(value = "总发电量", required = true)
+    @ApiModelProperty(value = "总发电量/累计发电量", required = true)
     private BigDecimal totalGenerationPower;//总发电量
     @ApiModelProperty(value = "今日发电量", required = true)
     private BigDecimal todayGenerationPower;//今日发电量
@@ -27,6 +27,7 @@ public class HomePageOverViewDTO {
     @ApiModelProperty(value = "等效时效", required = true)
     private BigDecimal equivalentAging;//等效时效
 
+    @ApiModelProperty(value = "收益", required = true)
     private BigDecimal profit;//收益//TODO 收益从哪里取得
 
     public BigDecimal getGenerationEfficiency() {

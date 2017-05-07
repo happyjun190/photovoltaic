@@ -29,7 +29,7 @@ public class InverterInfoDTO {
     private BigDecimal monthGenerationPower;//月发电量
     @ApiModelProperty(value = "年发电量", required = true)
     private BigDecimal yearGenerationPower;//年发电量
-    @ApiModelProperty(value = "总发电量", required = true)
+    @ApiModelProperty(value = "总发电量/累计发电量", required = true)
     private BigDecimal totalGenerationPower;//总发电量
     @ApiModelProperty(value = "今日等效时数", required = true)
     private BigDecimal todayEquivalentAging;//今日等效时数
@@ -39,6 +39,10 @@ public class InverterInfoDTO {
     private BigDecimal inputPower;//输入功率(KW)
     @ApiModelProperty(value = "当前输出功率(KW)", required = true)
     private BigDecimal outputPower;//输出功率(KW)
+    @ApiModelProperty(value = "今天峰值功率(KW)", required = true)
+    private BigDecimal todayPeakPower;//今天峰值功率(KW)
+    @ApiModelProperty(value = "历史峰值功率(KW)", required = true)
+    private BigDecimal historypeakpower;
 
     public int getInverterId() {
         return inverterId;
@@ -150,5 +154,21 @@ public class InverterInfoDTO {
 
     public void setOutputPower(BigDecimal outputPower) {
         this.outputPower = outputPower;
+    }
+
+    public BigDecimal getTodayPeakPower() {
+        return todayPeakPower;
+    }
+
+    public void setTodayPeakPower(BigDecimal todayPeakPower) {
+        this.todayPeakPower = todayPeakPower;
+    }
+
+    public BigDecimal getHistorypeakpower() {
+        return historypeakpower;
+    }
+
+    public void setHistorypeakpower(BigDecimal historypeakpower) {
+        this.historypeakpower = historypeakpower;
     }
 }

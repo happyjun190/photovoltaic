@@ -1,4 +1,4 @@
-package com.photovoltaic.web.appcontroller.inverterdatastatistic;
+package com.photovoltaic.web.appcontroller.statistic;
 
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.service.inverterdatastatistic.IAppInverterDataStatisticService;
