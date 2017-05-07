@@ -28,10 +28,10 @@ public interface DtuDeviceDAO {
 
     /**
      * 根据dtu id获取dtu信息
-     * @param interverId
+     * @param dtuId
      * @return
      */
-    TabDtuDevice getDtuDeviceById(@Param("inverterId")int interverId);
+    TabDtuDevice getDtuDeviceById(@Param("dtuId")int dtuId);
 
 
     /**
