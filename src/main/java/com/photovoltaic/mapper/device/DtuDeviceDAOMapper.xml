@@ -14,4 +14,47 @@
         T1.CTIME as ctime
     </sql>
 
+
+    <!--分页查询dtu设备信息-->
+    <select id="getDtuDeviceList" resultType="com.photovoltaic.model.device.TabDtuDevice">
+        SELECT
+          <include refid="dtuDeviceColumns"/>
+        FROM "GFTW"."TS_DTU_DEVICE" T1
+    </select>
+
+
+    <!--根据dtu id获取dtu信息-->
+    <select id="getDtuDeviceById" resultType="com.photovoltaic.model.device.TabDtuDevice">
+        SELECT
+          <include refid="dtuDeviceColumns"/>
+        FROM "GFTW"."TS_DTU_DEVICE" T1
+        WHERE T1."ID" = #{dtuId}
+    </select>
+
+    <!--根据dtu autk key获取dtu信息-->
+    <select id="getDtuDeviceByAuthKey" resultType="com.photovoltaic.model.device.TabDtuDevice">
+        SELECT
+          <include refid="dtuDeviceColumns"/>
+        FROM "GFTW"."TS_DTU_DEVICE" T1
+        WHERE T1."ID" = #{authKey}
+    </select>
+
+    <!--新增dtu设备信息-->
+    <insert id="addDtuDeviceInfo">
+        INSERT INTO "GFTW"."TS_DTU_DEVICE" ("ID", "POWERSTATION_ID", "MODEL", "AUTH_KEY", "STATUS", "PARITY", "SERIES_RATE", "MTIME", "CTIME")
+                                     VALUES (SEQ_ON_DTUDEVICE.NEXTVAL, #{powerstationId}, #{model}, #{authKey}, '0', '0', '0', SYSDATE, SYSDATE)
+    </insert>
+
+
+    <!--更新dtu设备信息-->
+    <update id="updateDtuDeviceInfo">
+        UPDATE "GFTW"."TS_DTU_DEVICE" SET "POWERSTATION_ID"=#{powerstationId},
+                                           "AUTH_KEY"=#{authKey},
+                                           "MODEL"=#{model},
+                                           "MTIME"=SYSDATE
+        WHERE "ID"=#{dtuId}
+    </update>
+
+
+
 </mapper>

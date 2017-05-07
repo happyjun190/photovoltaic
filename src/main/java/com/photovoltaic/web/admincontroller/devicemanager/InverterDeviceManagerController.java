@@ -5,8 +5,9 @@ import com.photovoltaic.service.devicemanager.IInverterDeviceManagerService;
 import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
-import com.photovoltaic.web.model.in.devicemanager.InverterSelectOneInModel;
+import com.photovoltaic.web.model.out.devicemanager.InverterInfoOutModel;
 import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -69,7 +70,7 @@ public class InverterDeviceManagerController extends BaseController{
     @RequestMapping(value = "insertOrUpdateInverterInfo/{version}", method = RequestMethod.POST)
     public JsonResultOut insertOrUpdateInverterInfo(HttpServletRequest request,
                                                     @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                                    @ApiParam(value = "注册所需信息", required = true) @RequestBody InverterInfoAddInModel inModel) {
+                                                    @ApiParam(value = "新增或更新逆变器所需信息", required = true) @RequestBody InverterInfoAddInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {
@@ -97,9 +98,9 @@ public class InverterDeviceManagerController extends BaseController{
      */
     @ApiOperation(value = "获取指定逆变器信息", tags="wushenjun", notes = "获取指定逆变器信息")
     @RequestMapping(value = "getInverterInfo/{version}", method = RequestMethod.POST)
-    public JsonResultOut getInverterInfo(HttpServletRequest request,
-                                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
-                                                    @ApiParam(value = "获取逆变器信息参数", required = true) @RequestBody InverterSelectOneInModel inModel) {
+    public JsonResultOut<InverterInfoOutModel> getInverterInfo(HttpServletRequest request,
+                                                               @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                               @ApiParam(value = "获取逆变器信息参数", required = true) @RequestBody CommonSelectOneInModel inModel) {
         JsonResultOut jsonResult;
         try {
             switch (version) {

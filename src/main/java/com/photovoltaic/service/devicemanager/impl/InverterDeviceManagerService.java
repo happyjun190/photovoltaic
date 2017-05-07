@@ -6,8 +6,8 @@ import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.service.devicemanager.IInverterDeviceManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
-import com.photovoltaic.web.model.in.devicemanager.InverterSelectOneInModel;
 import com.photovoltaic.web.model.out.devicemanager.InverterInfoOutModel;
 import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
 import org.slf4j.Logger;
@@ -57,11 +57,11 @@ public class InverterDeviceManagerService implements IInverterDeviceManagerServi
     }
 
     @Override
-    public JsonResultOut<InverterInfoOutModel> getInverterInfo(InverterSelectOneInModel inModel) {
-        TabInverterDevice tabInverterDevice = inverterDeviceDAO.getInverterDeviceById(inModel.getInverterId());
+    public JsonResultOut<InverterInfoOutModel> getInverterInfo(CommonSelectOneInModel inModel) {
+        TabInverterDevice tabInverterDevice = inverterDeviceDAO.getInverterDeviceById(inModel.getItemId());
 
         InverterInfoOutModel outModel = new InverterInfoOutModel(tabInverterDevice);
 
-        return new JsonResultOut(ReturnCode.SUCCESS, "获取指定逆变器信息成功!", outModel);
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器信息成功!", outModel);
     }
 }
