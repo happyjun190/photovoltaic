@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by ziye on 2017/4/17.
+ * Created by wushenjun on 2017/4/17.
  */
 @Mapper
 public interface TodaySummaryDataDAO {

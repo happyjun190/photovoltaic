@@ -4,7 +4,7 @@ import com.photovoltaic.service.areamanager.IAreaManagerService;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by ziye on 2017/5/7.
+ * Created by wushenjun on 2017/5/7.
  * 区域管理service
  */
 @Service

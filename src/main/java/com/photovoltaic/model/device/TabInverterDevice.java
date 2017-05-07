@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * Created by ziye on 2017/4/17.
+ * Created by wushenjun on 2017/4/17.
  */
 public class TabInverterDevice {
     private int id;

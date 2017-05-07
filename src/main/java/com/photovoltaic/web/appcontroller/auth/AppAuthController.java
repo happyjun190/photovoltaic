@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * Created by ziye on 2017/4/15.
+ * Created by wushenjun on 2017/4/15.
  */
 @Api(tags = "App Auth")
 @RestController

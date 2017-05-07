@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * Created by ziye on 2017/4/16.
+ * Created by wushenjun on 2017/4/16.
  */
 @ApiModel
 public class PowerStationInfoDTO {

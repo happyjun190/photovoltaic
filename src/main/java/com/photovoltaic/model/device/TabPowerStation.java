@@ -3,7 +3,7 @@ package com.photovoltaic.model.device;
 import com.photovoltaic.model.BaseModel;
 
 /**
- * Created by ziye on 2017/4/16.
+ * Created by wushenjun on 2017/4/16.
  */
 public class TabPowerStation extends BaseModel {
     private int id;

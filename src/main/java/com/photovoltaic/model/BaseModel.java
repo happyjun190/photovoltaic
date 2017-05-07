@@ -3,7 +3,7 @@ package com.photovoltaic.model;
 import java.util.Date;
 
 /**
- * Created by ziye on 2017/4/15.
+ * Created by wushenjun on 2017/4/15.
  */
 public class BaseModel {
     private int deleteMark;//0：正常，1：删除2:锁定
