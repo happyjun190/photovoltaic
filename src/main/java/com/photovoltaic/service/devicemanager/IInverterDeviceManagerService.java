@@ -2,6 +2,8 @@ package com.photovoltaic.service.devicemanager;
 
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
+import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
+import com.photovoltaic.web.model.out.devicemanager.InverterInfoOutModel;
 import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
 
 import java.util.List;
@@ -18,5 +20,21 @@ public interface IInverterDeviceManagerService {
      * @return
      */
     JsonResultOut<List<InverterInfoDTO>> getInverterDeviceList(CommonQueryInModel inModel);
+
+
+    /**
+     * 新增或更新逆变器信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut insertOrUpdateInverterInfo(InverterInfoAddInModel inModel);
+
+
+    /**
+     * 获取指定逆变器信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut<InverterInfoOutModel> getInverterInfo(InverterInfoAddInModel inModel);
 
 }

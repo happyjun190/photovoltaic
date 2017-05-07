@@ -1,6 +1,7 @@
 package com.photovoltaic.dao.device;
 
 import com.photovoltaic.model.device.TabInverterDevice;
+import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,26 @@ public interface InverterDeviceDAO {
     List<TabInverterDevice> getInverterDeviceList(@Param("pageStart")int pageStart,
                                                   @Param("pageSize")int pageSize,
                                                   @Param("queryParams")Map<String, Object> queryParamsMap);
+
+
+    /**
+     * 根据逆变器id获取逆变器信息
+     * @param interverId
+     * @return
+     */
+    TabInverterDevice getInverterDeviceById(@Param("inverterId")int interverId);
+
+    /**
+     * 新增逆变器设备信息
+     * @param inModel
+     */
+    void addInverterDeviceInfo(InverterInfoAddInModel inModel);
+
+
+    /**
+     * 更新逆变器设备信息
+     * @param inModel
+     */
+    void updateInverterDeviceInfo(InverterInfoAddInModel inModel);
+
 }
