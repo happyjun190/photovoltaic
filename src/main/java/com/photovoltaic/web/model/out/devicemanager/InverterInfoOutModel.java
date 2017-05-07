@@ -1,6 +1,6 @@
 package com.photovoltaic.web.model.out.devicemanager;
 
-import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.model.device.TabInverterDevice;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -9,11 +9,13 @@ import io.swagger.annotations.ApiModelProperty;
  * 指定逆变器信息 outModel
  */
 @ApiModel
-public class InverterInfoOutModel extends BaseInModel {
+public class InverterInfoOutModel {
     @ApiModelProperty(value = "逆变器id", required = true)
     private int inverterId;
     @ApiModelProperty(value = "dtu设备id", required = true)
     private int dtuId;
+    @ApiModelProperty(value = "逆变器状态", required = true)
+    private int status;//逆变器状态
     @ApiModelProperty(value = "逆变器地址(配合dtu设备，数据采集需要)", required = true)
     private String inverterAddr;
     @ApiModelProperty(value = "逆变器名称", required = true)
@@ -32,6 +34,22 @@ public class InverterInfoOutModel extends BaseInModel {
     private String serialNumber;//序列号
     @ApiModelProperty(value = "生产厂家", required = true)
     private String manufacturer;//生产厂家
+
+
+    public InverterInfoOutModel(){}
+    public InverterInfoOutModel(TabInverterDevice tabInverterDevice) {
+        inverterId = tabInverterDevice.getId();
+        inverterName = tabInverterDevice.getName();
+        dtuId = tabInverterDevice.getDtuId();
+        status = tabInverterDevice.getStatus();
+        inverterAddr = tabInverterDevice.getInverterAddr();
+        gridStandard = tabInverterDevice.getGridStandard();
+        model = tabInverterDevice.getModel();
+        softVersion = tabInverterDevice.getSoftVersion();
+        serialNumber = tabInverterDevice.getSerialNumber();
+        manufacturer = tabInverterDevice.getManufacturer();
+    }
+
 
     public int getInverterId() {
         return inverterId;
@@ -119,5 +137,13 @@ public class InverterInfoOutModel extends BaseInModel {
 
     public void setDtuId(int dtuId) {
         this.dtuId = dtuId;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

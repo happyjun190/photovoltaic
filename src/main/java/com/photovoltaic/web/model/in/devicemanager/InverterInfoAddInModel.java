@@ -10,9 +10,9 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @ApiModel
 public class InverterInfoAddInModel extends BaseInModel {
-    @ApiModelProperty(value = "逆变器id(新增时无需此字段(传0即可),编辑时需要)", example = "1",required = true)
+    @ApiModelProperty(value = "逆变器id(新增时无需此字段(传0即可),编辑时需要)", example = "3",required = true)
     private int inverterId;
-    @ApiModelProperty(value = "dtu设备id", example = "1",required = true)
+    @ApiModelProperty(value = "dtu设备id", example = "2",required = true)
     private int dtuId;
     @ApiModelProperty(value = "逆变器地址(配合dtu设备，数据采集需要)", example = "03",required = true)
     private String inverterAddr;

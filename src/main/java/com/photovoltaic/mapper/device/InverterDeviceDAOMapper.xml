@@ -41,13 +41,27 @@
 
     <!--新增逆变器设备信息-->
     <insert id="addInverterDeviceInfo">
-        INSERT INTO "GFTW"."TS_INVERTER_DEVICE" ("INVERTER_ADDR", "DTU_ID", "MTIME", "STATUS", "CTIME", "INVERTER_TYPE", "VERSION", "PHASE_TYPE", "POWER_SIZE", "ID", "NAME", "GRID_STANDARD", "MODEL", "SOFT_VERSION", "SERIAL_NUMBER", "MANUFACTURER") VALUES ('01', '1', TO_DATE('2017-03-18 23:14:14', 'SYYYY-MM-DD HH24:MI:SS'), '0', TO_DATE('2017-03-18 23:14:17', 'SYYYY-MM-DD HH24:MI:SS'), '0', NULL, NULL, '3000', '1', :"NAME", NULL, NULL, NULL, NULL, NULL);
+        INSERT INTO "GFTW"."TS_INVERTER_DEVICE" ("INVERTER_ADDR", "DTU_ID", "MTIME", "STATUS", "CTIME", "INVERTER_TYPE", "VERSION",
+                                                  "PHASE_TYPE", "POWER_SIZE", "ID", "NAME", "GRID_STANDARD", "MODEL", "SOFT_VERSION",
+                                                  "SERIAL_NUMBER", "MANUFACTURER")
+                                        VALUES (#{inverterAddr}, #{dtuId}, SYSDATE, '0', SYSDATE, '0', NULL,
+                                                 NULL, NULL, SEQ_ON_INVERTERDEVICE.NEXTVAL, #{inverterName}, #{gridStandard}, #{model}, #{softVersion},
+                                                 #{serialNumber}, #{manufacturer})
     </insert>
 
 
     <!--更新逆变器设备信息-->
-    <update id="">
-
+    <update id="updateInverterDeviceInfo">
+        UPDATE "GFTW"."TS_INVERTER_DEVICE" SET "INVERTER_ADDR"=#{inverterAddr},
+                                                "DTU_ID"=#{dtuId},
+                                                "MTIME"=SYSDATE,
+                                                "NAME"=#{inverterName},
+                                                "GRID_STANDARD"=#{gridStandard},
+                                                "MODEL"=#{model},
+                                                "SOFT_VERSION"=#{softVersion},
+                                                "SERIAL_NUMBER"=#{serialNumber},
+                                                "MANUFACTURER"=#{manufacturer}
+        WHERE "ID"=#{inverterId}
     </update>
 
 </mapper>

@@ -3,6 +3,7 @@ package com.photovoltaic.service.devicemanager;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
+import com.photovoltaic.web.model.in.devicemanager.InverterSelectOneInModel;
 import com.photovoltaic.web.model.out.devicemanager.InverterInfoOutModel;
 import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
 
@@ -35,6 +36,6 @@ public interface IInverterDeviceManagerService {
      * @param inModel
      * @return
      */
-    JsonResultOut<InverterInfoOutModel> getInverterInfo(InverterInfoAddInModel inModel);
+    JsonResultOut<InverterInfoOutModel> getInverterInfo(InverterSelectOneInModel inModel);
 
 }
