@@ -1,6 +1,7 @@
 package com.photovoltaic.service.user;
 
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.user.UserInfoDTO;
 
@@ -20,6 +21,11 @@ public interface IUserManagerService {
     JsonResultOut<List<UserInfoDTO>> getUserInfoList(UserInfoQueryInModel inModel);
 
 
-
+    /**
+     * 新增或更新用户信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut insertOrUpdateUserInfo(UserInfoAddInModel inModel);
 
 }

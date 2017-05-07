@@ -2,6 +2,7 @@ package com.photovoltaic.dao.user;
 
 
 import com.photovoltaic.model.user.TabUserInfo;
+import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -47,5 +48,18 @@ public interface UserInfoDAO {
     List<TabUserInfo> getUserInfoList(@Param("pageStart")int pageStart,
                                       @Param("pageSize")int pageSize,
                                       @Param("queryParams")Map<String, Object> queryParamsMap);
+
+    /**
+     * admin后台新增用户
+     * @param inModel
+     */
+    void adminAddUserInfo(UserInfoAddInModel inModel);
+
+
+    /**
+     * admin后台更新用户
+     * @param inModel
+     */
+    void adminUpdateUserInfo(UserInfoAddInModel inModel);
 
 }

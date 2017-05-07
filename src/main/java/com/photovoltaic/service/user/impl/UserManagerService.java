@@ -1,10 +1,13 @@
 package com.photovoltaic.service.user.impl;
 
 import com.photovoltaic.commons.constants.ReturnCode;
+import com.photovoltaic.commons.util.EncryptUtils;
+import com.photovoltaic.commons.util.SecurityUtils;
 import com.photovoltaic.dao.user.UserInfoDAO;
 import com.photovoltaic.model.user.TabUserInfo;
 import com.photovoltaic.service.user.IUserManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.user.UserInfoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +40,32 @@ public class UserManagerService implements IUserManagerService {
         userInfoList.forEach(tabUserInfo -> userInfoDTOList.add(new UserInfoDTO(tabUserInfo)));
 
         return new JsonResultOut(ReturnCode.SUCCESS, "获取用户列表成功!", userInfoDTOList);
+    }
+
+
+    @Override
+    public JsonResultOut insertOrUpdateUserInfo(UserInfoAddInModel inModel) {
+
+        //新增用户
+        if(inModel.getId()==0) {
+
+            //根据注册账号判断用户是否已经注册
+            TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByLoginName(inModel.getLoginName());
+            if(tabUserInfo!=null) {
+                return  new JsonResultOut(ReturnCode.PARAMSERROR, "该账号已被注册!");
+            }
+
+            String loginSalt = SecurityUtils.getRandNumber(5); // md5加密盐值
+            //对加密的明文密码进行解密
+            String password = EncryptUtils.getPwdFromBase64(inModel.getPassword());
+            password = EncryptUtils.encryptPassword(password, loginSalt);
+            inModel.setPassword(password);
+            inModel.setLoginSalt(loginSalt);
+            userInfoDAO.adminAddUserInfo(inModel);
+        } else {//编辑用户(不修改密码)
+            userInfoDAO.adminUpdateUserInfo(inModel);
+        }
+
+        return  new JsonResultOut(ReturnCode.SUCCESS, "新增/更新用户信息成功!");
     }
 }

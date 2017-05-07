@@ -44,7 +44,7 @@
     　　　　SELECT USERINFO_SEQUENCE.CURRVAL FROM DUAL
     　　</selectKey>
         INSERT INTO "GFTW"."TS_USER_INFO" ("ID", "PASSWORD", "LOGIN_NAME", "CREATE_DATE", "MODIFY_DATE", "LOGIN_SALT")
-                                  VALUES (userInfo_sequence.nextval, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
+                                  VALUES (USERINFO_SEQUENCE.NEXTVAL, #{password}, #{loginName}, SYSDATE, SYSDATE, #{loginSalt})
     </insert>
 
 
@@ -55,5 +55,28 @@
         FROM "TS_USER_INFO" T1
     </select>
 
+
+    <!--admin后台新增用户-->
+    <insert id="adminAddUserInfo">
+        <selectKey resultType="java.lang.Integer" keyProperty="id">
+    　　　　SELECT USERINFO_SEQUENCE.CURRVAL FROM DUAL
+    　　</selectKey>
+        INSERT INTO "GFTW"."TS_USER_INFO" ("ID", "CODE", "PASSWORD", "LOGIN_NAME", "CH_NAME", "SEX", "TITLE", "EMAIL", "MOBILE_CODE", "REMARK", "LOGIN_SALT", "CREATE_DATE", "MODIFY_DATE")
+          VALUES (USERINFO_SEQUENCE.NEXTVAL, #{code}, #{password}, #{loginName}, #{chName}, #{sex}, #{title}, #{eMail}, #{mobileCode}, #{remark}, #{loginSalt}, SYSDATE, SYSDATE)
+    </insert>
+
+
+    <!--admin后台更新用户-->
+    <update id="adminUpdateUserInfo">
+        UPDATE "GFTW"."TS_USER_INFO" SET "CODE"=#{code},
+                                          "CH_NAME"=#{chName},
+                                          "SEX"=#{sex},
+                                          "TITLE"=#{title},
+                                          "EMAIL"=#{eMail},
+                                          "MOBILE_CODE"=#{mobileCode},
+                                          "REMARK"=#{remark},
+                                          "MODIFY_DATE"=SYSDATE
+        WHERE "ID"=#{id}
+    </update>
 
 </mapper>

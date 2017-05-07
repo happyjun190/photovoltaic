@@ -5,6 +5,7 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.service.user.IUserManagerService;
 import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.auth.LoginDTO;
 import io.swagger.annotations.Api;
@@ -56,4 +57,35 @@ public class UserManagerController extends BaseController {
         }
         return jsonResult;
     }
+
+
+    /**
+     * 新增/更新用户信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "新增/更新用户信息", tags="wushenjun", notes = "新增/更新用户信息")
+    @RequestMapping(value = "/insertOrUpdateUserInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut<LoginDTO> insertOrUpdateUserInfo(HttpServletRequest request,
+                                                   @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                   @ApiParam(value = "新增/更新用户所需信息", required = true) @RequestBody UserInfoAddInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = userManagerService.insertOrUpdateUserInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "新增/更新用户信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
 }
