@@ -2,6 +2,7 @@ package com.photovoltaic.service.statistic.impl;
 
 import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.commons.util.DateUtils;
+import com.photovoltaic.dao.device.InverterDeviceDAO;
 import com.photovoltaic.dao.inverter.InverterDataStatisticDAO;
 import com.photovoltaic.dao.inverter.TodaySummaryDataDAO;
 import com.photovoltaic.model.device.TabInverterDevice;
@@ -11,21 +12,16 @@ import com.photovoltaic.model.device.TabPowerStation;
 import com.photovoltaic.service.statistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;
-import com.photovoltaic.web.model.out.inveter.HomePageOverViewDTO;
-import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
-import com.photovoltaic.web.model.out.inveter.InverterStatisticDTO;
-import com.photovoltaic.web.model.out.inveter.PowerStationInfoDTO;
+import com.photovoltaic.web.model.out.inveter.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by wushenjun on 2017/4/16.
@@ -40,6 +36,8 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
     private InverterDataStatisticDAO inverterDataStatisticDAO;
     @Autowired
     private TodaySummaryDataDAO todaySummaryDataDAO;
+    @Autowired
+    private InverterDeviceDAO inverterDeviceDAO;
 
     @Override
     public JsonResultOut getStatisticOverView(BaseInModel inModel) {
@@ -191,6 +189,7 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
             todayInverterInfoDTO.setMonthGenerationPower(monthInverterInfoDTO.getGenerateCapacity());
             todayInverterInfoDTO.setYearGenerationPower(yearInverterInfoDTO.getGenerateCapacity());
             todayInverterInfoDTO.setInverterName(tabInverterDevice.getName());
+            todayInverterInfoDTO.setPowerStationName(tabInverterDevice.getPowerStationName());
             todayInverterInfoDTO.setInstalledCapacity(tabInverterDevice.getPowerSize());
             todayInverterInfoDTO.setGenerationPower(tabInverterRealtimeData.getOutputPower());
             todayInverterInfoDTO.setInputPower(tabInverterRealtimeData.getInputPower());
@@ -377,4 +376,53 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
         return inverterOutputPowerInfoList;
     }
 
+
+    @Override
+    public JsonResultOut<InverterRuningDetailDTO> getInverterRuningDetailInfo(CommonSelectOneInModel inModel) {
+        TabInverterDevice tabInverterDevice = inverterDeviceDAO.getInverterDeviceById(inModel.getItemId());
+
+        //当日的YYYYMMDD格式时间
+        String todayDate = DateUtils.getNowTime(DateUtils.DATE_DAY_STR);
+
+        //获取当天逆变器信息(包含累计发电量等信息)
+        Map<String, InverterInfoDTO> todayInverterInfoMap = todaySummaryDataDAO.getInverterInfoMapByTimeInterval(Arrays.asList(inModel.getItemId()), todayDate, todayDate);
+
+        //获取当前逆变器的最近一条实时统计数据(当天的)
+        List<TabInverterRealtimeData> inverterRealtimeDataList = inverterDataStatisticDAO.getUserLatelyInverterRealtimeDataList(Arrays.asList(inModel.getItemId()), todayDate);
+        TabInverterRealtimeData tabInverterRealtimeData = (inverterRealtimeDataList==null||inverterRealtimeDataList.isEmpty())?
+                                                            new TabInverterRealtimeData():inverterRealtimeDataList.get(0);
+
+        //当天逆变器信息(指定逆变器)
+        InverterInfoDTO inverterInfoDTO = todayInverterInfoMap.getOrDefault(inModel.getItemId(), new InverterInfoDTO());
+
+        InverterRuningDetailDTO inverterRuningDetail = new InverterRuningDetailDTO(tabInverterDevice);
+        inverterRuningDetail.setTotalSaveMoney(inverterInfoDTO.getTotalSaveMoney());
+        inverterRuningDetail.setTotalCO2Reduction(inverterInfoDTO.getTotalCO2Reduction());
+        inverterRuningDetail.setTotalGenerationPower(inverterInfoDTO.getTotalGenerationPower());
+
+        inverterRuningDetail.setInverterName(tabInverterDevice.getName());
+        inverterRuningDetail.setPowerStationName(tabInverterDevice.getPowerStationName());
+        //TODO 额定功率 or 装机容量
+        inverterRuningDetail.setPowerRating(tabInverterDevice.getPowerSize());
+
+        inverterRuningDetail.setPv1Voltage(tabInverterRealtimeData.getPv1Voltage());
+        inverterRuningDetail.setPv2Voltage(tabInverterRealtimeData.getPv2Voltage());
+        inverterRuningDetail.setPv3Voltage(tabInverterRealtimeData.getPv3Voltage());
+        inverterRuningDetail.setPv4Voltage(tabInverterRealtimeData.getPv4Voltage());
+        inverterRuningDetail.setuPhaseVoltage(tabInverterRealtimeData.getuPhaseVoltage());
+        inverterRuningDetail.setvPhaseVoltage(tabInverterRealtimeData.getvPhaseVoltage());
+        inverterRuningDetail.setwPhaseVoltage(tabInverterRealtimeData.getwPhaseVoltage());
+        inverterRuningDetail.setBusPhaseVoltage(tabInverterRealtimeData.getBusPhaseVoltage());
+        inverterRuningDetail.setPv1ElectricCurrent(tabInverterRealtimeData.getPv1ElectricCurrent());
+        inverterRuningDetail.setPv2ElectricCurrent(tabInverterRealtimeData.getPv2ElectricCurrent());
+        inverterRuningDetail.setPv3ElectricCurrent(tabInverterRealtimeData.getPv3ElectricCurrent());
+        inverterRuningDetail.setPv4ElectricCurrent(tabInverterRealtimeData.getPv4ElectricCurrent());
+        inverterRuningDetail.setuPhaseElectricCurrent(tabInverterRealtimeData.getuPhaseElectricCurrent());
+        inverterRuningDetail.setvPhaseElectricCurrent(tabInverterRealtimeData.getvPhaseElectricCurrent());
+        inverterRuningDetail.setwPhaseElectricCurrent(tabInverterRealtimeData.getwPhaseElectricCurrent());
+        inverterRuningDetail.setBusPhaseElectricCurrent(tabInverterRealtimeData.getBusPhaseElectricCurrent());
+
+
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器详情成功!", inverterRuningDetail);
+    }
 }

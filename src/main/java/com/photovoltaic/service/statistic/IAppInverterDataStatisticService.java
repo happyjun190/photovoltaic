@@ -2,7 +2,9 @@ package com.photovoltaic.service.statistic;
 
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;
+import com.photovoltaic.web.model.out.inveter.InverterRuningDetailDTO;
 
 
 /**
@@ -41,6 +43,14 @@ public interface IAppInverterDataStatisticService {
      * @return
      */
     JsonResultOut getInverterStatisticList(InverterStatisticInModel inModel);
+
+
+    /**
+     * 获取指定逆变器实时运行详细信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut<InverterRuningDetailDTO> getInverterRuningDetailInfo(CommonSelectOneInModel inModel);
 
 
 }

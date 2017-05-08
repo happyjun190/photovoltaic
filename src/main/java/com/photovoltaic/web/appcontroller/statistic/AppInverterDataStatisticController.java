@@ -5,11 +5,9 @@ import com.photovoltaic.service.statistic.IAppInverterDataStatisticService;
 import com.photovoltaic.web.controller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.BaseInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.inverter.InverterStatisticInModel;
-import com.photovoltaic.web.model.out.inveter.HomePageOverViewDTO;
-import com.photovoltaic.web.model.out.inveter.InverterInfoDTO;
-import com.photovoltaic.web.model.out.inveter.InverterStatisticDTO;
-import com.photovoltaic.web.model.out.inveter.PowerStationInfoDTO;
+import com.photovoltaic.web.model.out.inveter.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -147,6 +145,36 @@ public class AppInverterDataStatisticController extends BaseController{
             }
         } catch (Exception e) {
             jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "获取逆变器分析信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
+
+    /**
+     * 获取逆变器详情
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "获取逆变器详细信息(智能监控-设备列表-设备明细功能)", tags="wushenjun", notes = "获取逆变器详细信息(智能监控-设备列表-设备明细功能)")
+    @RequestMapping(value = "/getInverterRuningDetailInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut<InverterRuningDetailDTO> getInverterRuningDetailInfo(HttpServletRequest request,
+                                                                              @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                                              @ApiParam(value = "逆变器id信息", required = true) @RequestBody CommonSelectOneInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = appInverterDataStatisticService.getInverterRuningDetailInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "获取逆变器详情失败！", null);
             logger.error(e.getMessage(),e);
         }
         return jsonResult;

@@ -20,7 +20,7 @@ public class InverterInfoDTO {
     private int status;//逆变器状态
     @ApiModelProperty(value = "装机容量", required = true)
     private BigDecimal installedCapacity;//装机容量
-    @ApiModelProperty(value = "发电量(各种求和结果字段)", required = true)
+    @ApiModelProperty(value = "发电量", required = true)
     private BigDecimal generateCapacity;//发电量(各种求和结果字段)
     @ApiModelProperty(value = "发电功率", required = true)
     private BigDecimal generationPower;//发电功率
@@ -56,6 +56,14 @@ public class InverterInfoDTO {
     private String serialNumber;//序列号
     @ApiModelProperty(value = "生产厂家", required = true)
     private String manufacturer;//生产厂家
+    @ApiModelProperty(value = "累计CO2减排量", required = true)
+    private BigDecimal totalCO2Reduction;//累计CO2减排量
+    /*@ApiModelProperty(value = "当前输入功率", required = true)
+    private BigDecimal currentInputPower;//当前输入功率
+    @ApiModelProperty(value = "当前输出功率", required = true)
+    private BigDecimal currentOutputPower;//当前输出功率*/
+    @ApiModelProperty(value = "累计省钱量", required = true)
+    private BigDecimal totalSaveMoney;//累计省钱量
 
     public InverterInfoDTO(){}
     public InverterInfoDTO(TabInverterDevice tabInverterDevice) {
@@ -243,5 +251,21 @@ public class InverterInfoDTO {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public BigDecimal getTotalCO2Reduction() {
+        return totalCO2Reduction;
+    }
+
+    public void setTotalCO2Reduction(BigDecimal totalCO2Reduction) {
+        this.totalCO2Reduction = totalCO2Reduction;
+    }
+
+    public BigDecimal getTotalSaveMoney() {
+        return totalSaveMoney;
+    }
+
+    public void setTotalSaveMoney(BigDecimal totalSaveMoney) {
+        this.totalSaveMoney = totalSaveMoney;
     }
 }

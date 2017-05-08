@@ -7,9 +7,11 @@
     <select id="getInverterInfoMapByTimeInterval" resultType="com.photovoltaic.web.model.out.inveter.InverterInfoDTO">
         SELECT "SUM"(T1."GENERATE_CAPACITY") as generateCapacity,
                 "SUM"(T1."TOTAL_GENERATE_CAPACITY") as totalGenerationPower,
+                "SUM"(T1."TOTAL_SAVE_MONEY") as totalSaveMoney,
+                "SUM"(T1."TOTAL_CO2_REDUCTION") as totalCO2Reduction,
                 "SUM"(T1."INVERTER_STATUS") as status,
                 T1."INVERTER_ID" as inverterId
-            FROM "GFTW"."TS_TODAY_SUMMARY" T1
+        FROM "GFTW"."TS_TODAY_SUMMARY" T1
         WHERE "TO_CHAR"(T1."CTIME",'YYYYMMDD') BETWEEN #{startDate} AND #{endDate}
           AND T1."INVERTER_ID" IN
             <foreach collection="inverterIdList" index="item" item="item" open="(" separator="," close=")">

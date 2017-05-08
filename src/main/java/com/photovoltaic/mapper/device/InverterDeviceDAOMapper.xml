@@ -25,16 +25,22 @@
     <!--分页查询逆变器设备信息-->
     <select id="getInverterDeviceList" resultType="com.photovoltaic.model.device.TabInverterDevice">
         SELECT
-          <include refid="inverterDeviceColumns"/>
+            <include refid="inverterDeviceColumns"/>,
+            T3.NAME AS powerStationName
         FROM "GFTW"."TS_INVERTER_DEVICE" T1
+          LEFT JOIN GFTW."TS_DTU_DEVICE" T2 ON T1.DTU_ID = T2.ID
+          LEFT JOIN GFTW."TS_POWER_STATION" T3 ON T2.POWERSTATION_ID = T3.ID
     </select>
 
 
     <!--根据逆变器id获取逆变器信息-->
     <select id="getInverterDeviceById" resultType="com.photovoltaic.model.device.TabInverterDevice">
         SELECT
-          <include refid="inverterDeviceColumns"/>
+            <include refid="inverterDeviceColumns"/>,
+            T3.NAME AS powerStationName
         FROM "GFTW"."TS_INVERTER_DEVICE" T1
+          LEFT JOIN GFTW."TS_DTU_DEVICE" T2 ON T1.DTU_ID = T2.ID
+          LEFT JOIN GFTW."TS_POWER_STATION" T3 ON T2.POWERSTATION_ID = T3.ID
         WHERE T1."ID" = #{inverterId}
     </select>
 

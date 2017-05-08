@@ -33,8 +33,11 @@
     <!--获取用户所能查看数据的逆变器(用户->电站->dtu设备->逆变器设备)-->
     <select id="getUsersInverterDeviceList" resultType="com.photovoltaic.model.device.TabInverterDevice">
         select
-          <include refid="inverterDeviceColumns"/>
+          <include refid="inverterDeviceColumns"/>,
+          T3.NAME AS powerStationName
         from GFTW."TS_INVERTER_DEVICE" T1
+          LEFT JOIN GFTW."TS_DTU_DEVICE" T2 ON T1.DTU_ID = T2.ID
+          LEFT JOIN GFTW."TS_POWER_STATION" T3 ON T2.POWERSTATION_ID = T3.ID
         where T1."DTU_ID" in ( select "DTU_ID" from  GFTW."TS_DTU_DEVICE"
         WHERE "POWERSTATION_ID" IN
         <foreach collection="powerStationIdList" index="item" item="item" open="(" separator="," close=")">

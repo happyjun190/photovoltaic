@@ -24,6 +24,8 @@ public class TabInverterDevice {
     private String serialNumber;//序列号
     private String manufacturer;//生产厂家
 
+    private String powerStationName;//电站名称
+
     public int getId() {
         return id;
     }
@@ -150,5 +152,13 @@ public class TabInverterDevice {
 
     public void setManufacturer(String manufacturer) {
         this.manufacturer = manufacturer;
+    }
+
+    public String getPowerStationName() {
+        return powerStationName;
+    }
+
+    public void setPowerStationName(String powerStationName) {
+        this.powerStationName = powerStationName;
     }
 }
