@@ -79,4 +79,15 @@
         WHERE "ID"=#{id}
     </update>
 
+
+    <!--通过userId 获取用户信息-->
+    <select id="getUserInfoByUserId" resultType="com.photovoltaic.model.user.TabUserInfo">
+        SELECT
+          <include refid="userInfoColumns"/>
+        FROM "TS_USER_INFO" T1
+        <where>
+            T1."ID" = #{userId}
+        </where>
+    </select>
+
 </mapper>

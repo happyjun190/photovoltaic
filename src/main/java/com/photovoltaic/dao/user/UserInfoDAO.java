@@ -5,6 +5,7 @@ import com.photovoltaic.model.user.TabUserInfo;
 import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 import java.util.Map;
@@ -61,5 +62,22 @@ public interface UserInfoDAO {
      * @param inModel
      */
     void adminUpdateUserInfo(UserInfoAddInModel inModel);
+
+
+    /**
+     * 通过userId 获取用户信息
+     * @param userId
+     * @return
+     */
+    TabUserInfo getUserInfoByUserId(@Param("userId")int userId);
+
+
+    /**
+     * 更新用户密码
+     * @param userId
+     * @param password
+     */
+    @Update("UPDATE TS_USER_INFO SET PASSWORD=#{password} WHERE ID = #{userId}")
+    void updateUserPwd(@Param("userId")int userId, @Param("password")String password);
 
 }

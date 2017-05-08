@@ -3,7 +3,6 @@ package com.photovoltaic.service.auth.impl;
 import com.photovoltaic.commons.cache.IRedisOperator;
 import com.photovoltaic.commons.constants.RedisConstants;
 import com.photovoltaic.commons.constants.ReturnCode;
-import com.photovoltaic.commons.json.JsonResult;
 import com.photovoltaic.commons.util.DateUtils;
 import com.photovoltaic.commons.util.EncryptUtils;
 import com.photovoltaic.commons.util.SecurityUtils;
@@ -13,6 +12,7 @@ import com.photovoltaic.service.auth.IAuthService;
 import com.photovoltaic.web.model.JsonResultOut;
 import com.photovoltaic.web.model.in.auth.LoginInModel;
 import com.photovoltaic.web.model.in.auth.RegistInModel;
+import com.photovoltaic.web.model.in.auth.UpdateUserPwdInModel;
 import com.photovoltaic.web.model.out.auth.LoginDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -257,5 +257,22 @@ public class AuthService implements IAuthService {
         tabUserInfo.setLoginName(loginName);
         userInfoDAO.addUserInfo(tabUserInfo);
         return tabUserInfo.getId();
+    }
+
+
+    @Override
+    public JsonResultOut updateUserLoginPwd(UpdateUserPwdInModel inModel) {
+        TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByUserId(Integer.parseInt(inModel.getUserId()));
+
+        if(tabUserInfo.getPassword().equals(EncryptUtils.MD5Str(inModel.getOldPwd() + tabUserInfo.getLoginSalt()))) {
+            //对加密的明文密码进行解密
+            String newPwd = EncryptUtils.getPwdFromBase64(inModel.getNewPwd());
+            newPwd = EncryptUtils.encryptPassword(newPwd, tabUserInfo.getLoginSalt());
+            userInfoDAO.updateUserPwd(Integer.parseInt(inModel.getUserId()), newPwd);
+        } else {
+            return new JsonResultOut(ReturnCode.PARAMSERROR, "原始密码错误，请重新输入!");
+        }
+
+        return new JsonResultOut(ReturnCode.SUCCESS, "更新密码成功!");
     }
 }
