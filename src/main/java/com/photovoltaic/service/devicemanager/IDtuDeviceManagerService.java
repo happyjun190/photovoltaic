@@ -1,6 +1,7 @@
 package com.photovoltaic.service.devicemanager;
 
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.DtuDeviceInfoAddInModel;
@@ -36,5 +37,13 @@ public interface IDtuDeviceManagerService {
      * @return
      */
     JsonResultOut<DtuDeviceInfoDTO> getDtuDeviceInfo(CommonSelectOneInModel inModel);
+
+
+    /**
+     * 删除指定dtu设备信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut deleteDtuDeviceInfo(CommonDeleteInModel inModel);
 
 }

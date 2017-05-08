@@ -5,6 +5,7 @@ import com.photovoltaic.dao.device.InverterDeviceDAO;
 import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.service.devicemanager.IInverterDeviceManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
@@ -63,5 +64,12 @@ public class InverterDeviceManagerService implements IInverterDeviceManagerServi
         InverterInfoOutModel outModel = new InverterInfoOutModel(tabInverterDevice);
 
         return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器信息成功!", outModel);
+    }
+
+
+    @Override
+    public JsonResultOut deleteInverterDeviceInfo(CommonDeleteInModel inModel) {
+        inverterDeviceDAO.deleteInverterDeviceById(inModel.getItemId());
+        return new JsonResultOut(ReturnCode.SUCCESS, "删除逆变器信息成功!");
     }
 }

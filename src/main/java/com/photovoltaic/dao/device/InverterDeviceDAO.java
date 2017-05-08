@@ -2,6 +2,7 @@ package com.photovoltaic.dao.device;
 
 import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -46,5 +47,13 @@ public interface InverterDeviceDAO {
      * @param inModel
      */
     void updateInverterDeviceInfo(InverterInfoAddInModel inModel);
+
+
+    /**
+     * 删除逆变器设备信息
+     * @param inverterId
+     */
+    @Delete("DELETE FROM GFTW.\"TS_INVERTER_DEVICE\" WHERE \"id\" = #{inverterId}")
+    void deleteInverterDeviceById(@Param("inverterId")int inverterId);
 
 }

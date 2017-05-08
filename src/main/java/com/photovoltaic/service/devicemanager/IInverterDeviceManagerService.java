@@ -1,6 +1,7 @@
 package com.photovoltaic.service.devicemanager;
 
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
@@ -37,5 +38,13 @@ public interface IInverterDeviceManagerService {
      * @return
      */
     JsonResultOut<InverterInfoOutModel> getInverterInfo(CommonSelectOneInModel inModel);
+
+
+    /**
+     * 删除指定逆变器信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut deleteInverterDeviceInfo(CommonDeleteInModel inModel);
 
 }

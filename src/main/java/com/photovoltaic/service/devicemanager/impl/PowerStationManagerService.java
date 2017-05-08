@@ -5,6 +5,7 @@ import com.photovoltaic.dao.device.PowerStationDAO;
 import com.photovoltaic.model.device.TabPowerStation;
 import com.photovoltaic.service.devicemanager.IPowerStationManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.PowerStationInfoAddInModel;
@@ -59,5 +60,11 @@ public class PowerStationManagerService implements IPowerStationManagerService {
             powerStationInfoDTO = new PowerStationInfoDTO(tabPowerStation);
         }
         return new JsonResultOut(ReturnCode.SUCCESS, "获取dtu设备信息成功!", powerStationInfoDTO);
+    }
+
+    @Override
+    public JsonResultOut deletePowerStationInfo(CommonDeleteInModel inModel) {
+        powerStationDAO.deletePowerStationById(inModel.getItemId());
+        return new JsonResultOut(ReturnCode.SUCCESS, "删除电站信息成功!");
     }
 }

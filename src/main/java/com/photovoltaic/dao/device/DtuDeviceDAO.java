@@ -2,6 +2,7 @@ package com.photovoltaic.dao.device;
 
 import com.photovoltaic.model.device.TabDtuDevice;
 import com.photovoltaic.web.model.in.devicemanager.DtuDeviceInfoAddInModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -54,4 +55,12 @@ public interface DtuDeviceDAO {
      * @param inModel
      */
     void updateDtuDeviceInfo(DtuDeviceInfoAddInModel inModel);
+
+
+    /**
+     * 删除dtu设备信息
+     * @param dtuId
+     */
+    @Delete("DELETE FROM GFTW.\"TS_DTU_DEVICE\" WHERE \"id\" = #{dtuId}")
+    void deleteDtuDeviceInfoById(@Param("dtuId")int dtuId);
 }

@@ -5,6 +5,7 @@ import com.photovoltaic.service.devicemanager.IDtuDeviceManagerService;
 import com.photovoltaic.service.devicemanager.IPowerStationManagerService;
 import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.DtuDeviceInfoAddInModel;
@@ -93,7 +94,7 @@ public class PowerStationManagerController extends BaseController{
 
 
     /**
-     * 获取指定逆变器信息
+     * 获取指定电站信息
      * @param request
      * @param version
      * @param inModel
@@ -121,6 +122,35 @@ public class PowerStationManagerController extends BaseController{
         return jsonResult;
     }
 
+
+    /**
+     * 删除指定电站信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "删除指定电站信息", tags="wushenjun", notes = "删除指定电站信息")
+    @RequestMapping(value = "deletePowerStationInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut deletePowerStationInfo(HttpServletRequest request,
+                                                  @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                  @ApiParam(value = "删除电站信息参数", required = true) @RequestBody CommonDeleteInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = powerStationManagerService.deletePowerStationInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "删除电站信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
 
 
 }

@@ -2,6 +2,7 @@ package com.photovoltaic.dao.device;
 
 import com.photovoltaic.model.device.TabPowerStation;
 import com.photovoltaic.web.model.in.devicemanager.PowerStationInfoAddInModel;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -48,4 +49,13 @@ public interface PowerStationDAO {
      * @param inModel
      */
     void updatePowerStationInfo(PowerStationInfoAddInModel inModel);
+
+
+    /**
+     * 删除电站信息信息
+     * @param powerStationId
+     */
+    @Delete("DELETE FROM GFTW.\"TS_POWER_STATION\" WHERE \"id\" = #{powerStationId}")
+    void deletePowerStationById(@Param("powerStationId")int powerStationId);
+
 }

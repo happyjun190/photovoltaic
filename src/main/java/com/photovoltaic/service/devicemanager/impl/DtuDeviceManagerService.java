@@ -6,6 +6,7 @@ import com.photovoltaic.model.device.TabDtuDevice;
 import com.photovoltaic.model.device.TabInverterDevice;
 import com.photovoltaic.service.devicemanager.IDtuDeviceManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.DtuDeviceInfoAddInModel;
@@ -66,5 +67,12 @@ public class DtuDeviceManagerService implements IDtuDeviceManagerService {
             dtuDeviceInfoDTO = new DtuDeviceInfoDTO(tabDtuDevice);
         }
         return new JsonResultOut(ReturnCode.SUCCESS, "获取dtu设备信息成功!", dtuDeviceInfoDTO);
+    }
+
+
+    @Override
+    public JsonResultOut deleteDtuDeviceInfo(CommonDeleteInModel inModel) {
+        dtuDeviceDAO.deleteDtuDeviceInfoById(inModel.getItemId());
+        return new JsonResultOut(ReturnCode.SUCCESS, "删除dtu设备信息成功!");
     }
 }

@@ -4,6 +4,7 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.service.devicemanager.IInverterDeviceManagerService;
 import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
 import com.photovoltaic.web.model.in.CommonQueryInModel;
 import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.devicemanager.InverterInfoAddInModel;
@@ -113,6 +114,36 @@ public class InverterDeviceManagerController extends BaseController{
             }
         } catch (Exception e) {
             jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "获取逆变器信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
+
+    /**
+     * 删除指定逆变器设备信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "删除指定逆变器设备信息", tags="wushenjun", notes = "删除指定逆变器设备信息")
+    @RequestMapping(value = "deleteInverterDeviceInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut deleteInverterDeviceInfo(HttpServletRequest request,
+                                             @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                             @ApiParam(value = "删除逆变器设备参数", required = true) @RequestBody CommonDeleteInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = inverterDeviceManagerService.deleteInverterDeviceInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "删除逆变器设备信息失败！", null);
             logger.error(e.getMessage(),e);
         }
         return jsonResult;
