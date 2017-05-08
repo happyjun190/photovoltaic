@@ -7,6 +7,8 @@ import com.photovoltaic.dao.user.UserInfoDAO;
 import com.photovoltaic.model.user.TabUserInfo;
 import com.photovoltaic.service.user.IUserManagerService;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.user.UserInfoDTO;
@@ -67,5 +69,22 @@ public class UserManagerService implements IUserManagerService {
         }
 
         return  new JsonResultOut(ReturnCode.SUCCESS, "新增/更新用户信息成功!");
+    }
+
+
+    @Override
+    public JsonResultOut<UserInfoDTO> getUserInfo(CommonSelectOneInModel inModel) {
+        TabUserInfo tabUserInfo = userInfoDAO.getUserInfoByUserId(inModel.getItemId());
+
+        UserInfoDTO userInfoDTO = new UserInfoDTO(tabUserInfo);
+
+        return new JsonResultOut(ReturnCode.SUCCESS, "获取用户信息成功!", userInfoDTO);
+    }
+
+
+    @Override
+    public JsonResultOut deleteUserInfo(CommonDeleteInModel inModel) {
+        userInfoDAO.deleteUserInfoByUserId(inModel.getItemId());
+        return new JsonResultOut(ReturnCode.SUCCESS, "删除用户信息成功!");
     }
 }

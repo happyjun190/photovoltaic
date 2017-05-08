@@ -5,6 +5,8 @@ import com.photovoltaic.commons.constants.ReturnCode;
 import com.photovoltaic.service.user.IUserManagerService;
 import com.photovoltaic.web.admincontroller.BaseController;
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.auth.LoginDTO;
@@ -39,7 +41,7 @@ public class UserManagerController extends BaseController {
      * @return
      */
     @ApiOperation(value = "分页获取用户列表，可供查询", tags="wushenjun", notes = "分页获取用户列表，可供查询(用户登录名、中文名查询)")
-    @RequestMapping(value = "/getUserInfoList/{version}", method = RequestMethod.POST)
+    @RequestMapping(value = "getUserInfoList/{version}", method = RequestMethod.POST)
     public JsonResultOut<List<UserInfoDTO>> getUserInfoList(HttpServletRequest request,
                                                             @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
                                                             @ApiParam(value = "注册所需信息", required = true) @RequestBody UserInfoQueryInModel inModel) {
@@ -69,7 +71,7 @@ public class UserManagerController extends BaseController {
      * @return
      */
     @ApiOperation(value = "新增/更新用户信息", tags="wushenjun", notes = "新增/更新用户信息")
-    @RequestMapping(value = "/insertOrUpdateUserInfo/{version}", method = RequestMethod.POST)
+    @RequestMapping(value = "insertOrUpdateUserInfo/{version}", method = RequestMethod.POST)
     public JsonResultOut<LoginDTO> insertOrUpdateUserInfo(HttpServletRequest request,
                                                    @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
                                                    @ApiParam(value = "新增/更新用户所需信息", required = true) @RequestBody UserInfoAddInModel inModel) {
@@ -89,5 +91,68 @@ public class UserManagerController extends BaseController {
         }
         return jsonResult;
     }
+
+
+    /**
+     * 新增/更新用户信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "获取指定用户信息", tags="wushenjun", notes = "获取指定用户信息")
+    @RequestMapping(value = "getUserInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut<UserInfoDTO> getUserInfo(HttpServletRequest request,
+                                                          @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                          @ApiParam(value = "获取用户信息所需信息", required = true) @RequestBody CommonSelectOneInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = userManagerService.getUserInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "获取用户信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
+
+
+    /**
+     * 删除指定用户信息
+     * @param request
+     * @param version
+     * @param inModel
+     * @return
+     */
+    @ApiOperation(value = "删除指定用户信息", tags="wushenjun", notes = "删除指定用户信息")
+    @RequestMapping(value = "deleteUserInfo/{version}", method = RequestMethod.POST)
+    public JsonResultOut deleteUserInfo(HttpServletRequest request,
+                                                  @ApiParam(value = "版本号：v100", required = true) @PathVariable String version,
+                                                  @ApiParam(value = "删除指定用户所需信息", required = true) @RequestBody CommonDeleteInModel inModel) {
+        JsonResultOut jsonResult;
+        try {
+            switch (version) {
+                case "v100":
+                    jsonResult = userManagerService.deleteUserInfo(inModel);
+                    break;
+                default:
+                    jsonResult = new JsonResultOut(ReturnCode.PARAMSERROR, "无效的URL版本号！");
+                    break;
+            }
+        } catch (Exception e) {
+            jsonResult = new JsonResultOut(ReturnCode.EXCEPTION, "删除用户信息失败！", null);
+            logger.error(e.getMessage(),e);
+        }
+        return jsonResult;
+    }
+
+
 
 }

@@ -80,4 +80,12 @@ public interface UserInfoDAO {
     @Update("UPDATE TS_USER_INFO SET PASSWORD=#{password} WHERE ID = #{userId}")
     void updateUserPwd(@Param("userId")int userId, @Param("password")String password);
 
+
+    /**
+     * 删除用户信息
+     * @param userId
+     */
+    @Select("DELETE FROM TS_USER_INFO WHERE ID=#{userId}")
+    void deleteUserInfoByUserId(@Param("userId")int userId);
+
 }

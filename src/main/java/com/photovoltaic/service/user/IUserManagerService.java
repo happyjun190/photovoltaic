@@ -1,6 +1,8 @@
 package com.photovoltaic.service.user;
 
 import com.photovoltaic.web.model.JsonResultOut;
+import com.photovoltaic.web.model.in.CommonDeleteInModel;
+import com.photovoltaic.web.model.in.CommonSelectOneInModel;
 import com.photovoltaic.web.model.in.user.UserInfoAddInModel;
 import com.photovoltaic.web.model.in.user.UserInfoQueryInModel;
 import com.photovoltaic.web.model.out.user.UserInfoDTO;
@@ -27,5 +29,21 @@ public interface IUserManagerService {
      * @return
      */
     JsonResultOut insertOrUpdateUserInfo(UserInfoAddInModel inModel);
+
+
+    /**
+     * 获取用户信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut<UserInfoDTO> getUserInfo(CommonSelectOneInModel inModel);
+
+
+    /**
+     * 删除指定用户信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut deleteUserInfo(CommonDeleteInModel inModel);
 
 }
