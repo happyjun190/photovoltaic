@@ -53,4 +53,19 @@ public interface IAppInverterDataStatisticService {
     JsonResultOut<InverterRuningDetailDTO> getInverterRuningDetailInfo(CommonSelectOneInModel inModel);
 
 
+    /**
+     * 获取逆变器发电量信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut getInverterGenerationPowerInfo(CommonSelectOneInModel inModel);
+
+
+    /**
+     * 获取逆变器输出功率信息
+     * @param inModel
+     * @return
+     */
+    JsonResultOut getInverterOutputPowerInfo(CommonSelectOneInModel inModel);
+
 }

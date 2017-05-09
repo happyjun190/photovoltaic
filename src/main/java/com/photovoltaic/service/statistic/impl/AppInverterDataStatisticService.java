@@ -425,4 +425,15 @@ public class AppInverterDataStatisticService implements IAppInverterDataStatisti
 
         return new JsonResultOut(ReturnCode.SUCCESS, "获取逆变器详情成功!", inverterRuningDetail);
     }
+
+
+    @Override
+    public JsonResultOut getInverterGenerationPowerInfo(CommonSelectOneInModel inModel) {
+        return null;
+    }
+
+    @Override
+    public JsonResultOut getInverterOutputPowerInfo(CommonSelectOneInModel inModel) {
+        return null;
+    }
 }
